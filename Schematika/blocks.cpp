@@ -86,23 +86,23 @@ void drawStop(const Block& b)
 }
 void drawInput(const Block& b)
 {
-    slSetForeColor(BLOCK_FILL_COLOR,255);
-    for(int i=0;i<IN_WIDTH;i++)
-    {
-        slLine(b.x-60 +i, b.y, b.x-40+i, b.y+IN_HEIGHT);
-    }
-    slSetForeColor(BLOCK_TEXT_COLOR,255);
-    slText(b.x,b.y+15,"IN");
+    slSetForeColor(BLOCK_FILL_COLOR, 255);
+    slRectangleFill(b.x, b.y, IN_WIDTH, IN_HEIGHT);
+    slTriangleFill(b.x - 50, b.y, 40, IN_HEIGHT);
+    slSetForeColor(BACKGROUND_COLOR, 255);
+    slTriangleFill(b.x + 50, b.y, 40, IN_HEIGHT);
+    slSetForeColor(BLOCK_TEXT_COLOR, 255);
+    slText(b.x-10, b.y + 15, "IN");
 }
 void drawOutput(const Block& b)
 {
     slSetForeColor(BLOCK_FILL_COLOR,255);
-    for(int i=0;i<OUT_WIDTH;i++)
-    {
-        slLine(b.x-60 +i, b.y, b.x-40+i, b.y+OUT_HEIGHT);
-    }
+    slRectangleFill(b.x, b.y, OUT_WIDTH, OUT_HEIGHT);
+    slTriangleFill(b.x-50, b.y, 40, OUT_HEIGHT);
+    slSetForeColor(BACKGROUND_COLOR, 255);
+    slTriangleFill(b.x+50, b.y, 40, OUT_HEIGHT);
     slSetForeColor(BLOCK_TEXT_COLOR,255);
-    slText(b.x,b.y+15,"IN");
+    slText(b.x-10,b.y+15,"OUT");
 }
 void drawCalcul(const Block& b)
 {
@@ -165,7 +165,7 @@ void update(Block& b, double& cooldown)
         b.y = slGetMouseY();
         limitsOfFloatingBlocks(b);
     }
-    if (slGetMouseButton(SL_MOUSE_BUTTON_LEFT) and isMouseInRect(b.x, b.y, b.width, b.height) and cooldown < slGetTime())
+    if (isRectClicked(b.x, b.y, b.width, b.height) and cooldown < slGetTime())
     {
         b.floating = !b.floating;
         setCooldown(cooldown);

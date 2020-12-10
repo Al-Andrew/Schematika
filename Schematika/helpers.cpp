@@ -81,7 +81,7 @@ void limitsOfFloatingBlocks(Block & b)
      if(slGetMouseX()<BLOCK_LIMITS_LEFT && slGetMouseY()<BLOCK_LIMITS_DOWN)
     {
        b.x=BLOCK_LIMITS_LEFT;
-       b. y=BLOCK_LIMITS_DOWN;
+       b.y=BLOCK_LIMITS_DOWN;
     }
     else if(slGetMouseX()<BLOCK_LIMITS_LEFT && slGetMouseY()>BLOCK_LIMITS_UP)
     {
@@ -90,12 +90,12 @@ void limitsOfFloatingBlocks(Block & b)
     }
     else if(slGetMouseX()<BLOCK_LIMITS_LEFT)
     {
-        b.x=BLOCK_LIMITS_LEFT;
+       b.x=BLOCK_LIMITS_LEFT;
     }
     else if(slGetMouseX()>BLOCK_LIMITS_RIGHT && slGetMouseY()<BLOCK_LIMITS_DOWN)
     {
-        b.x=BLOCK_LIMITS_RIGHT;
-        b.y=BLOCK_LIMITS_DOWN;
+       b.x=BLOCK_LIMITS_RIGHT;
+       b.y=BLOCK_LIMITS_DOWN;
     }
     else if(slGetMouseX()>BLOCK_LIMITS_RIGHT && slGetMouseY()>BLOCK_LIMITS_UP)
     {
@@ -104,15 +104,15 @@ void limitsOfFloatingBlocks(Block & b)
     }
     else if(slGetMouseX()>BLOCK_LIMITS_RIGHT)
     {
-        b.x=BLOCK_LIMITS_RIGHT;
+       b.x=BLOCK_LIMITS_RIGHT;
     }
     else if(slGetMouseY()<BLOCK_LIMITS_DOWN)
     {
-        b.y=BLOCK_LIMITS_DOWN;
+       b.y=BLOCK_LIMITS_DOWN;
     }
     else if(slGetMouseY()>BLOCK_LIMITS_UP)
     {
-        b.y=BLOCK_LIMITS_UP;
+       b.y=BLOCK_LIMITS_UP;
     }
 }
 
