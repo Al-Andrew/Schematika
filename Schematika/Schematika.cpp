@@ -23,7 +23,6 @@ int main()
 
         if ( slGetKey(SL_KEY_ENTER) and cooldown < slGetTime())
         {
-            blocks[0].x += 50;
             blocks.push_back(generateCalcul());
             setCooldown(cooldown);
         }
