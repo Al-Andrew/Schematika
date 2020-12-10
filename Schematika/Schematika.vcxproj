@@ -141,9 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="blocks.cpp" />
+    <ClCompile Include="helpers.cpp" />
+    <ClCompile Include="interpreter.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Schematika.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="blocks.hpp" />
+    <ClInclude Include="config.hpp" />
+    <ClInclude Include="helpers.hpp" />
+    <ClInclude Include="interpreter.hpp" />
+    <ClInclude Include="menu.hpp" />
     <ClInclude Include="Schematika.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
