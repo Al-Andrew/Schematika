@@ -2,11 +2,11 @@
 int main()
 {
     slWindow( WINDOW_WIDTH, WINDOW_HEIGHT , WINDOW_TITLE , false);
+    setBackColor(BACKGROUND_COLOR);
     double cooldown = 0;
     //Menu menu;
     std::vector<Block> blocks;
     std::vector<Node*> nodes;
-    slSetBackColor(BACKGROUND_COLOR);
     //You should always have one start block so we add it in from the getgo
     blocks.push_back(generateStart());
 

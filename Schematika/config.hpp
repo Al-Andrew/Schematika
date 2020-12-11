@@ -1,19 +1,19 @@
 #pragma once
 
 ///Theme
-#define BACKGROUND_COLOR 0.0, 0.0, 0.0
+#define BACKGROUND_COLOR          Color({   0,   0,   0, 0.f })
 
-#define BLOCK_BACKGROUND_COLOR 236, 240, 241
-#define BLOCK_BORDER_COLOR 149, 165, 166
-#define BLOCK_FILL_COLOR 0, 153, 153
-#define BLOCK_TEXT_COLOR 51, 0, 102
-#define BLOCK_TITLE_COLOR 255, 0, 0
-#define BLOCK_DECIZIE_DA_COLOR 102, 255, 102
-#define BLOCK_DECIZIE_NU_COLOR 255, 102, 102
-#define BLOCK_DECIZIE_TEXT_COLOR 51, 0, 102
+#define BLOCK_BACKGROUND_COLOR    Color({ 236, 240, 241, 1.f })
+#define BLOCK_BORDER_COLOR        Color({ 149, 165, 166, 1.f })
+#define BLOCK_FILL_COLOR          Color({   0, 153, 153, 1.f })
+#define BLOCK_TEXT_COLOR          Color({  51,   0, 102, 1.f })
+#define BLOCK_TITLE_COLOR         Color({ 255,   0,   0, 1.f })
+#define BLOCK_DECIZIE_DA_COLOR    Color({ 102, 255, 102, 1.f })
+#define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
+#define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
 
-#define MENU_BACKGROUND_COLOR 189, 195, 199, 255
-#define MENU_BORDER_COLOR 127, 140, 141, 255
+#define MENU_BACKGROUND_COLOR     Color({ 189, 195, 199, 1.f })
+#define MENU_BORDER_COLOR         Color({ 127, 140, 141, 1.f })
 ///Menu
 
 

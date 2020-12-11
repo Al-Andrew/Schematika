@@ -1,10 +1,12 @@
 #pragma once
 #include "sl.h"
 #include "string"
+
+
 struct Menu
 {
-    std::string name;
-    int x, y;
-    int width, height;
-    bool isClicked = false;
+	std::string name;
+	double x = 0, y = 0;
+	double width = 0, height = 0;
+	bool isClicked = false;
 };
