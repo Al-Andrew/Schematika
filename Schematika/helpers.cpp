@@ -85,3 +85,14 @@ void setCooldown(double& cooldown)
 {
 	cooldown = slGetTime() + ACTION_COOLDOWN;
 }
+
+void drawBorderedRect(const Color& fill, const Color& bord, const double x, const double y, const double w, const double h, const double bw)
+{
+	setForeColor(fill);
+	slRectangleFill(x, y, w, h);
+	setForeColor(bord);
+	slRectangleFill(x - (w / 2.f - bw / 2.f), y, bw, h);
+	slRectangleFill(x + (w / 2.f - bw / 2.f), y, bw, h);
+	slRectangleFill(x, y - (h / 2.f - bw / 2.f), w, bw);
+	slRectangleFill(x, y + (h / 2.f - bw / 2.f), w, bw);
+}

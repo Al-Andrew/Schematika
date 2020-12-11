@@ -165,7 +165,7 @@ void draw(const Block& b)
 		drawDecizie(b);
 		break;
 	case Type::INPUT:
-		drawDecizie(b);
+		drawInput(b);
 		break;
 	case Type::OUTPUT:
 		drawOutput(b);

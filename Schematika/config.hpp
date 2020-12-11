@@ -1,8 +1,15 @@
 #pragma once
 
+
+///Window
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define WINDOW_TITLE "Schematika"
+#define ACTION_COOLDOWN 0.1
+
+
 ///Theme
 #define BACKGROUND_COLOR          Color({   0,   0,   0, 0.f })
-
 #define BLOCK_BACKGROUND_COLOR    Color({ 236, 240, 241, 1.f })
 #define BLOCK_BORDER_COLOR        Color({ 149, 165, 166, 1.f })
 #define BLOCK_FILL_COLOR          Color({   0, 153, 153, 1.f })
@@ -11,10 +18,15 @@
 #define BLOCK_DECIZIE_DA_COLOR    Color({ 102, 255, 102, 1.f })
 #define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
 #define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
-
 #define MENU_BACKGROUND_COLOR     Color({ 189, 195, 199, 1.f })
 #define MENU_BORDER_COLOR         Color({ 127, 140, 141, 1.f })
+
+
 ///Menu
+#define MENU_BORDER_WIDTH 5.f
+#define SELECT_MENU_SPACER 20.f
+#define SELECT_MENU_WIDTH 200
+#define SELECT_MENU_HEIGHT WINDOW_HEIGHT
 
 
 ///Bocks
@@ -36,8 +48,3 @@
 #define OUT_HEIGHT 40
 #define IN_WIDTH 100
 #define IN_HEIGHT 40
-///Window
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
-#define WINDOW_TITLE "Schematika"
-#define ACTION_COOLDOWN 0.1

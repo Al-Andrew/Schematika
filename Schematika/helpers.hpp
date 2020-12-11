@@ -95,3 +95,6 @@ void limitsOfFloatingBlocks(Block& b);
 /// <param name="cooldown"></param>
 /// <author>Cristi</author>
 void setCooldown(double& cooldown);
+
+
+void drawBorderedRect(const Color& fill, const Color& bord, const double x, const double y, const double w, const double h, const double bw);
