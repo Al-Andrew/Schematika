@@ -7,11 +7,11 @@
 
 struct Menu
 {
-	std::string name;
-	double x = 0, y = 0;
-	double width = 0, height = 0;
-	std::vector<Block> displayBlocks;
-	bool isClicked = false;
+    std::string name;
+    double x = 0, y = 0;
+    double width = 0, height = 0;
+    std::vector<Block> displayBlocks;
+    bool isClicked = false;
 };
 
 

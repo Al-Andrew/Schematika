@@ -10,8 +10,8 @@
 /// </summary>
 struct Color
 {
-	unsigned short r = 0, g = 0, b = 0;
-	double a = 1.f;
+    unsigned short r = 0, g = 0, b = 0;
+    double a = 1.f;
 };
 
 /// <summary>
@@ -90,11 +90,21 @@ bool isCircleInCircle(double x1, double y1, double r1, double x2, double y2, dou
 void limitsOfFloatingBlocks(Block& b);
 
 /// <summary>
-/// Increments the cooldown to sync actions in the window
+/// Increments the cooldown 
 /// </summary>
 /// <param name="cooldown"></param>
 /// <author>Cristi</author>
 void setCooldown(double& cooldown);
 
-
+/// <summary>
+/// Draws a bordered rectangle
+/// </summary>
+/// <param name="fill">Color to fill the rectangle</param>
+/// <param name="bord">Color for the rectangle border</param>
+/// <param name="x">coord of the block</param>
+/// <param name="y">coord of the block</param>
+/// <param name="w">width of the block</param>
+/// <param name="h">height of the block</param>
+/// <param name="bw">width of the border</param>
+/// <author>Andrei</author>
 void drawBorderedRect(const Color& fill, const Color& bord, const double x, const double y, const double w, const double h, const double bw);

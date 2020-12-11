@@ -10,13 +10,13 @@
 /// <author>Andrei</author>
 enum class Type
 {
-	START,
-	STOP,
-	INPUT,
-	OUTPUT,
-	CALCUL,
-	DECIZIE,
-	NOT_A_BLOCK
+    START,
+    STOP,
+    INPUT,
+    OUTPUT,
+    CALCUL,
+    DECIZIE,
+    NOT_A_BLOCK
 };
 
 /// <summary>
@@ -36,9 +36,10 @@ struct Node;
 /// <author>Cristi</author>
 struct Node
 {
-	int x, y, r;
-	Node* next;
-	Block* host;
+    double x = 0, y = 0, r = 0;
+    float floating = false;
+    Node* next = nullptr;
+    Block* host = nullptr;
 };
 
 /// <summary>
@@ -47,11 +48,11 @@ struct Node
 /// <author>Andrei</author>
 /// <author>Cristi</author>
 struct Block {
-	Type type = Type::START;
-	double x = 0, y = 0;
-	double width = 0, height = 0;
-	bool floating = false;
-	std::vector<Node* > nodes;
+    Type type = Type::START;
+    double x = 0, y = 0;
+    double width = 0, height = 0;
+    bool floating = false;
+    std::vector<Node* > nodes;
 };
 
 /// <summary>
@@ -102,3 +103,7 @@ Block generateCalcul();
 Block generateDecizie();
 Block generateInput();
 Block generateOutput();
+
+
+void drawNode(Node* n);
+void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown);

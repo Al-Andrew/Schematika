@@ -20,6 +20,10 @@
 #define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
 #define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
 
+#define NODE_COLOR				  Color({  39, 174,  96, 1.f })
+#define NODE_HOVER_COLOR	      Color({  39, 174,  96, 1.f })
+#define NODE_LINE_COLOR		      Color({ 142,  68, 173, 1.f })
+
 #define MENU_BACKGROUND_COLOR     Color({ 189, 195, 199, 1.f })
 #define MENU_BORDER_COLOR         Color({ 127, 140, 141, 1.f })
 #define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
@@ -51,3 +55,4 @@
 #define OUT_HEIGHT 40
 #define IN_WIDTH 100
 #define IN_HEIGHT 40
+#define NODE_RADIUS 8
