@@ -20,8 +20,8 @@
 #define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
 #define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
 
-#define NODE_COLOR				  Color({  39, 174,  96, 1.f })
-#define NODE_HOVER_COLOR	      Color({  39, 174,  96, 1.f })
+#define NODE_COLOR				  Color({ 39, 174,  96, 1.f })
+#define NODE_HOVER_COLOR	      Color({ 255, 102, 102, 1.f })
 #define NODE_LINE_COLOR		      Color({ 142,  68, 173, 1.f })
 
 #define MENU_BACKGROUND_COLOR     Color({ 189, 195, 199, 1.f })
@@ -39,13 +39,13 @@
 ///Bocks
 #define DEFAULT_Y WINDOW_HEIGHT/2
 #define DEFAULT_X WINDOW_WIDTH/2
-#define BLOCK_LIMITS_RIGHT 1070
+#define BLOCK_LIMITS_RIGHT 1020
 #define BLOCK_LIMITS_LEFT 60
 #define BLOCK_LIMITS_DOWN 30
 #define BLOCK_LIMITS_UP 668
 #define DECIZIE_WIDTH 120
 #define DECIZIE_HEIGHT 50
-#define CALCUL_WIDTH 100
+#define CALCUL_WIDTH 110
 #define CALCUL_HEIGHT 50
 #define START_WIDTH 110
 #define START_HEIGHT 50

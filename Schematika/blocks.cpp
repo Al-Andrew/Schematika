@@ -20,6 +20,8 @@ Block generateStart()
     n->x = b.x;
     n->y = b.y - b.height/2.f;
     n->r = NODE_RADIUS;
+    n->floating = false;
+    n->next = nullptr;
 
     b.nodes.push_back(n);
 
@@ -36,12 +38,14 @@ Block generateStop()
     b.height = STOP_HEIGHT;
     b.floating = false;
 
+
     Node* n = new Node;
     n->host = &b;
     n->x = b.x;
     n->y = b.y + b.height/2.f;
     n->r = NODE_RADIUS;
-
+    n->floating = false;
+    n->next = nullptr;
     b.nodes.push_back(n);
 
     return b;
@@ -60,17 +64,19 @@ Block generateInput()
     Node* n = new Node;
     n->host = &b;
     n->x = b.x;
-    n->y = b.y;
+    n->y = b.y - b.height / 2;
     n->r = NODE_RADIUS;
-
+    n->floating = false;
+    n->next = nullptr;
     b.nodes.push_back(n);
 
     Node* m = new Node;
     m->host = &b;
     m->x = b.x;
-    m->y = b.y + b.height;
+    m->y = b.y + b.height/2;
     m->r = NODE_RADIUS;
-
+    m->floating = false;
+    n->next = nullptr;
     b.nodes.push_back(m);
 
     return b;
@@ -89,17 +95,19 @@ Block generateOutput()
     Node* n = new Node;
     n->host = &b;
     n->x = b.x;
-    n->y = b.y;
+    n->y = b.y - b.height / 2;
     n->r = NODE_RADIUS;
-
+    n->floating = false;
+    n->next = nullptr;
     b.nodes.push_back(n);
 
     Node* m = new Node;
     m->host = &b;
     m->x = b.x;
-    m->y = b.y + b.height;
+    m->y = b.y + b.height/2;
     m->r = NODE_RADIUS;
-
+    m->floating = false;
+    m->next = nullptr;
     b.nodes.push_back(m);
 
     return b;
@@ -120,6 +128,8 @@ Block generateCalcul()
     n->x = b.x;
     n->y = b.y - b.height/2.f;
     n->r = NODE_RADIUS;
+    n->floating = false;
+    n->next = nullptr;
 
     b.nodes.push_back(n);
 
@@ -128,7 +138,8 @@ Block generateCalcul()
     m->x = b.x;
     m->y = b.y + b.height/2.f;
     m->r = NODE_RADIUS;
-
+    m->floating = false;
+    m->next = nullptr;
     b.nodes.push_back(m);
 
     return b;
@@ -149,7 +160,8 @@ Block generateDecizie()
     n->x = b.x-b.width/2;
     n->y = b.y - b.height/2.f;
     n->r = NODE_RADIUS;
-
+    n->floating = false;
+    n->next = nullptr;
     b.nodes.push_back(n);
 
     Node* m = new Node;
@@ -157,7 +169,8 @@ Block generateDecizie()
     m->x = b.x+b.width/2;
     m->y = b.y - b.height/2.f;
     m->r = NODE_RADIUS;
-
+    m->floating = false;
+    m->next = nullptr;
     b.nodes.push_back(m);
 
     Node* l = new Node;
@@ -165,7 +178,8 @@ Block generateDecizie()
     l->x = b.x;
     l->y = b.y + b.height/2.f;
     l->r = NODE_RADIUS;
-
+    l->floating = false;
+    l->next = nullptr;
     b.nodes.push_back(l);
     return b;
 }
@@ -173,21 +187,21 @@ Block generateDecizie()
 void drawStart(const Block& b)
 {
     setForeColor(BLOCK_FILL_COLOR);
-    slCircleFill(b.x - 34, b.y, b.height / 2, 20);
-    slRectangleFill(b.x, b.y, b.width - 30, b.height);
-    slCircleFill(b.x + 34, b.y, b.height / 2, 20);
+    slCircleFill(b.x - 35, b.y, b.height / 2, 20);
+    slRectangleFill(b.x, b.y, b.width - 40, b.height);
+    slCircleFill(b.x + 35, b.y, b.height / 2, 20);
     setForeColor(BLOCK_TEXT_COLOR);
-    slText(b.x + 5, b.y - 10, "START");
+    slText(b.x , b.y - 10, "START");
 }
 
 void drawStop(const Block& b)
 {
     setForeColor(BLOCK_FILL_COLOR);
-    slCircleFill(b.x - 34, b.y, b.height / 2, 20);
-    slRectangleFill(b.x, b.y, b.width - 30, b.height);
-    slCircleFill(b.x + 34, b.y, b.height / 2, 20);
+    slCircleFill(b.x - 35, b.y, b.height / 2, 20);
+    slRectangleFill(b.x, b.y, b.width - 40, b.height);
+    slCircleFill(b.x + 35, b.y, b.height / 2, 20);
     setForeColor(BLOCK_TEXT_COLOR);
-    slText(b.x + 5, b.y - 10, "STOP");
+    slText(b.x, b.y - 10, "STOP");
 }
 
 void drawInput(const Block& b)
@@ -195,10 +209,10 @@ void drawInput(const Block& b)
     setForeColor(BLOCK_FILL_COLOR);
     for(int i=0;i<IN_WIDTH;i++)
     {
-        slLine(b.x-60 +i, b.y, b.x-40+i, b.y+b.height);
+        slLine(b.x-60 +i, b.y- b.height / 2, b.x-40+i, b.y+b.height/2);
     }
     setForeColor(BLOCK_TEXT_COLOR);
-    slText(b.x , b.y + 15, "IN");
+    slText(b.x , b.y - 5, "IN");
 }
 
 void drawOutput(const Block& b)
@@ -206,10 +220,10 @@ void drawOutput(const Block& b)
     setForeColor(BLOCK_FILL_COLOR);
     for(int i=0;i<OUT_WIDTH;i++)
     {
-        slLine(b.x-60 +i, b.y, b.x-40+i, b.y+b.height);
+        slLine(b.x-60 +i, b.y- b.height / 2, b.x-40+i, b.y+b.height/2);
     }
     setForeColor(BLOCK_TEXT_COLOR);
-    slText(b.x , b.y + 15, "OUT");
+    slText(b.x , b.y - 5, "OUT");
 }
 
 void drawCalcul(const Block& b)
@@ -228,11 +242,11 @@ void drawDecizie(const Block& b)
     slRectangleFill(b.x - 55, b.y, 25, 25);
     slSetFontSize(15);
     setForeColor(BLOCK_DECIZIE_TEXT_COLOR);
-    slText(b.x - 55, b.y - 5, "DA");
+    slText(b.x - 55, b.y - 5, "A");
     setForeColor(BLOCK_DECIZIE_NU_COLOR);
     slRectangleFill(b.x + 55, b.y, 25, 25);
     setForeColor(BLOCK_DECIZIE_TEXT_COLOR);
-    slText(b.x + 55, b.y - 5, "NU");
+    slText(b.x + 55, b.y - 5, "F");
     setForeColor(BLOCK_TEXT_COLOR);
     slSetFontSize(20);
     slText(b.x, b.y - 20, "DECIZIE");
@@ -241,7 +255,7 @@ void drawDecizie(const Block& b)
 void drawNode(Node* n)
 {
     Color c;
-    if (isMouseInCircle(n->x, n->y, n->r))
+    if (isMouseInCircle(n->x, n->y, n->r) && int(n->x) < WINDOW_WIDTH - SELECT_MENU_WIDTH)
         c = NODE_HOVER_COLOR;
     else
         c = NODE_COLOR;
@@ -334,19 +348,19 @@ void update(Block& b, double& cooldown)
 void updateNode(Node*& n,std::vector<Node*>& nodes,double& cooldown)
 {
     if (isCircleClicked(n->x, n->y, n->r) and cooldown < slGetTime())
-    {
+    {   
+        n->floating = !n->floating;
         Node* nou = new Node;
         nou->floating = true;
         nodes.emplace_back(nou);
         n->next = nou;
-        n->floating = !n->floating;
         setCooldown(cooldown);
     }
 
     if (n->floating)
     {
-        n->x = slGetMouseX();
-        n->y = slGetMouseY();
+        n->next->x = slGetMouseX();
+        n->next->y = slGetMouseY();
     }
 
 }
