@@ -11,32 +11,16 @@ Menu makeMenu()
 	b.y = static_cast<double>(WINDOW_HEIGHT) / 2.f;
 	b.width = SELECT_MENU_WIDTH;
 	b.height = SELECT_MENU_HEIGHT;
-	b.isClicked = false;
-
-	double y = static_cast<double>(WINDOW_HEIGHT) - MENU_BORDER_WIDTH - START_HEIGHT / 2.f - SELECT_MENU_SPACER;
-	b.displayBlocks[0] = generateStart();
-	b.displayBlocks[0].x =b.x;
-	b.displayBlocks[0].y = y;
-	y -= MENU_BORDER_WIDTH + START_HEIGHT / 2.f + STOP_HEIGHT / 2.f + SELECT_MENU_SPACER;
-	b.displayBlocks[1] = generateStop();
-	b.displayBlocks[1].x = b.x;
-	b.displayBlocks[1].y = y;
-	y -= MENU_BORDER_WIDTH + STOP_HEIGHT / 2.f + IN_HEIGHT / 2.f + SELECT_MENU_SPACER;
-	b.displayBlocks[2] = generateInput();
-	b.displayBlocks[2].x = b.x;
-	b.displayBlocks[2].y = y;
-	y -= MENU_BORDER_WIDTH + IN_HEIGHT / 2.f + OUT_HEIGHT / 2.f + SELECT_MENU_SPACER;
-	b.displayBlocks[3] = generateOutput();
-	b.displayBlocks[3].x = b.x;
-	b.displayBlocks[3].y = y;
-	y -= MENU_BORDER_WIDTH + OUT_HEIGHT / 2.f + DECIZIE_HEIGHT / 2.f + SELECT_MENU_SPACER;
-	b.displayBlocks[4] = generateDecizie();
-	b.displayBlocks[4].x = b.x;
-	b.displayBlocks[4].y = y;
-	y -= MENU_BORDER_WIDTH + DECIZIE_HEIGHT / 2.f + CALCUL_HEIGHT / 2.f + SELECT_MENU_SPACER;
-	b.displayBlocks[5] = generateCalcul();
-	b.displayBlocks[5].x = b.x;
-	b.displayBlocks[5].y = y;
+	
+	double y = static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_SPACER / 2.f;
+	for (auto t : allTypes)
+	{
+		b.displayBlocks.push_back(generate(t));
+		b.displayBlocks.back().y = y;
+		b.displayBlocks.back().x = b.x;
+		y -= SELECT_MENU_SPACER;
+	}
+	
 
 	return b;
 }
@@ -48,4 +32,16 @@ void drawMenu(const Menu& m)
 	{
 		draw(bl);
 	}
+}
+
+Type updateMenu(const Menu& m, double& cooldown)
+{
+	double cpy = cooldown;
+	for (Block bl : m.displayBlocks)
+	{
+		update(bl,cooldown);
+		if (cpy != cooldown)
+			return bl.type;
+	}
+	return Type::NOT_A_BLOCK;
 }

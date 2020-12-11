@@ -15,16 +15,15 @@ int main()
     while (!slShouldClose())
     {   
         drawMenu(menu);
-        //if(updateMenu(cooldown) != "")
+        if (Type u = updateMenu(menu, cooldown); u != Type::NOT_A_BLOCK)
+        {
+            blocks.push_back(generate(u));
+        }
+
         for (Block& bl : blocks)
         {
             draw(bl);
             update(bl, cooldown);
-        }
-        if ( slGetKey(SL_KEY_ENTER) and cooldown < slGetTime())
-        {
-            blocks.push_back(generateCalcul());
-            setCooldown(cooldown);
         }
         slRender();
     }

@@ -151,6 +151,27 @@ void drawDecizie(const Block& b)
 	slText(b.x, b.y - 20, "DECIZIE");
 }
 
+Block generate(Type t)
+{
+	switch (t)
+	{
+	case Type::START:
+		return generateStart();
+	case Type::CALCUL:
+		return generateCalcul();
+	case Type::DECIZIE:
+		return generateDecizie();
+	case Type::INPUT:
+		return generateInput();
+	case Type::OUTPUT:
+		return generateOutput();
+	case Type::STOP:
+		return generateStop();
+	default:
+		break;
+	}
+}
+
 void draw(const Block& b)
 {
 	switch (b.type)

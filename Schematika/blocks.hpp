@@ -12,11 +12,18 @@ enum class Type
 {
 	START,
 	STOP,
+	INPUT,
+	OUTPUT,
 	CALCUL,
 	DECIZIE,
-	INPUT,
-	OUTPUT
+	NOT_A_BLOCK
 };
+
+/// <summary>
+/// Vector containing all types for easy iteration
+/// </summary>
+/// <author>Andrei</author>
+const std::vector<Type> allTypes = { Type::START,Type::STOP,Type::INPUT,Type::OUTPUT,Type::CALCUL,Type::DECIZIE };
 
 /// Forward declarations of both structs so they can be included in one-another
 struct Block;
@@ -74,6 +81,14 @@ void drawCalcul(const Block& b);
 void drawDecizie(const Block& b);
 void drawInput(const Block& b);
 void drawOutput(const Block& b);
+
+
+/// <summary>
+/// Universal generator
+/// </summary>
+/// <param name="t">The tyep of block to be constructed</param>
+/// <returns>A constructed block of type t</returns>
+Block generate(Type t);
 
 /// <summary>
 /// Generators for all types of blocks
