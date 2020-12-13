@@ -109,5 +109,11 @@ void setCooldown(double& cooldown);
 /// <author>Andrei</author>
 void drawBorderedRect(const Color& fill, const Color& bord, const double x, const double y, const double w, const double h, const double bw);
 
-
+/// <summary>
+/// Checks if the node recieved as parameter overlaps with a node in the vector
+/// </summary>
+/// <param name="n">The node to check against the vector</param>
+/// <param name="nodes">A vector containing all nodes</param>
+/// <returns>A pointer to the overlaping node if it exists / nullptr otherwise</returns>
+/// <author>Andrei</author>
 Node* isOverlapingNode (const Node* n, const std::vector<Node*>& nodes);
