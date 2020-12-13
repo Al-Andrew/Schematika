@@ -20,10 +20,10 @@ struct Menu
 };
 
 /// <summary>
-/// Pseudo-constructor for the menu
+/// Pseudo-constructor for the Block menu
 /// </summary>
-/// <returns>The menu(should be singleton)</returns>
-Menu makeMenu();
+/// <returns>The Block menu(should be singleton)</returns>
+Menu makeBlockMenu();
 
 /// <summary>
 /// Draws the menu

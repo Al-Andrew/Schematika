@@ -7,7 +7,7 @@ int main()
 	slSetFont(slLoadFont("./res/Fonts/OpenSans-Regular.ttf"), 24);
 	slSetTextAlign(SL_ALIGN_CENTER);
 	double cooldown = 0;
-	Menu menu = makeMenu();
+	Menu menu = makeBlockMenu();
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
 

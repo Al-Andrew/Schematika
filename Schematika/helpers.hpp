@@ -117,3 +117,4 @@ void drawBorderedRect(const Color& fill, const Color& bord, const double x, cons
 /// <returns>A pointer to the overlaping node if it exists / nullptr otherwise</returns>
 /// <author>Andrei</author>
 Node* isOverlapingNode (const Node* n, const std::vector<Node*>& nodes);
+
