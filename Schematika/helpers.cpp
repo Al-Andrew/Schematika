@@ -96,3 +96,13 @@ void drawBorderedRect(const Color& fill, const Color& bord, const double x, cons
     slRectangleFill(x, y - (h / 2.f - bw / 2.f), w, bw);
     slRectangleFill(x, y + (h / 2.f - bw / 2.f), w, bw);
 }
+
+Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes)
+{
+    for (Node* nod : nodes)
+    {
+        if (nod != n && nod->host != nullptr &&isCircleInCircle(n->x, n->y, n->r, nod->x, nod->y, nod->r))
+            return nod;
+    }
+    return nullptr;
+}

@@ -108,3 +108,6 @@ void setCooldown(double& cooldown);
 /// <param name="bw">width of the border</param>
 /// <author>Andrei</author>
 void drawBorderedRect(const Color& fill, const Color& bord, const double x, const double y, const double w, const double h, const double bw);
+
+
+Node* isOverlapingNode (const Node* n, const std::vector<Node*>& nodes);

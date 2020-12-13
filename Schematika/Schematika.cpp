@@ -1,4 +1,5 @@
 #include "Schematika.hpp"
+
 int main()
 {
 	slWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, false);

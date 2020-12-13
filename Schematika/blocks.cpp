@@ -349,18 +349,34 @@ void updateNode(Node*& n,std::vector<Node*>& nodes,double& cooldown)
 {
     if (isCircleClicked(n->x, n->y, n->r) and cooldown < slGetTime())
     {   
-        n->floating = !n->floating;
-        Node* nou = new Node;
-        nou->floating = true;
-        nodes.emplace_back(nou);
-        n->next = nou;
+        if (n->next == nullptr)
+        {
+            if (Node* sup = isOverlapingNode(n, nodes); sup != nullptr)
+            {
+                n->next = sup;
+                n->x = sup->x;
+                n->y = sup->y;
+            }
+            else
+            {
+                Node* nou = new Node;
+                nou->floating = true;
+                nou->r = n->r;
+                nodes.emplace_back(nou);
+                n->next = nou;
+            }
+            if( n->host == nullptr)
+                n->floating = !n->floating;
+        }
+
         setCooldown(cooldown);
+
     }
 
     if (n->floating)
     {
-        n->next->x = slGetMouseX();
-        n->next->y = slGetMouseY();
+        n->x = slGetMouseX();
+        n->y = slGetMouseY();
     }
 
 }
