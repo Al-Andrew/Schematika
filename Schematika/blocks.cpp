@@ -255,7 +255,7 @@ void drawDecizie(const Block& b)
 void drawNode(Node* n)
 {
     Color c;
-    if (isMouseInCircle(n->x, n->y, n->r) && int(n->x) < WINDOW_WIDTH - SELECT_MENU_WIDTH)
+    if (isMouseInCircle(n->x, n->y, n->r) && int(n->x) < WINDOW_WIDTH - SELECT_BLOCK_MENU_WIDTH)
         c = NODE_HOVER_COLOR;
     else
         c = NODE_COLOR;
