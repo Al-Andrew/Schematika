@@ -15,7 +15,6 @@
 #define BLOCK_BORDER_COLOR        Color({ 149, 165, 166, 1.f })
 #define BLOCK_FILL_COLOR          Color({   0, 153, 153, 1.f })
 #define BLOCK_TEXT_COLOR          Color({  51,   0, 102, 1.f })
-#define BLOCK_TITLE_COLOR         Color({ 255,   0,   0, 1.f })
 #define BLOCK_DECIZIE_DA_COLOR    Color({ 102, 255, 102, 1.f })
 #define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
 #define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
@@ -28,14 +27,14 @@
 #define MENU_BORDER_COLOR         Color({ 127, 140, 141, 1.f })
 #define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
 
-
 ///Menu
 #define MENU_BORDER_WIDTH 5.f
-#define SELECT_MENU_SPACER 75.f
-#define SELECT_MENU_WIDTH 200
-#define SELECT_MENU_HEIGHT WINDOW_HEIGHT
-#define TITLE_HEIGHT 25
-#define TITLE_SPACER 5
+#define SELECT_BLOCK_MENU_SPACER 75.f
+#define SELECT_BLOCK_MENU_WIDTH 200
+#define SELECT_BLOCK_MENU_HEIGHT WINDOW_HEIGHT
+#define BLOCK_TITLE_HEIGHT SELECT_MENU_HEIGHT/2.f
+#define TITLE_UP_SPACE 5
+#define SELECT_MENU_HEIGHT 35 
 
 ///Bocks
 #define DEFAULT_Y WINDOW_HEIGHT/2
@@ -43,7 +42,7 @@
 #define BLOCK_LIMITS_RIGHT 1020
 #define BLOCK_LIMITS_LEFT 60
 #define BLOCK_LIMITS_DOWN 30
-#define BLOCK_LIMITS_UP 668
+#define BLOCK_LIMITS_UP 655
 #define DECIZIE_WIDTH 120
 #define DECIZIE_HEIGHT 50
 #define CALCUL_WIDTH 110
