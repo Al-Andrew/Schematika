@@ -7,6 +7,7 @@ int main()
 	slSetFont(slLoadFont("./res/Fonts/OpenSans-Regular.ttf"), 24);
 	slSetTextAlign(SL_ALIGN_CENTER);
 	double cooldown = 0;
+	clickHandler handle;
 	BlockMenu bmenu = makeBlockMenu();
 	Menu menu = makeMenu();
 	std::vector<Block> blocks;
@@ -14,7 +15,7 @@ int main()
 	std::vector<Button>buttons;
 	while (!slShouldClose())
 	{
-		drawMenu(bmenu,menu);
+		drawMenu(bmenu, menu);
 		if (Type u = updateMenu(bmenu, cooldown); u != Type::NOT_A_BLOCK)
 		{
 			blocks.push_back(generate(u));
@@ -27,11 +28,11 @@ int main()
 			draw(bl);
 			update(bl, cooldown);
 		}
-		for (int i=0,st = nodes.size(); i < st; i++)
+		for (int i = 0, st = nodes.size(); i < st; i++)
 		{
-			updateNode(nodes[i], nodes, cooldown);
+			updateNode(nodes[i], nodes, cooldown, handle);
 		}
-
+		handleUpdate(cooldown, handle);
 		slRender();
 	}
 	slClose();

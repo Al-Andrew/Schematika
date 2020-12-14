@@ -10,8 +10,8 @@
 /// </summary>
 struct Color
 {
-    unsigned short r = 0, g = 0, b = 0;
-    double a = 1.f;
+	unsigned short r = 0, g = 0, b = 0;
+	double a = 1.f;
 };
 
 /// <summary>
@@ -116,5 +116,7 @@ void drawBorderedRect(const Color& fill, const Color& bord, const double x, cons
 /// <param name="nodes">A vector containing all nodes</param>
 /// <returns>A pointer to the overlaping node if it exists / nullptr otherwise</returns>
 /// <author>Andrei</author>
-Node* isOverlapingNode (const Node* n, const std::vector<Node*>& nodes);
+Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes);
+
+
 

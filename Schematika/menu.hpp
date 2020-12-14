@@ -82,7 +82,7 @@ Type updateMenu(const BlockMenu& m, double& cooldown);
 /// <summary>
 /// Pseudo-constructor for the  menu
 /// </summary>
-/// <returns>The button(should be singleton)</returns>
+/// <returns>The button</returns>
 /// <author>Andrei and Cristi</author>
 Button makeButton(std::string name, double width, double height, double x, double y);
 

@@ -19,6 +19,7 @@ enum class Type
     NOT_A_BLOCK
 };
 
+
 /// <summary>
 /// Vector containing all types for easy iteration
 /// </summary>
@@ -53,6 +54,13 @@ struct Block {
     double width = 0, height = 0;
     bool floating = false;
     std::vector<Node* > nodes;
+};
+
+struct clickHandler
+{
+    float set = false;
+    Node* from = nullptr;
+    Node* to = nullptr;
 };
 
 /// <summary>
@@ -105,5 +113,8 @@ Block generateInput();
 Block generateOutput();
 
 
-void drawNode(Node* n);
-void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown);
+void drawNode(const Node* n);
+
+void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown, clickHandler& handle);
+
+void handleUpdate(double& cooldown, clickHandler& handle);
