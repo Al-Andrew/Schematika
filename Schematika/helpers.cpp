@@ -101,7 +101,7 @@ Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes)
 {
     for (Node* nod : nodes)
     {
-        if (nod != n && nod->host != nullptr &&isCircleInCircle(n->x, n->y, n->r, nod->x, nod->y, nod->r))
+        if (nod != n && nod->host != nullptr &&isMouseInCircle(nod->x, nod->y, nod->r))
             return nod;
     }
     return nullptr;

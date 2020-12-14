@@ -26,9 +26,9 @@ int main()
 			draw(bl);
 			update(bl, cooldown);
 		}
-		for (Node* n : nodes)
+		for (int i=0,st = nodes.size(); i < st; i++)
 		{
-			updateNode(n, nodes, cooldown);
+			updateNode(nodes[i], nodes, cooldown);
 		}
 
 		slRender();

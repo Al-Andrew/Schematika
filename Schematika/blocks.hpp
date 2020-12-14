@@ -37,7 +37,7 @@ struct Node;
 struct Node
 {
     double x = 0, y = 0, r = 0;
-    float floating = false;
+    bool floating = false;
     Node* next = nullptr;
     Block* host = nullptr;
 };
