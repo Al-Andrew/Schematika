@@ -37,7 +37,7 @@ Menu makeMenu()
     Menu b;
     b.x=  (WINDOW_WIDTH - SELECT_BLOCK_MENU_WIDTH)/2.f;
     b.y = static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2.f;
-    b.width = static_cast<double>(WINDOW_WIDTH - SELECT_BLOCK_MENU_WIDTH);
+    b.width = static_cast<double>(WINDOW_WIDTH) - SELECT_BLOCK_MENU_WIDTH;
     b.height = SELECT_MENU_HEIGHT;
     std::vector<std::string> ButtonNames = { "File","Project","Undo","Help"};
     double positionX= MENU_BORDER_WIDTH;
@@ -59,7 +59,7 @@ void drawMenu(const BlockMenu& m, const Menu& n )
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, n.x, n.y, n.width, n.height, MENU_BORDER_WIDTH);
     slSetFontSize(TEXT_MENU_SIZE);
-    slText(m.x, (WINDOW_HEIGHT-BLOCK_TITLE_HEIGHT-TITLE_UP_SPACE), "Blocks");
+    slText(m.x, static_cast<double>(WINDOW_HEIGHT)-BLOCK_TITLE_HEIGHT-TITLE_UP_SPACE, "Blocks");
     for (Block bl : m.displayBlocks)
     {
         draw(bl);

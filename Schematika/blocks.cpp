@@ -157,7 +157,7 @@ Block generateDecizie()
 
 	Node* n = new Node;
 	n->host = &b;
-	n->x = b.x - b.width / 2;
+	n->x = b.x - b.width/2.f;
 	n->y = b.y - b.height / 2.f;
 	n->r = NODE_RADIUS;
 	n->floating = false;
@@ -166,7 +166,7 @@ Block generateDecizie()
 
 	Node* m = new Node;
 	m->host = &b;
-	m->x = b.x + b.width / 2;
+	m->x = b.x + b.width / 2.f;
 	m->y = b.y - b.height / 2.f;
 	m->r = NODE_RADIUS;
 	m->floating = false;
@@ -260,14 +260,14 @@ void drawDecizie(const Block& b)
 	setForeColor(BLOCK_FILL_COLOR);
 	slTriangleFill(b.x, b.y, b.width, b.height);
 	setForeColor(BLOCK_DECIZIE_DA_COLOR);
-	slRectangleFill(b.x - 55, b.y, 25, 25);
+	slRectangleFill(b.x - b.width/2 + 5, b.y, 25, 25);
 	slSetFontSize(15);
 	setForeColor(BLOCK_DECIZIE_TEXT_COLOR);
-	slText(b.x - 55, b.y - 5, "A");
+	slText(b.x - b.width/2 + 5, b.y - 5, "A");
 	setForeColor(BLOCK_DECIZIE_NU_COLOR);
-	slRectangleFill(b.x + 55, b.y, 25, 25);
+	slRectangleFill(b.x + b.width / 2 - 5, b.y, 25, 25);
 	setForeColor(BLOCK_DECIZIE_TEXT_COLOR);
-	slText(b.x + 55, b.y - 5, "F");
+	slText(b.x + b.width / 2 - 5, b.y - 5, "F");
 	setForeColor(BLOCK_TEXT_COLOR);
 	slSetFontSize(20);
 	std::string txt;
@@ -372,7 +372,7 @@ void update(Block& b, double& cooldown)
 			std::getline(std::cin,expression);
 			b.text = expression;
 			b.floating = false;
-			if(b.width< slGetTextWidth(expression.c_str()))
+			if(b.width < slGetTextWidth(expression.c_str()))
 				b.width = slGetTextWidth(expression.c_str());
 
 			setCooldown(cooldown);
