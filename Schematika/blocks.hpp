@@ -114,7 +114,7 @@ Block generateOutput();
 
 
 void drawNode(const Node* n);
-
 void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown, clickHandler& handle);
 
-void handleUpdate(double& cooldown, clickHandler& handle);
+void handleDraw(const clickHandler& handle);
+void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& nodes);

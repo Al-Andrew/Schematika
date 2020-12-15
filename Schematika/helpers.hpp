@@ -4,6 +4,8 @@
 #include "blocks.hpp"
 #include <cstdint>
 #include <cmath>
+#include <iostream>
+#include <fstream>
 
 /// <summary>
 /// Struct to hold color data
@@ -118,5 +120,5 @@ void drawBorderedRect(const Color& fill, const Color& bord, const double x, cons
 /// <author>Andrei</author>
 Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes);
 
-
+void saveToFile(std::string fileName, std::vector<Block> blocks, std::vector<Node*> nodes);
 

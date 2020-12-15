@@ -32,7 +32,11 @@ int main()
 		{
 			updateNode(nodes[i], nodes, cooldown, handle);
 		}
-		handleUpdate(cooldown, handle);
+		handleDraw(handle);
+		handleUpdate(cooldown, handle, nodes);
+
+
+
 		slRender();
 	}
 	slClose();

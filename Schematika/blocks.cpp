@@ -262,8 +262,8 @@ void drawNode(const Node* n)
 	setForeColor(c);
 	slCircleFill(n->x, n->y, n->r, 15);
 	if (n->next != nullptr)
-	{	
-		if(n->next->host != nullptr)
+	{
+		if (n->next->host == nullptr)
 			drawNode(n->next);
 		setForeColor(NODE_LINE_COLOR);
 		slLine(n->x, n->y, n->next->x, n->next->y);
@@ -370,7 +370,22 @@ void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown, clickHand
 
 }
 
-void handleUpdate(double& cooldown, clickHandler& handle)
+void handleDraw(const clickHandler& handle)
+{
+	if (handle.set == true and handle.to == nullptr)
+	{
+		Node* f = handle.from;
+		setForeColor(NODE_SELECT_COLOR);
+		slCircleFill(f->x, f->y, f->r, 15);
+		double mx = slGetMouseX();
+		double my = slGetMouseY();
+		slCircleFill(mx, my, f->r, 15);
+		setForeColor(NODE_LINE_COLOR);
+		slLine(f->x, f->y, mx, my);
+	}
+}
+
+void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& nodes)
 {
 	if (handle.set and handle.to != nullptr)
 	{
@@ -378,6 +393,19 @@ void handleUpdate(double& cooldown, clickHandler& handle)
 		handle.set = false;
 		handle.from = nullptr;
 		handle.to = nullptr;
+	}
+	if (slGetMouseButton(SL_MOUSE_BUTTON_RIGHT) and cooldown <= slGetTime() and handle.set)
+	{
+		Node* d = new Node;
+		d->x = slGetMouseX();
+		d->y = slGetMouseY();
+		d->r = handle.from->r;
+		handle.from->next = d;
+		handle.set = true;
+		handle.from = d;
+		handle.to = nullptr;
+		nodes.push_back(d);
+		setCooldown(cooldown);
 	}
 }
 
