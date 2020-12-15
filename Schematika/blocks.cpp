@@ -207,9 +207,12 @@ void drawStop(const Block& b)
 void drawInput(const Block& b)
 {
 	setForeColor(BLOCK_FILL_COLOR);
-	for (int i = 0; i < IN_WIDTH; i++)
+	double x = b.x - b.width / 2;
+	double y1 = b.y - b.height / 2;
+	double y2 = b.y + b.height / 2;
+	for (int i = 0; i <b.width; i++)
 	{
-		slLine(b.x - 60 + i, b.y - b.height / 2, b.x - 40 + i, b.y + b.height / 2);
+		slLine(x- 10 + i, y1 , x + 10 + i,y2);
 	}
 	setForeColor(BLOCK_TEXT_COLOR);
 	std::string txt;
@@ -223,9 +226,12 @@ void drawInput(const Block& b)
 void drawOutput(const Block& b)
 {
 	setForeColor(BLOCK_FILL_COLOR);
-	for (int i = OUT_WIDTH; i > 0 ; i--)
+	double x = b.x - b.width / 2;
+	double y1 = b.y - b.height / 2;
+	double y2 = b.y + b.height / 2;
+	for (int i = 0; i < b.width; i++)
 	{
-		slLine(b.x - 60 + i, b.y - b.height / 2, b.x - 40 + i, b.y + b.height / 2);
+		slLine(x - 10 + i, y1, x + 10 + i, y2);
 	}
 	setForeColor(BLOCK_TEXT_COLOR);
 	std::string txt;
@@ -312,6 +318,7 @@ Block generate(Type t)
 
 void draw(const Block& b)
 {
+	slSetFontSize(TEXT_BLOCK_SIZE);
 	switch (b.type)
 	{
 	case Type::START:
@@ -365,7 +372,9 @@ void update(Block& b, double& cooldown)
 			std::getline(std::cin,expression);
 			b.text = expression;
 			b.floating = false;
-			b.width = slGetTextWidth(expression.c_str());
+			if(b.width< slGetTextWidth(expression.c_str()))
+				b.width = slGetTextWidth(expression.c_str());
+
 			setCooldown(cooldown);
 		}
 	}
