@@ -121,6 +121,7 @@ void drawBorderedRect(const Color& fill, const Color& bord, const double x, cons
 Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes);
 
 
+void warn(std::string message);
 std::string typeToString(Type t);
 
 

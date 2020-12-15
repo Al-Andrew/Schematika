@@ -53,6 +53,7 @@ struct Block {
     double x = 0, y = 0;
     double width = 0, height = 0;
     bool floating = false;
+    std::string text = "\0";
     std::vector<Node* > nodes;
 };
 

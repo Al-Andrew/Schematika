@@ -10,6 +10,7 @@
 
 ///Theme
 #define BACKGROUND_COLOR          Color({   0,   0,   0, 0.f })
+#define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
 
 #define BLOCK_BACKGROUND_COLOR    Color({ 236, 240, 241, 1.f })
 #define BLOCK_BORDER_COLOR        Color({ 149, 165, 166, 1.f })

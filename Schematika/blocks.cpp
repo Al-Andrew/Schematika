@@ -212,18 +212,28 @@ void drawInput(const Block& b)
 		slLine(b.x - 60 + i, b.y - b.height / 2, b.x - 40 + i, b.y + b.height / 2);
 	}
 	setForeColor(BLOCK_TEXT_COLOR);
-	slText(b.x, b.y - 5, "IN");
+	std::string txt;
+	if (b.text == "\0")
+		txt = "IN";
+	else
+		txt = b.text;
+	slText(b.x, b.y - 5, txt.c_str());
 }
 
 void drawOutput(const Block& b)
 {
 	setForeColor(BLOCK_FILL_COLOR);
-	for (int i = 0; i < OUT_WIDTH; i++)
+	for (int i = OUT_WIDTH; i > 0 ; i--)
 	{
 		slLine(b.x - 60 + i, b.y - b.height / 2, b.x - 40 + i, b.y + b.height / 2);
 	}
 	setForeColor(BLOCK_TEXT_COLOR);
-	slText(b.x, b.y - 5, "OUT");
+	std::string txt;
+	if (b.text == "\0")
+		txt = "OUT";
+	else
+		txt = b.text;
+	slText(b.x, b.y - 5, txt.c_str());
 }
 
 void drawCalcul(const Block& b)
@@ -231,7 +241,12 @@ void drawCalcul(const Block& b)
 	setForeColor(BLOCK_FILL_COLOR);
 	slRectangleFill(b.x, b.y, b.width, b.height);
 	setForeColor(BLOCK_TEXT_COLOR);
-	slText(b.x, b.y - 10, "CALCUL");
+	std::string txt;
+	if (b.text == "\0")
+		txt = "CALCUL";
+	else
+		txt = b.text;
+	slText(b.x, b.y - 10, txt.c_str());
 }
 
 void drawDecizie(const Block& b)
@@ -249,7 +264,12 @@ void drawDecizie(const Block& b)
 	slText(b.x + 55, b.y - 5, "F");
 	setForeColor(BLOCK_TEXT_COLOR);
 	slSetFontSize(20);
-	slText(b.x, b.y - 20, "DECIZIE");
+	std::string txt;
+	if (b.text == "\0")
+		txt = "DECIZIE";
+	else
+		txt = b.text;
+	slText(b.x, b.y - 20, txt.c_str());
 }
 
 void drawNode(const Node* n)
@@ -336,6 +356,17 @@ void update(Block& b, double& cooldown)
 		{
 			n->x += dx;
 			n->y += dy;
+		}
+		if (slGetKey(SL_KEY_ENTER) and cooldown <= slGetTime() and b.type != Type::START and b.type != Type::STOP)
+		{
+			warn("Please open console for input");
+			std::cout << "Please enter the expression you want in this" << typeToString(b.type) << "block : \n";
+			std::string expression;
+			std::getline(std::cin,expression);
+			b.text = expression;
+			b.floating = false;
+			b.width = slGetTextWidth(expression.c_str());
+			setCooldown(cooldown);
 		}
 	}
 	if (isRectClicked(b.x, b.y, b.width, b.height) and cooldown < slGetTime())

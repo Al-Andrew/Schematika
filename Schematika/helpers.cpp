@@ -107,6 +107,14 @@ Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes)
     return nullptr;
 }
 
+
+void warn(std::string message)
+{
+    setForeColor(CONSOLE_WARNING_COLOR);
+    slText(slGetTextWidth(message.c_str()) / 2.f + 10, slGetTextHeight(message.c_str()) / 2.f + 10, message.c_str());
+    slRender();
+}
+
 std::string typeToString(Type t)
 {
     switch (t)
@@ -129,10 +137,7 @@ std::string typeToString(Type t)
 
 void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 {
-    setForeColor(Color({ 255,0,0,1 }));
-    std::string message = "Open the console for input";
-    slText(slGetTextWidth(message.c_str()) / 2.f + 10, slGetTextHeight(message.c_str()) / 2.f + 10, message.c_str());
-    slRender();
+    warn("Please open console for input");
 
     std::string fileName;
     std::cout << "Please input a name for the file you want to save." << std::endl;
