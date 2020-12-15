@@ -58,7 +58,7 @@ struct Block {
 
 struct clickHandler
 {
-    float set = false;
+    bool set = false;
     Node* from = nullptr;
     Node* to = nullptr;
 };

@@ -107,3 +107,41 @@ Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes)
     return nullptr;
 }
 
+std::string typeToString(Type t)
+{
+    switch (t)
+    {
+    case Type::START:
+        return "START";
+    case Type::CALCUL:
+        return "CALCUL";
+    case Type::DECIZIE:
+        return "DECIZIE";
+    case Type::INPUT:
+        return "INPUT";
+    case Type::OUTPUT:
+        return "OUTPUT";
+    case Type::STOP:
+        return "STOP";
+    }
+    return "NOT_A_BLOCK";
+}
+
+void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
+{
+    setForeColor(Color({ 255,0,0,1 }));
+    std::string message = "Open the console for input";
+    slText(slGetTextWidth(message.c_str()) / 2.f + 10, slGetTextHeight(message.c_str()) / 2.f + 10, message.c_str());
+    slRender();
+
+    std::string fileName;
+    std::cout << "Please input a name for the file you want to save." << std::endl;
+    std::getline(std::cin,fileName);
+
+    std::ofstream fout(fileName.c_str());
+
+    for (const auto bl : blocks)
+    {
+        fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " ";
+    }
+}

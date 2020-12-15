@@ -35,7 +35,10 @@ int main()
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes);
 
-
+		if (slGetKey(SL_KEY_F2))
+		{
+			saveToFile(blocks, nodes);
+		}
 
 		slRender();
 	}
