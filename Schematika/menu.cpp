@@ -28,10 +28,32 @@ BlockMenu makeBlockMenu()
         }
         y -= SELECT_BLOCK_MENU_SPACER;
     }
-    
-
     return b;
 }
+
+void drawBlocksMenu(const BlockMenu& m)
+{
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
+    slSetFontSize(TEXT_MENU_SIZE);
+    slText(m.x, static_cast<double>(WINDOW_HEIGHT)-BLOCK_TITLE_HEIGHT-TITLE_UP_SPACE, "Blocks");
+    for (Block bl : m.displayBlocks)
+    {
+        draw(bl);
+    }
+}
+
+Type updateBlockMenu(const BlockMenu& m, double& cooldown)
+{
+    double cpy = cooldown;
+    for (Block bl : m.displayBlocks)
+    {
+        update(bl, cooldown);
+        if (cpy != cooldown)
+            return bl.type;
+    }
+    return Type::NOT_A_BLOCK;
+}
+
 Menu makeMenu()
 {
     Menu b;
@@ -39,47 +61,44 @@ Menu makeMenu()
     b.y = static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2.f;
     b.width = static_cast<double>(WINDOW_WIDTH) - SELECT_BLOCK_MENU_WIDTH;
     b.height = SELECT_MENU_HEIGHT;
-    std::vector<std::string> ButtonNames = { "File","Project","Undo","Help"};
-    double positionX= MENU_BORDER_WIDTH;
-    for (unsigned int i = 0; i < ButtonNames.size(); i++)
+
+
+    double positionX = MENU_BORDER_WIDTH;
+    for (auto t : allMenuButtons)
     {
-         std::string name = ButtonNames[i];
-         double width = slGetTextWidth(name.c_str())+MENU_BORDER_WIDTH;
-         double height = SELECT_MENU_HEIGHT;
-         double x = positionX + width/2.f - (MENU_BORDER_WIDTH);
-         double y = WINDOW_HEIGHT - height/2;
-         positionX += width-MENU_BORDER_WIDTH;
-         b.buttons.push_back(makeButton(name, width, height, x, y));
+         b.buttons.push_back(makeButton(positionX, t));
+         positionX += b.buttons.back().width-MENU_BORDER_WIDTH;
     }
   
     return b;
 }
-void drawMenu(const BlockMenu& m, const Menu& n )
+
+void drawMenu(const Menu &m)
 {
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, n.x, n.y, n.width, n.height, MENU_BORDER_WIDTH);
-    slSetFontSize(TEXT_MENU_SIZE);
-    slText(m.x, static_cast<double>(WINDOW_HEIGHT)-BLOCK_TITLE_HEIGHT-TITLE_UP_SPACE, "Blocks");
-    for (Block bl : m.displayBlocks)
+    drawBorderedRect(MENU_BACKGROUND_COLOR,MENU_BORDER_COLOR, m.x,m.y,m.width,m.height, MENU_BORDER_WIDTH);
+    for (auto& b : m.buttons)
     {
-        draw(bl);
-    }
-    for (Button button : n.buttons)
-    {
-        drawButton(button);
+        drawButton(b);
     }
 }
 
-Button makeButton(std::string name, double width, double height, double x, double y)
+menuButtons updateMenu(Menu& m, double& cooldown)
+{
+    return menuButtons::New;//To do
+}
+
+Button makeButton(double posX, menuButtons type)
 {
     Button b;
-    b.name = name;
-    b.width = width;
-    b.height = height;
-    b.x = x;
-    b.y = y;
+    b.name = buttonTypeToString(type);
+    b.type = type;
+    b.width = slGetTextWidth(b.name.c_str()) + MENU_BORDER_WIDTH;;
+    b.height = SELECT_MENU_HEIGHT;;
+    b.x = posX + b.width/2.f - (MENU_BORDER_WIDTH);
+    b.y = WINDOW_HEIGHT - b.height / 2;
     return b;
 }
+
 void drawButton(const Button& m)
 {
     Color background;
@@ -91,48 +110,30 @@ void drawButton(const Button& m)
     slSetFontSize(TEXT_MENU_SIZE);
     slText(m.x, m.y-TITLE_UP_SPACE, m.name.c_str());
 }
-SubMenu makeSubMenuFile()
+
+bool updateButton(Button b, double cooldown)
 {
-    SubMenu b;
-    std::vector<std::string> subMenuProjectNames = { "Save","Open" };
-    double positionY = 0;
-    for (unsigned int i = 0; i < subMenuProjectNames.size(); i++)
+    if (isRectClicked(b.x, b.y, b.width, b.height) and cooldown <= slGetTime())
     {
-        std::string name = subMenuProjectNames[i];
-        double width = slGetTextWidth(name.c_str()) + MENU_BORDER_WIDTH;
-        double height = SELECT_MENU_HEIGHT;
-        double x = width / 2;
-        double y = height - positionY + MENU_BORDER_WIDTH;
-        positionY += height - MENU_BORDER_WIDTH;
-        //b.buttons.push_back(makeButton(name, width, height, x, y));
+        return true;
+        setCooldown(cooldown);
     }
-    return b;
+    return false;
 }
-SubMenu makeSubMenuProject()
+
+
+std::string buttonTypeToString(menuButtons type)
 {
-    SubMenu b;
-    std::vector<std::string> subMenuProjectNames = { "Run","Code" };
-    double positionY = 0;
-    for (unsigned int i = 0; i < subMenuProjectNames.size(); i++)
+    switch (type)
     {
-        std::string name = subMenuProjectNames[i];
-        double width = slGetTextWidth(name.c_str()) + MENU_BORDER_WIDTH;
-        double height = SELECT_MENU_HEIGHT;
-        double x = width / 2;
-        double y = height - positionY + MENU_BORDER_WIDTH;
-        positionY += height - MENU_BORDER_WIDTH;
-        //b.buttons.push_back(makeButton(name, width, height, x, y));
+        case menuButtons::New: return "New";
+        case menuButtons::Save: return "Save";
+        case menuButtons::Open: return "Open";
+        case menuButtons::Run: return "Run";
+        case menuButtons::Code: return "Code";
+        case menuButtons::Help: return "Help";
+        case menuButtons::About: return "About";
+        default: return "Err";
     }
-    return b;
-}
-Type updateMenu(const BlockMenu& m, double& cooldown)
-{
-    double cpy = cooldown;
-    for (Block bl : m.displayBlocks)
-    {
-        update(bl, cooldown);
-        if (cpy != cooldown)
-            return bl.type;
-    }
-    return Type::NOT_A_BLOCK;
+        return "Err";
 }

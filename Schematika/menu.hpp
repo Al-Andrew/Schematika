@@ -6,6 +6,20 @@
 #include <array>
 
 
+enum class menuButtons
+{
+    New,
+    Save,
+    Open,
+    Run,
+    Code,
+    Help,
+    About,
+    NOT_A_BUTTON
+};
+
+const std::vector<menuButtons> allMenuButtons = { menuButtons::New, menuButtons::Save, menuButtons::Open, menuButtons::Run,menuButtons::Code,menuButtons::Help,menuButtons::About };
+
 /// <summary>
 /// Struct to hold the data for the Block menu
 /// </summary>
@@ -25,21 +39,11 @@ struct BlockMenu
 struct Button
 {
     std::string name;
+    menuButtons type;
     double width = 0, height = 0;
     double x = 0, y = 0;
-    bool isClicked = false;
 };
-/// <summary>
-/// Struct to hold the data for the submenu
-/// </summary>
-/// <author>Cristi</author>
-struct SubMenu
-{
-    std::string name;
-    double width = 0, height = 0;
-    double x = 0, y = 0;
-    std::vector<Button> buttons;
-};
+
 /// <summary>
 /// Struct to hold the data for the  menu
 /// </summary>
@@ -65,26 +69,41 @@ BlockMenu makeBlockMenu();
 Menu makeMenu();
 
 /// <summary>
+/// Draws the Blocks menu
+/// </summary>
+/// <param name="m">The Blocks menu struct</param>
+/// <author>Cristi and Andrei</author>
+void drawBlocksMenu(const BlockMenu& m);
+
+/// <summary>
 /// Draws the menu
 /// </summary>
 /// <param name="m">The menu struct</param>
 /// <author>Cristi and Andrei</author>
-void drawMenu(const BlockMenu& m, const Menu& n);
+void drawMenu(const Menu& m);
+
+/// <summary>
+/// Checks for updates in the Block menu
+/// </summary>
+/// <param name="m">The BLock menu struct</param>
+/// <param name="m">The global cooldown</param>
+/// <author>Andrei</author>
+Type updateBlockMenu(const BlockMenu& m, double& cooldown);
 
 /// <summary>
 /// Checks for updates in the menu
 /// </summary>
 /// <param name="m">The menu struct</param>
 /// <param name="m">The global cooldown</param>
-/// <author>Andrei</author>
-Type updateMenu(const BlockMenu& m, double& cooldown);
+/// <author>Andrei and Cristi</author>
+menuButtons updateMenu(Menu& m, double& cooldown);
 
 /// <summary>
 /// Pseudo-constructor for the  menu
 /// </summary>
 /// <returns>The button</returns>
 /// <author>Andrei and Cristi</author>
-Button makeButton(std::string name, double width, double height, double x, double y);
+Button makeButton(double posX, menuButtons type);
 
 /// <summary>
 /// Draws the button
@@ -94,4 +113,6 @@ Button makeButton(std::string name, double width, double height, double x, doubl
 void drawButton(const Button& m);
 
 
-SubMenu makeSubMenuProject();
+bool updateButton(Button b, double cooldown);
+
+std::string buttonTypeToString(menuButtons type);

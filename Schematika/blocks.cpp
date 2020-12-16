@@ -231,7 +231,7 @@ void drawOutput(const Block& b)
 	double y2 = b.y + b.height / 2;
 	for (int i = 0; i < b.width; i++)
 	{
-		slLine(x - 10 + i, y1, x + 10 + i, y2);
+		slLine(x + 10 + i, y1, x - 10 + i, y2);
 	}
 	setForeColor(BLOCK_TEXT_COLOR);
 	std::string txt;

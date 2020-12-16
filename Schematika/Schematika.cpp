@@ -12,15 +12,21 @@ int main()
 	Menu menu = makeMenu();
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
-	std::vector<Button>buttons;
+
 	while (!slShouldClose())
 	{
-		drawMenu(bmenu, menu);
-		if (Type u = updateMenu(bmenu, cooldown); u != Type::NOT_A_BLOCK)
+		drawBlocksMenu(bmenu);
+		if (Type u = updateBlockMenu(bmenu, cooldown); u != Type::NOT_A_BLOCK)
 		{
 			blocks.push_back(generate(u));
 			for (Node* n : blocks.back().nodes)
 				nodes.push_back(n);
+		}
+
+		drawMenu(menu);
+		if (menuButtons u = updateMenu(menu, cooldown); u != menuButtons::NOT_A_BUTTON)
+		{
+
 		}
 
 		for (Block& bl : blocks)
@@ -34,6 +40,7 @@ int main()
 		}
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes);
+		slText(100, 100, std::to_string(1 / slGetDeltaTime()).c_str());
 		slRender();
 	}
 	slClose();
