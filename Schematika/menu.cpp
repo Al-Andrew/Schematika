@@ -70,17 +70,6 @@ void drawMenu(const BlockMenu& m, const Menu& n )
     }
 }
 
-Type updateMenu(const BlockMenu& m, double& cooldown)
-{
-    double cpy = cooldown;
-    for (Block bl : m.displayBlocks)
-    {
-        update(bl,cooldown);
-        if (cpy != cooldown)
-            return bl.type;
-    }
-    return Type::NOT_A_BLOCK;
-}
 Button makeButton(std::string name, double width, double height, double x, double y)
 {
     Button b;
@@ -101,4 +90,49 @@ void drawButton(const Button& m)
     drawBorderedRect(background,MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
     slSetFontSize(TEXT_MENU_SIZE);
     slText(m.x, m.y-TITLE_UP_SPACE, m.name.c_str());
+}
+SubMenu makeSubMenuFile()
+{
+    SubMenu b;
+    std::vector<std::string> subMenuProjectNames = { "Save","Open" };
+    double positionY = 0;
+    for (unsigned int i = 0; i < subMenuProjectNames.size(); i++)
+    {
+        std::string name = subMenuProjectNames[i];
+        double width = slGetTextWidth(name.c_str()) + MENU_BORDER_WIDTH;
+        double height = SELECT_MENU_HEIGHT;
+        double x = width / 2;
+        double y = height - positionY + MENU_BORDER_WIDTH;
+        positionY += height - MENU_BORDER_WIDTH;
+        //b.buttons.push_back(makeButton(name, width, height, x, y));
+    }
+    return b;
+}
+SubMenu makeSubMenuProject()
+{
+    SubMenu b;
+    std::vector<std::string> subMenuProjectNames = { "Run","Code" };
+    double positionY = 0;
+    for (unsigned int i = 0; i < subMenuProjectNames.size(); i++)
+    {
+        std::string name = subMenuProjectNames[i];
+        double width = slGetTextWidth(name.c_str()) + MENU_BORDER_WIDTH;
+        double height = SELECT_MENU_HEIGHT;
+        double x = width / 2;
+        double y = height - positionY + MENU_BORDER_WIDTH;
+        positionY += height - MENU_BORDER_WIDTH;
+        //b.buttons.push_back(makeButton(name, width, height, x, y));
+    }
+    return b;
+}
+Type updateMenu(const BlockMenu& m, double& cooldown)
+{
+    double cpy = cooldown;
+    for (Block bl : m.displayBlocks)
+    {
+        update(bl, cooldown);
+        if (cpy != cooldown)
+            return bl.type;
+    }
+    return Type::NOT_A_BLOCK;
 }

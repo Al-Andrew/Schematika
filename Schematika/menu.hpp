@@ -19,25 +19,26 @@ struct BlockMenu
     bool isClicked = false;
 };
 /// <summary>
-/// Struct to hold the data for the submenu
-/// </summary>
-/// <author>Cristi</author>
-struct subMeniu
-{
-    std::string name;
-    double width = 0, height = 0;
-    double x = 0, y = 0;
-};
-/// <summary>
 /// Struct to hold the data for the bottons of the menu
 /// </summary>
 /// <author>Cristi and Andrei</author>
 struct Button
 {
     std::string name;
-    double width=0, height=0;
-    double x=0, y=0;
-    bool isClicked=false;
+    double width = 0, height = 0;
+    double x = 0, y = 0;
+    bool isClicked = false;
+};
+/// <summary>
+/// Struct to hold the data for the submenu
+/// </summary>
+/// <author>Cristi</author>
+struct SubMenu
+{
+    std::string name;
+    double width = 0, height = 0;
+    double x = 0, y = 0;
+    std::vector<Button> buttons;
 };
 /// <summary>
 /// Struct to hold the data for the  menu
@@ -48,7 +49,6 @@ struct Menu
     double x = 0, y = 0;
     double width = 0, height = 0;
     std::vector<Button> buttons;
-    std::vector<subMeniu> submeniu;
 };
 /// <summary>
 /// Pseudo-constructor for the Block menu
@@ -92,3 +92,6 @@ Button makeButton(std::string name, double width, double height, double x, doubl
 /// <param name="m">The button struct</param>
 /// <author>Cristi</author>
 void drawButton(const Button& m);
+
+
+SubMenu makeSubMenuProject();
