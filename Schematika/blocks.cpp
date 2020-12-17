@@ -389,15 +389,20 @@ void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown, clickHand
 {
 	if (isCircleClicked(n->x, n->y, n->r) and cooldown < slGetTime())
 	{
-		if (handle.set)
+		if (n->next == nullptr)
 		{
-			handle.to = n;
+			if (handle.set)
+			{
+				handle.to = n;
+			}
+			else
+			{
+				handle.from = n;
+				handle.set = true;
+			}
 		}
 		else
-		{
-			handle.from = n;
-			handle.set = true;
-		}
+			n->floating = !n->floating;
 		setCooldown(cooldown);
 	}
 
