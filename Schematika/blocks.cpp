@@ -434,10 +434,19 @@ void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& no
 {
 	if (handle.set and handle.to != nullptr)
 	{
-		handle.from->next = handle.to;
-		handle.set = false;
-		handle.from = nullptr;
-		handle.to = nullptr;
+		if (handle.to != handle.from)
+		{
+			handle.from->next = handle.to;
+			handle.set = false;
+			handle.from = nullptr;
+			handle.to = nullptr;
+		}
+		else
+		{
+			handle.set = false;
+			handle.from = nullptr;
+			handle.to = nullptr;
+		}
 	}
 	if (slGetMouseButton(SL_MOUSE_BUTTON_RIGHT) and cooldown <= slGetTime() and handle.set)
 	{

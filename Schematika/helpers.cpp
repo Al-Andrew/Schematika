@@ -145,11 +145,33 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 
     std::ofstream fout(fileName.c_str());
 
-    for (const auto bl : blocks)
+    fout << "NODES\n";
+    for (auto nd : nodes)
     {
-        fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " ";
+        fout << nd->id << " "  << nd->x << " "  << nd->y;
+        if (nd->next != nullptr)
+        {
+            fout << " " << nd->next->id;
+        }
+        else
+        {
+            fout << " " <<0;
+        }
+        fout << "\n";
     }
+    fout << "BLOCKS\n";
+    for (auto bl : blocks)
+    {
+        fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " " << bl.width << " " << bl.height << " |" << bl.text << "| ";
+        for (auto n : bl.nodes)
+        {
+            fout << n->id << " ";
+        }
+        fout << "\n";
+    } 
+
 }
+
 std::string openFile()
 {   
     std::string fileName;
