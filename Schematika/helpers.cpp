@@ -150,3 +150,26 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
         fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " ";
     }
 }
+std::string openFile()
+{   
+    std::string fileName;
+    Begin:
+        std::cout << "Please input a name for the file you want to open." << std::endl;
+        std::getline(std::cin, fileName);
+        std::string line;
+        std::ifstream fin(fileName.c_str());
+        if (!(fin.is_open()))
+        {
+            std::cout << "EROARE --- Fisierul nu a fost gasit!" << std::endl;
+            goto Begin;
+        }
+    while (!fin.eof())
+    {
+    
+         getline(fin, line);
+         std::cout << line;
+       
+    }
+    fin.close();
+    return line;
+}
