@@ -33,13 +33,20 @@ int main()
 		}
 		for (auto b : menu.buttons)
 		{
-			if (isRectClicked(b.x, b.y, b.width, b.height) && b.type == menuButtons::New)
+			if (isRectClicked(b.x, b.y, b.width, b.height))
 			{
-				blocks.clear();
-			}
-			else if (isRectClicked(b.x, b.y, b.width, b.height) && b.type == menuButtons::Save)
-			{
-				saveToFile(blocks, nodes);
+				if (b.type == menuButtons::New)
+				{
+					blocks.clear();
+				}
+				else if (b.type == menuButtons::Save)
+				{
+					saveToFile(blocks, nodes);
+				}
+				else if (b.type == menuButtons::Open)
+				{
+					openFile();
+				}
 			}
 		}
 		handleDraw(handle);
