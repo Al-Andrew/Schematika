@@ -385,7 +385,7 @@ void update(Block& b, double& cooldown)
 	}
 }
 
-void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown, clickHandler& handle)
+void updateNode(Node*& n, double& cooldown, clickHandler& handle)
 {
 	if (isCircleClicked(n->x, n->y, n->r) and cooldown < slGetTime())
 	{
@@ -430,7 +430,7 @@ void handleDraw(const clickHandler& handle)
 	}
 }
 
-void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& nodes)
+void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& nodes, unsigned int& nodeIdCounter)
 {
 	if (handle.set and handle.to != nullptr)
 	{
@@ -449,6 +449,8 @@ void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& no
 		handle.set = true;
 		handle.from = d;
 		handle.to = nullptr;
+		d->id = nodeIdCounter;
+		nodeIdCounter++;
 		nodes.push_back(d);
 		setCooldown(cooldown);
 	}

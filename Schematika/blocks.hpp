@@ -37,6 +37,7 @@ struct Node;
 /// <author>Cristi</author>
 struct Node
 {
+    unsigned int id = 0;
     double x = 0, y = 0, r = 0;
     bool floating = false;
     Node* next = nullptr;
@@ -115,7 +116,7 @@ Block generateOutput();
 
 
 void drawNode(const Node* n);
-void updateNode(Node*& n, std::vector<Node*>& nodes, double& cooldown, clickHandler& handle);
+void updateNode(Node*& n, double& cooldown, clickHandler& handle);
 
 void handleDraw(const clickHandler& handle);
-void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& nodes);
+void handleUpdate(double& cooldown, clickHandler& handle, std::vector<Node*>& nodes, unsigned int& nodeIdCounter);

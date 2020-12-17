@@ -84,7 +84,12 @@ void drawMenu(const Menu &m)
 
 menuButtons updateMenu(Menu& m, double& cooldown)
 {
-    return menuButtons::New;//To do
+    for (auto b : m.buttons)
+    {
+        if (updateButton(b, cooldown))
+            return b.type;
+    }
+    return menuButtons::NOT_A_BUTTON;
 }
 
 Button makeButton(double posX, menuButtons type)
@@ -115,8 +120,8 @@ bool updateButton(Button b, double cooldown)
 {
     if (isRectClicked(b.x, b.y, b.width, b.height) and cooldown <= slGetTime())
     {
-        return true;
         setCooldown(cooldown);
+        return true;
     }
     return false;
 }
