@@ -14,7 +14,7 @@ int main()
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
 	while (!slShouldClose())
-	{
+	{	
 		drawBlocksMenu(bmenu);
 		if (Type u = updateBlockMenu(bmenu, cooldown); u != Type::NOT_A_BLOCK)
 		{
@@ -27,6 +27,7 @@ int main()
 			}
 		}
 		drawMenu(menu);
+		slSprite(slLoadTexture("./Trash.png"), SELECT_TRASH_POSX, SELECT_TRASH_POSY, 40, 40);
 		if (menuButtons u = updateMenu(menu, cooldown); u != menuButtons::NOT_A_BUTTON)
 		{
 			switch (u)
@@ -47,6 +48,7 @@ int main()
 			draw(bl);
 			update(bl, cooldown);
 		}
+		deleteBlock(blocks);
 		for (Node*& nd : nodes)
 		{
 			updateNode(nd, cooldown, handle);

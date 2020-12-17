@@ -142,7 +142,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
     std::string fileName;
     std::cout << "Please input a name for the file you want to save." << std::endl;
     std::getline(std::cin,fileName);
-
+    std::cout << "The file is successfully saved"<<std::endl;
     std::ofstream fout(fileName.c_str());
 
     fout << "NODES\n";
@@ -174,6 +174,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 
 std::string openFile()
 {   
+    warn("Please open console for input");
     std::string fileName;
     Begin:
         std::cout << "Please input a name for the file you want to open." << std::endl;
@@ -182,16 +183,26 @@ std::string openFile()
         std::ifstream fin(fileName.c_str());
         if (!(fin.is_open()))
         {
-            std::cout << "EROARE --- Fisierul nu a fost gasit!" << std::endl;
+            std::perror("Error ");
+            std::cout<<std :: endl;
             goto Begin;
         }
+    std::cout << fileName << std::endl;
     while (!fin.eof())
-    {
-    
-         getline(fin, line);
-         std::cout << line;
-       
+    {   
+         getline(fin, line);  
+         std::cout << line << std::endl;
     }
     fin.close();
     return line;
+}
+void deleteBlock(std::vector<Block> &blocks)
+{
+    for (unsigned int i = 0; i < blocks.size(); i++)
+    {
+        if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(1030, 30, 50, 50))
+        {
+            blocks.erase(blocks.begin() + i);
+        }
+    }
 }
