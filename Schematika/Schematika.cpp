@@ -12,7 +12,6 @@ int main()
 	Menu menu = makeMenu();
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
-
 	while (!slShouldClose())
 	{
 		drawBlocksMenu(bmenu);
@@ -22,13 +21,7 @@ int main()
 			for (Node* n : blocks.back().nodes)
 				nodes.push_back(n);
 		}
-
 		drawMenu(menu);
-		if (menuButtons u = updateMenu(menu, cooldown); u != menuButtons::NOT_A_BUTTON)
-		{
-
-		}
-
 		for (Block& bl : blocks)
 		{
 			draw(bl);
@@ -37,6 +30,17 @@ int main()
 		for (int i = 0, st = nodes.size(); i < st; i++)
 		{
 			updateNode(nodes[i], nodes, cooldown, handle);
+		}
+		for (auto b : menu.buttons)
+		{
+			if (isRectClicked(b.x, b.y, b.width, b.height) && b.type == menuButtons::New)
+			{
+				blocks.clear();
+			}
+			else if (isRectClicked(b.x, b.y, b.width, b.height) && b.type == menuButtons::Save)
+			{
+				saveToFile(blocks, nodes);
+			}
 		}
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes);
