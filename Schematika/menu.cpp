@@ -142,3 +142,83 @@ std::string buttonTypeToString(menuButtons type)
     }
         return "Err";
 }
+updatedMenu makeCode()
+{
+    updatedMenu a;
+    a.type = menuButtons::Code;
+    a.x = 1050;
+    a.y = 360;
+    a.width = 460;
+    a.height = 720;
+    return a;
+}
+void drawCode(const updatedMenu& a)
+{
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height,MENU_BORDER_WIDTH);
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT/2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
+    drawControlBar( a.x, a.y, a.width, a.height);
+    slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Code - Visual Studio");
+}
+updatedMenu makeHelp()
+{
+    updatedMenu a;
+    a.type = menuButtons::Help;
+    a.x = static_cast<double>(WINDOW_WIDTH)-HELP_WIDTH/2;
+    a.y = WINDOW_HEIGHT/2.f;
+    a.width = HELP_WIDTH;
+    a.height = HELP_HEIGHT;
+    return a;
+}
+void drawHelp(const updatedMenu& a)
+{
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height, MENU_BORDER_WIDTH);
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
+    drawControlBar(a.x, a.y, a.width, a.height);
+    slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Help");
+}
+updatedMenu makeAbout()
+{
+    updatedMenu a;
+    a.type=menuButtons::About;
+    a.x = static_cast<double>(WINDOW_WIDTH) - HELP_WIDTH / 2;
+    a.y = WINDOW_HEIGHT / 2.f;
+    a.width = ABOUT_WIDTH;
+    a.height = ABOUT_HEIGHT;
+    return a;
+}
+void drawAbout(const updatedMenu &a)
+{
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height, MENU_BORDER_WIDTH);
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT)- SELECT_MENU_HEIGHT / 2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
+    drawControlBar(a.x, a.y, a.width, a.height);
+    slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "About");
+}
+
+updatedMenu makeUpdatedMenu(menuButtons u)
+{
+    switch (u)
+    {
+    case menuButtons::Code: return makeCode();
+    case menuButtons::Help: return makeHelp(); 
+    case menuButtons::About: return makeAbout(); 
+    default: break;
+    }
+    return makeHelp();
+}
+void drawUpdatedMenu(const updatedMenu b)
+{
+    switch (b.type)
+    {
+    case menuButtons::Code:
+        drawCode(b);
+        break;
+    case menuButtons::About:
+        drawAbout(b);
+        break;
+    case menuButtons::Help:
+        drawHelp(b);
+        break;
+    default:
+        break;
+    }
+}

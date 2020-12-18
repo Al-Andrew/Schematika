@@ -13,6 +13,7 @@ int main()
 	unsigned int nodeIdCount = 1;
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
+	std::vector<updatedMenu> umenu;
 	while (!slShouldClose())
 	{	
 		drawBlocksMenu(bmenu);
@@ -32,16 +33,17 @@ int main()
 		{
 			switch (u)
 			{
-			case menuButtons::New: blocks.clear(); break;
-			case menuButtons::Save: saveToFile(blocks, nodes); break;
-			case menuButtons::Open: openFile(); break;
-			case menuButtons::Run: break;
-			case menuButtons::Code: break;
-			case menuButtons::Help: break;
-			case menuButtons::About: break;
-			case menuButtons::NOT_A_BUTTON:break;
-			default: break;
+				case menuButtons::New: blocks.clear(); break;
+				case menuButtons::Save: saveToFile(blocks, nodes); break;
+				case menuButtons::Open: openFile(); break;
+				case menuButtons::Run: break;
+				case menuButtons::NOT_A_BUTTON: break;
+				default: break;
 			}
+		}
+		if (menuButtons u = updateMenu(menu, cooldown); (u == menuButtons::Code || u == menuButtons::Help || u == menuButtons::About))
+		{
+			umenu.push_back(makeUpdatedMenu(u));
 		}
 		for (Block& bl : blocks)
 		{
@@ -52,6 +54,14 @@ int main()
 		for (Node*& nd : nodes)
 		{
 			updateNode(nd, cooldown, handle);
+		}
+		for (updatedMenu& a : umenu)
+		{
+			drawUpdatedMenu(a);
+			if (isRectClicked(a.x+a.width/2-CLOSE_BUTTON_WIDTH/2, a.y+a.height/2 - CLOSE_BUTTON_WIDTH / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
+			{
+				umenu.pop_back();
+			}
 		}
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes, nodeIdCount);

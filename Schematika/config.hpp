@@ -39,6 +39,11 @@
 #define SELECT_MENU_HEIGHT 35 
 #define SELECT_TRASH_POSX 1040.f
 #define SELECT_TRASH_POSY 30.f
+#define CLOSE_BUTTON_WIDTH 50.f
+#define HELP_WIDTH 460.f
+#define HELP_HEIGHT 720.f
+#define ABOUT_WIDTH 460.f
+#define ABOUT_HEIGHT 720.f
 
 ///Bocks
 #define DEFAULT_X WINDOW_WIDTH/2

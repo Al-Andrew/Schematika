@@ -193,6 +193,8 @@ std::string openFile()
          getline(fin, line);  
          std::cout << line << std::endl;
     }
+    line = "da";
+    slText(1205, 30, &line[0]);
     fin.close();
     return line;
 }
@@ -204,5 +206,23 @@ void deleteBlock(std::vector<Block> &blocks)
         {
             blocks.erase(blocks.begin() + i);
         }
+    }
+}
+void drawControlBar(double x, double y, double width, double height)
+{   
+    Color c;
+    double X = x + width / 2;
+    double Y = y + height / 2;
+    if (isMouseInRect(X - CLOSE_BUTTON_WIDTH/2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
+    {
+        c = BLOCK_DECIZIE_NU_COLOR;
+    }
+    else c = MENU_BACKGROUND_COLOR;
+    drawBorderedRect(c, MENU_BORDER_COLOR, X - CLOSE_BUTTON_WIDTH / 2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
+    setForeColor(MENU_BORDER_COLOR);
+    for (int i = -1; i < 2; i++)
+    {
+        slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - MENU_BORDER_WIDTH, X+i, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH);
+        slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH, X+i, Y);
     }
 }
