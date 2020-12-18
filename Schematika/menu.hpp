@@ -39,7 +39,7 @@ struct BlockMenu
 struct Button
 {
     std::string name;
-    menuButtons type;
+    menuButtons type = menuButtons::New;
     double width = 0, height = 0;
     double x = 0, y = 0;
 };
@@ -54,6 +54,14 @@ struct Menu
     double width = 0, height = 0;
     std::vector<Button> buttons;
 };
+
+struct updatedMenu
+{   
+    menuButtons type = menuButtons::Code;
+    double x = 0, y = 0;
+    double width = 0, height = 0;
+};
+
 /// <summary>
 /// Pseudo-constructor for the Block menu
 /// </summary>
@@ -116,3 +124,8 @@ void drawButton(const Button& m);
 bool updateButton(Button b, double cooldown);
 
 std::string buttonTypeToString(menuButtons type);
+
+
+updatedMenu makeUpdatedMenu(menuButtons u);
+
+void drawUpdatedMenu(const updatedMenu a);

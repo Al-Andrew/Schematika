@@ -2,6 +2,7 @@
 #include "sl.h"
 #include "config.hpp"
 #include "blocks.hpp"
+#include "menu.hpp"
 #include <cstdint>
 #include <cmath>
 #include <iostream>
@@ -128,3 +129,7 @@ std::string typeToString(Type t);
 void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes);
 
 std ::  string openFile();
+
+void deleteBlock(std::vector<Block>& blocks);
+
+void drawControlBar( double x, double y, double width, double height);

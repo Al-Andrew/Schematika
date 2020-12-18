@@ -142,7 +142,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
     std::string fileName;
     std::cout << "Please input a name for the file you want to save." << std::endl;
     std::getline(std::cin,fileName);
-
+    std::cout << "The file is successfully saved"<<std::endl;
     std::ofstream fout(fileName.c_str());
 
     fout << "NODES\n";
@@ -174,6 +174,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 
 std::string openFile()
 {   
+    warn("Please open console for input");
     std::string fileName;
     Begin:
         std::cout << "Please input a name for the file you want to open." << std::endl;
@@ -182,16 +183,46 @@ std::string openFile()
         std::ifstream fin(fileName.c_str());
         if (!(fin.is_open()))
         {
-            std::cout << "EROARE --- Fisierul nu a fost gasit!" << std::endl;
+            std::perror("Error ");
+            std::cout<<std :: endl;
             goto Begin;
         }
+    std::cout << fileName << std::endl;
     while (!fin.eof())
-    {
-    
-         getline(fin, line);
-         std::cout << line;
-       
+    {   
+         getline(fin, line);  
+         std::cout << line << std::endl;
     }
+    line = "da";
+    slText(1205, 30, &line[0]);
     fin.close();
     return line;
+}
+void deleteBlock(std::vector<Block> &blocks)
+{
+    for (unsigned int i = 0; i < blocks.size(); i++)
+    {
+        if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(1030, 30, 50, 50))
+        {
+            blocks.erase(blocks.begin() + i);
+        }
+    }
+}
+void drawControlBar(double x, double y, double width, double height)
+{   
+    Color c;
+    double X = x + width / 2;
+    double Y = y + height / 2;
+    if (isMouseInRect(X - CLOSE_BUTTON_WIDTH/2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
+    {
+        c = BLOCK_DECIZIE_NU_COLOR;
+    }
+    else c = MENU_BACKGROUND_COLOR;
+    drawBorderedRect(c, MENU_BORDER_COLOR, X - CLOSE_BUTTON_WIDTH / 2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
+    setForeColor(MENU_BORDER_COLOR);
+    for (int i = -1; i < 2; i++)
+    {
+        slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - MENU_BORDER_WIDTH, X+i, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH);
+        slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH, X+i, Y);
+    }
 }
