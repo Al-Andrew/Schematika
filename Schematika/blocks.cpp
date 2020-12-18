@@ -16,7 +16,7 @@ Block generateStart()
 	b.floating = false;
 
 	Node* n = new Node;
-	n->host = &b;
+	//n->host = &b;
 	n->x = b.x;
 	n->y = b.y - b.height / 2.f;
 	n->r = NODE_RADIUS;
@@ -40,7 +40,7 @@ Block generateStop()
 
 
 	Node* n = new Node;
-	n->host = &b;
+	//n->host = &b;
 	n->x = b.x;
 	n->y = b.y + b.height / 2.f;
 	n->r = NODE_RADIUS;
@@ -62,7 +62,7 @@ Block generateInput()
 	b.floating = false;
 
 	Node* n = new Node;
-	n->host = &b;
+	//n->host = &b;
 	n->x = b.x;
 	n->y = b.y - b.height / 2;
 	n->r = NODE_RADIUS;
@@ -71,7 +71,7 @@ Block generateInput()
 	b.nodes.push_back(n);
 
 	Node* m = new Node;
-	m->host = &b;
+	//m->host = &b;
 	m->x = b.x;
 	m->y = b.y + b.height / 2;
 	m->r = NODE_RADIUS;
@@ -93,7 +93,7 @@ Block generateOutput()
 	b.floating = false;
 
 	Node* n = new Node;
-	n->host = &b;
+	//n->host = &b;
 	n->x = b.x;
 	n->y = b.y - b.height / 2;
 	n->r = NODE_RADIUS;
@@ -102,7 +102,7 @@ Block generateOutput()
 	b.nodes.push_back(n);
 
 	Node* m = new Node;
-	m->host = &b;
+	//m->host = &b;
 	m->x = b.x;
 	m->y = b.y + b.height / 2;
 	m->r = NODE_RADIUS;
@@ -124,7 +124,7 @@ Block generateCalcul()
 	b.floating = false;
 
 	Node* n = new Node;
-	n->host = &b;
+	//n->host = &b;
 	n->x = b.x;
 	n->y = b.y - b.height / 2.f;
 	n->r = NODE_RADIUS;
@@ -134,7 +134,7 @@ Block generateCalcul()
 	b.nodes.push_back(n);
 
 	Node* m = new Node;
-	m->host = &b;
+	//m->host = &b;
 	m->x = b.x;
 	m->y = b.y + b.height / 2.f;
 	m->r = NODE_RADIUS;
@@ -156,7 +156,7 @@ Block generateDecizie()
 	b.floating = false;
 
 	Node* n = new Node;
-	n->host = &b;
+	//n->host = &b;
 	n->x = b.x - b.width/2.f;
 	n->y = b.y - b.height / 2.f;
 	n->r = NODE_RADIUS;
@@ -165,7 +165,7 @@ Block generateDecizie()
 	b.nodes.push_back(n);
 
 	Node* m = new Node;
-	m->host = &b;
+	//m->host = &b;
 	m->x = b.x + b.width / 2.f;
 	m->y = b.y - b.height / 2.f;
 	m->r = NODE_RADIUS;
@@ -174,7 +174,7 @@ Block generateDecizie()
 	b.nodes.push_back(m);
 
 	Node* l = new Node;
-	l->host = &b;
+	//l->host = &b;
 	l->x = b.x;
 	l->y = b.y + b.height / 2.f;
 	l->r = NODE_RADIUS;
@@ -401,8 +401,10 @@ void updateNode(Node*& n, double& cooldown, clickHandler& handle)
 				handle.set = true;
 			}
 		}
-		else
+		else if(n->host == nullptr)
+		{
 			n->floating = !n->floating;
+		}
 		setCooldown(cooldown);
 	}
 

@@ -13,6 +13,7 @@ int main()
 	unsigned int nodeIdCount = 1;
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
+	blocks.reserve(100);
 	while (!slShouldClose())
 	{
 		drawBlocksMenu(bmenu);
@@ -23,6 +24,7 @@ int main()
 			{
 				n->id = nodeIdCount;
 				nodeIdCount++;
+				n->host = &blocks[blocks.size()-1];
 				nodes.push_back(n);
 			}
 		}
@@ -31,10 +33,10 @@ int main()
 		{
 			switch (u)
 			{
-			case menuButtons::New: blocks.clear(); break;
+			case menuButtons::New: blocks.clear(); nodes.clear(); break;
 			case menuButtons::Save: saveToFile(blocks, nodes); break;
 			case menuButtons::Open: openFile(); break;
-			case menuButtons::Run: break;
+			case menuButtons::Run: interpret(blocks); break;
 			case menuButtons::Code: break;
 			case menuButtons::Help: break;
 			case menuButtons::About: break;
@@ -51,6 +53,7 @@ int main()
 		{
 			updateNode(nd, cooldown, handle);
 		}
+
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes, nodeIdCount);
 		slText(100, 100, std::to_string(1 / slGetDeltaTime()).c_str());

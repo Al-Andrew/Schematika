@@ -41,7 +41,7 @@ struct Node
     double x = 0, y = 0, r = 0;
     bool floating = false;
     Node* next = nullptr;
-    Block* host = nullptr;
+    Block* host;
 };
 
 /// <summary>
