@@ -28,12 +28,13 @@ int main()
 			}
 		}
 		drawMenu(menu);
+		deleteBlock(blocks, nodes);
 		slSprite(slLoadTexture("./Trash.png"), SELECT_TRASH_POSX, SELECT_TRASH_POSY, 40, 40);
 		if (menuButtons u = updateMenu(menu, cooldown); u != menuButtons::NOT_A_BUTTON)
 		{
 			switch (u)
 			{
-				case menuButtons::New: blocks.clear(); break;
+				case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(umenu); break;
 				case menuButtons::Save: saveToFile(blocks, nodes); break;
 				case menuButtons::Open: openFile(); break;
 				case menuButtons::Run: break;
@@ -50,7 +51,6 @@ int main()
 			draw(bl);
 			update(bl, cooldown);
 		}
-		deleteBlock(blocks);
 		for (Node*& nd : nodes)
 		{
 			updateNode(nd, cooldown, handle);
@@ -60,7 +60,7 @@ int main()
 			drawUpdatedMenu(a);
 			if (isRectClicked(a.x+a.width/2-CLOSE_BUTTON_WIDTH/2, a.y+a.height/2 - CLOSE_BUTTON_WIDTH / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
 			{
-				umenu.pop_back();
+				std::vector<updatedMenu>().swap(umenu);
 			}
 		}
 		handleDraw(handle);
