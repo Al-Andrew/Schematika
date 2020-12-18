@@ -180,12 +180,16 @@ std::string openFile()
         std::cout << "Please input a name for the file you want to open." << std::endl;
         std::getline(std::cin, fileName);
         std::string line;
+        char answer;
         std::ifstream fin(fileName.c_str());
         if (!(fin.is_open()))
         {
             std::perror("Error ");
-            std::cout<<std :: endl;
-            goto Begin;
+            std::cout<<"Do you want to try again ? < Y | N > "<<std :: endl;
+            std::cin >> answer;
+            if (answer == 'Y')
+                goto Begin;
+            else exit(1);
         }
     std::cout << fileName << std::endl;
     while (!fin.eof())
@@ -193,8 +197,6 @@ std::string openFile()
          getline(fin, line);  
          std::cout << line << std::endl;
     }
-    line = "da";
-    slText(1205, 30, &line[0]);
     fin.close();
     return line;
 }
