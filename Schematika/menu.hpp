@@ -60,6 +60,7 @@ struct updatedMenu
     menuButtons type = menuButtons::Code;
     double x = 0, y = 0;
     double width = 0, height = 0;
+    bool onTop = false;
 };
 
 /// <summary>
@@ -95,8 +96,8 @@ void drawMenu(const Menu& m);
 /// </summary>
 /// <param name="m">The BLock menu struct</param>
 /// <param name="m">The global cooldown</param>
-/// <author>Andrei</author>
-Type updateBlockMenu(const BlockMenu& m, double& cooldown);
+/// <author>Andrei and Cristi</author>
+Type updateBlockMenu(const BlockMenu& m,const updatedMenu& u, double& cooldown);
 
 /// <summary>
 /// Checks for updates in the menu
@@ -104,7 +105,7 @@ Type updateBlockMenu(const BlockMenu& m, double& cooldown);
 /// <param name="m">The menu struct</param>
 /// <param name="m">The global cooldown</param>
 /// <author>Andrei and Cristi</author>
-menuButtons updateMenu(Menu& m, double& cooldown);
+menuButtons updateMenu(Menu& m, updatedMenu& u, double& cooldown);
 
 /// <summary>
 /// Pseudo-constructor for the  menu
@@ -121,7 +122,7 @@ Button makeButton(double posX, menuButtons type);
 void drawButton(const Button& m);
 
 
-bool updateButton(Button b, double cooldown);
+bool updateButton(Button b, updatedMenu& u, double cooldown);
 
 std::string buttonTypeToString(menuButtons type);
 
