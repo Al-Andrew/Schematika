@@ -187,7 +187,8 @@ std::string openFile()
             std::perror("Error ");
             std::cout<<"Do you want to try again ? < Y | N > "<<std :: endl;
             std::cin >> answer;
-            if (std::tolower(answer) == 'y')
+            answer = std::toupper(answer);
+            if (answer == 'Y')
                 goto Begin;
             else exit(1);
         }
@@ -200,13 +201,16 @@ std::string openFile()
     fin.close();
     return line;
 }
-void deleteBlock(std::vector<Block> &blocks)
+void deleteBlock(std::vector<Block> &blocks, std::vector<Node*> nodes)
 {
     for (unsigned int i = 0; i < blocks.size(); i++)
     {
         if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(1030, 30, 50, 50))
         {
             blocks.erase(blocks.begin() + i);
+            blocks.shrink_to_fit();
+            nodes.erase(nodes.begin() + i);
+            nodes.shrink_to_fit();
         }
     }
 }

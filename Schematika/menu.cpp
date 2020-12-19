@@ -42,13 +42,13 @@ void drawBlocksMenu(const BlockMenu& m)
     }
 }
 
-Type updateBlockMenu(const BlockMenu& m, double& cooldown)
+Type updateBlockMenu(const BlockMenu& m, const updatedMenu& u, double& cooldown)
 {
     double cpy = cooldown;
     for (Block bl : m.displayBlocks)
     {
         update(bl, cooldown);
-        if (cpy != cooldown)
+        if (cpy != cooldown && u.onTop==false)
             return bl.type;
     }
     return Type::NOT_A_BLOCK;
@@ -82,11 +82,11 @@ void drawMenu(const Menu &m)
     }
 }
 
-menuButtons updateMenu(Menu& m, double& cooldown)
+menuButtons updateMenu(Menu& m, updatedMenu& u, double& cooldown)
 {
     for (auto b : m.buttons)
     {
-        if (updateButton(b, cooldown))
+        if (updateButton(b, u, cooldown))
             return b.type;
     }
     return menuButtons::NOT_A_BUTTON;
@@ -116,10 +116,14 @@ void drawButton(const Button& m)
     slText(m.x, m.y-TITLE_UP_SPACE, m.name.c_str());
 }
 
-bool updateButton(Button b, double cooldown)
+bool updateButton(Button b,  updatedMenu& u, double cooldown)
 {
     if (isRectClicked(b.x, b.y, b.width, b.height) and cooldown <= slGetTime())
-    {
+    {   
+        if (b.name == "Code" || b.name == "Help" || b.name == "About")
+        {
+            u.onTop = true;
+        }
         setCooldown(cooldown);
         return true;
     }
@@ -205,18 +209,18 @@ updatedMenu makeUpdatedMenu(menuButtons u)
     }
     return makeHelp();
 }
-void drawUpdatedMenu(const updatedMenu b)
+void drawUpdatedMenu(const updatedMenu a)
 {
-    switch (b.type)
+    switch (a.type)
     {
     case menuButtons::Code:
-        drawCode(b);
+        drawCode(a);
         break;
     case menuButtons::About:
-        drawAbout(b);
+        drawAbout(a);
         break;
     case menuButtons::Help:
-        drawHelp(b);
+        drawHelp(a);
         break;
     default:
         break;

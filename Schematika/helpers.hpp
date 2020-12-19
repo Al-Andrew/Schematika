@@ -130,6 +130,6 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes);
 
 std ::  string openFile();
 
-void deleteBlock(std::vector<Block>& blocks);
+void deleteBlock(std::vector<Block>& blocks, std::vector<Node*> nodes);
 
 void drawControlBar( double x, double y, double width, double height);

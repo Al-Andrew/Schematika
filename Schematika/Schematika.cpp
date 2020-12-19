@@ -6,10 +6,12 @@ int main()
 	setBackColor(BACKGROUND_COLOR);
 	slSetFont(slLoadFont("./res/Fonts/OpenSans-Regular.ttf"), 24);
 	slSetTextAlign(SL_ALIGN_CENTER);
+	int trash = slLoadTexture("./Trash.png");
 	double cooldown = 0;
 	clickHandler handle;
 	BlockMenu bmenu = makeBlockMenu();
 	Menu menu = makeMenu();
+	updatedMenu umenu = makeUpdatedMenu(menuButtons());
 	unsigned int nodeIdCount = 1;
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
@@ -18,7 +20,7 @@ int main()
 	while (!slShouldClose())
 	{	
 		drawBlocksMenu(bmenu);
-		if (Type u = updateBlockMenu(bmenu, cooldown); u != Type::NOT_A_BLOCK)
+		if (Type u = updateBlockMenu(bmenu, umenu, cooldown); u != Type::NOT_A_BLOCK)
 		{
 			blocks.push_back(generate(u));
 			for (Node*& n : blocks.back().nodes)
@@ -30,43 +32,43 @@ int main()
 			}
 		}
 		drawMenu(menu);
-		slSprite(slLoadTexture("./Trash.png"), SELECT_TRASH_POSX, SELECT_TRASH_POSY, 40, 40);
-		if (menuButtons u = updateMenu(menu, cooldown); u != menuButtons::NOT_A_BUTTON)
+		deleteBlock(blocks, nodes);
+		slSprite(trash, SELECT_TRASH_POSX, SELECT_TRASH_POSY, 40, 40);
+		if (menuButtons u = updateMenu(menu,umenu, cooldown); u != menuButtons::NOT_A_BUTTON)
 		{
 			switch (u)
 			{
-			case menuButtons::New: blocks.clear(); nodes.clear(); break;
-			case menuButtons::Save: saveToFile(blocks, nodes); break;
-			case menuButtons::Open: openFile(); break;
-			case menuButtons::Run: interpret(blocks); break;
-			case menuButtons::Code: break;
-			case menuButtons::Help: break;
-			case menuButtons::About: break;
-			case menuButtons::NOT_A_BUTTON:break;
-			default: break;
+				case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(upmenu); break;
+				case menuButtons::Save: saveToFile(blocks, nodes); break;
+				case menuButtons::Open: openFile(); std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); break;
+				case menuButtons::Run: break;
+				case menuButtons::NOT_A_BUTTON: break;
+				default: break;
 			}
 		}
-		if (menuButtons u = updateMenu(menu, cooldown); (u == menuButtons::Code || u == menuButtons::Help || u == menuButtons::About))
+		if (menuButtons u = updateMenu(menu,umenu, cooldown); (u == menuButtons::Code || u == menuButtons::Help || u == menuButtons::About))
 		{
-			umenu.push_back(makeUpdatedMenu(u));
+			upmenu.push_back(makeUpdatedMenu(u));
 		}
 		for (Block& bl : blocks)
 		{
 			draw(bl);
 			update(bl, cooldown);
 		}
-		deleteBlock(blocks);
 		for (Node*& nd : nodes)
 		{
 			updateNode(nd, cooldown, handle);
 		}
-		for (updatedMenu& a : umenu)
+		for (updatedMenu& a : upmenu)
 		{
 			drawUpdatedMenu(a);
 			if (isRectClicked(a.x+a.width/2-CLOSE_BUTTON_WIDTH/2, a.y+a.height/2 - CLOSE_BUTTON_WIDTH / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
 			{
-				umenu.pop_back();
+				std::vector<updatedMenu>().swap(upmenu);
+				umenu.onTop = false;
 			}
+
+
 		}
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes, nodeIdCount);
