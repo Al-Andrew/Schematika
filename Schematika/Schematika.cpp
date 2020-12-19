@@ -6,6 +6,7 @@ int main()
 	setBackColor(BACKGROUND_COLOR);
 	slSetFont(slLoadFont("./res/Fonts/OpenSans-Regular.ttf"), 24);
 	slSetTextAlign(SL_ALIGN_CENTER);
+	int trash = slLoadTexture("./Trash.png");
 	double cooldown = 0;
 	clickHandler handle;
 	BlockMenu bmenu = makeBlockMenu();
@@ -29,7 +30,7 @@ int main()
 		}
 		drawMenu(menu);
 		deleteBlock(blocks, nodes);
-		slSprite(slLoadTexture("./Trash.png"), SELECT_TRASH_POSX, SELECT_TRASH_POSY, 40, 40);
+		slSprite(trash, SELECT_TRASH_POSX, SELECT_TRASH_POSY, 40, 40);
 		if (menuButtons u = updateMenu(menu, cooldown); u != menuButtons::NOT_A_BUTTON)
 		{
 			switch (u)

@@ -205,18 +205,18 @@ updatedMenu makeUpdatedMenu(menuButtons u)
     }
     return makeHelp();
 }
-void drawUpdatedMenu(const updatedMenu b)
+void drawUpdatedMenu(const updatedMenu a)
 {
-    switch (b.type)
+    switch (a.type)
     {
     case menuButtons::Code:
-        drawCode(b);
+        drawCode(a);
         break;
     case menuButtons::About:
-        drawAbout(b);
+        drawAbout(a);
         break;
     case menuButtons::Help:
-        drawHelp(b);
+        drawHelp(a);
         break;
     default:
         break;
