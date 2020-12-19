@@ -187,7 +187,7 @@ std::string openFile()
             std::perror("Error ");
             std::cout<<"Do you want to try again ? < Y | N > "<<std :: endl;
             std::cin >> answer;
-            if (answer == 'Y')
+            if (std::tolower(answer) == 'y')
                 goto Begin;
             else exit(1);
         }
