@@ -54,7 +54,10 @@ struct Menu
     double width = 0, height = 0;
     std::vector<Button> buttons;
 };
-
+/// <summary>
+/// Struct to hold the data for the  menu windows
+/// </summary>
+/// <author>Cristi</author>
 struct updatedMenu
 {   
     menuButtons type = menuButtons::Code;

@@ -128,7 +128,7 @@ std::string typeToString(Type t);
 
 void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes);
 
-std ::  string openFile();
+void openFile(std::vector<Block>& blocks, std::vector<Node*> nodes,unsigned int & nodeIdCount);
 
 void deleteBlock(std::vector<Block>& blocks, std::vector<Node*> nodes);
 

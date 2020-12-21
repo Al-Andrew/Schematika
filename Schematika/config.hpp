@@ -28,6 +28,7 @@
 #define MENU_BACKGROUND_COLOR     Color({ 189, 195, 199, 1.f })
 #define MENU_BORDER_COLOR         Color({ 127, 140, 141, 1.f })
 #define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
+#define MENU_TEXT_COLOR         Color({ 127, 140, 141, 1.f })
 
 ///Menu
 #define MENU_BORDER_WIDTH 5.f
@@ -37,8 +38,8 @@
 #define BLOCK_TITLE_HEIGHT SELECT_MENU_HEIGHT/2.f
 #define TITLE_UP_SPACE 5.f
 #define SELECT_MENU_HEIGHT 35 
-#define SELECT_TRASH_POSX 1040.f
-#define SELECT_TRASH_POSY 30.f
+#define SELECT_TRASH_WIDTH 40.f
+#define SELECT_TRASH_HEIGHT 40.f
 #define CLOSE_BUTTON_WIDTH 50.f
 #define HELP_WIDTH 460.f
 #define HELP_HEIGHT 720.f
@@ -69,3 +70,4 @@
 ///Text
 #define TEXT_MENU_SIZE 16
 #define TEXT_BLOCK_SIZE 20
+#define TEXT_SUBMENU_SIZE 20

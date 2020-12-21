@@ -113,6 +113,7 @@ void drawButton(const Button& m)
         background = MENU_BACKGROUND_COLOR;
     drawBorderedRect(background,MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
     slSetFontSize(TEXT_MENU_SIZE);
+    setForeColor(MENU_TEXT_COLOR);
     slText(m.x, m.y-TITLE_UP_SPACE, m.name.c_str());
 }
 
@@ -161,6 +162,8 @@ void drawCode(const updatedMenu& a)
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height,MENU_BORDER_WIDTH);
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT/2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
     drawControlBar( a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slSetFontSize(TEXT_MENU_SIZE);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Code - Visual Studio");
 }
 updatedMenu makeHelp()
@@ -178,13 +181,16 @@ void drawHelp(const updatedMenu& a)
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height, MENU_BORDER_WIDTH);
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
     drawControlBar(a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slSetFontSize(TEXT_MENU_SIZE);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Help");
+
 }
 updatedMenu makeAbout()
 {
     updatedMenu a;
     a.type=menuButtons::About;
-    a.x = static_cast<double>(WINDOW_WIDTH) - HELP_WIDTH / 2;
+    a.x = static_cast<double>(WINDOW_WIDTH) - ABOUT_WIDTH / 2;
     a.y = WINDOW_HEIGHT / 2.f;
     a.width = ABOUT_WIDTH;
     a.height = ABOUT_HEIGHT;
@@ -195,7 +201,19 @@ void drawAbout(const updatedMenu &a)
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height, MENU_BORDER_WIDTH);
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT)- SELECT_MENU_HEIGHT / 2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
     drawControlBar(a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slSetFontSize(TEXT_MENU_SIZE);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "About");
+    slSetFontSize(35);
+    slText(a.x, a.y + a.height / 3, "Schematika");
+    slSetFontSize(TEXT_SUBMENU_SIZE);
+    slText(a.x, a.y - 130, "Schematika 2021");
+    slText(a.x, a.y - 160, "Version 1.0");
+    slCircleOutline(a.x - 100, a.y - 185, 10, 20);
+    slText(a.x -100, a.y -190 , "c");
+    slText(a.x, a.y -190,"2021 Aldea Andrei");
+    slText(a.x,a.y-220,"Lapteacru Cristian");
+
 }
 
 updatedMenu makeUpdatedMenu(menuButtons u)

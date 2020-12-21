@@ -373,7 +373,7 @@ void update(Block& b, double& cooldown)
 			b.text = expression;
 			b.floating = false;
 			if(b.width < slGetTextWidth(expression.c_str()))
-				b.width = slGetTextWidth(expression.c_str());
+				b.width = slGetTextWidth(expression.c_str()) + 10;
 
 			setCooldown(cooldown);
 		}

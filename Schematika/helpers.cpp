@@ -145,7 +145,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
     std::cout << "The file is successfully saved"<<std::endl;
     std::ofstream fout(fileName.c_str());
 
-    fout << "NODES\n";
+    fout << "NODES\n ";
     for (auto nd : nodes)
     {
         fout << nd->id << " "  << nd->x << " "  << nd->y;
@@ -159,7 +159,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
         }
         fout << "\n";
     }
-    fout << "BLOCKS\n";
+    fout << "BLOCKS\n ";
     for (auto bl : blocks)
     {
         fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " " << bl.width << " " << bl.height << " |" << bl.text << "| ";
@@ -172,14 +172,16 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 
 }
 
-std::string openFile()
+void openFile(std::vector<Block>& blocks, std::vector<Node*> nodes, unsigned int& nodeIdCount)
 {   
     warn("Please open console for input");
     std::string fileName;
+    std::string part;
+    unsigned int i;
+    std::vector<std::string> parts;
     Begin:
         std::cout << "Please input a name for the file you want to open." << std::endl;
         std::getline(std::cin, fileName);
-        std::string line;
         char answer;
         std::ifstream fin(fileName.c_str());
         if (!(fin.is_open()))
@@ -195,11 +197,42 @@ std::string openFile()
     std::cout << fileName << std::endl;
     while (!fin.eof())
     {   
-         getline(fin, line);  
-         std::cout << line << std::endl;
+         std::getline(fin, part, ' ');  
+         parts.push_back(part);
+         std::cout << part << std::endl;
     }
+    for ( i = 1; i < parts.size() && parts[i] != "BLOCKS"; i += 4)
+    {
+            for (auto& n : nodes)
+            {
+                n->id = stoi(parts[i]);
+                std::cout << n->id;
+                n->x = stod(parts[i + 1]);
+                n->y = stod(parts[i + 2]);
+                n->r = NODE_RADIUS;
+                n->floating = false;
+                n->next->id = stod(parts[i + 3]);
+                nodes.push_back(n);
+                nodeIdCount = n->id;
+            }
+    }
+    i++;
+    for (i; i < parts.size(); i += 6)
+    {
+        for (auto& bl : blocks)
+        {
+            bl.type = Type::START;
+            bl.x = stod(parts[i + 1]);
+            bl.y = stod(parts[i + 2]);
+            bl.width = stod(parts[i + 3]);
+            bl.height = stod(parts[i + 4]);
+            bl.text = parts[i + 5];
+            bl.floating = false;
+            blocks.push_back(bl);
+        }
+    }
+    std::vector<std::string>().swap(parts);
     fin.close();
-    return line;
 }
 void deleteBlock(std::vector<Block> &blocks, std::vector<Node*> nodes)
 {
@@ -222,6 +255,9 @@ void drawControlBar(double x, double y, double width, double height)
     if (isMouseInRect(X - CLOSE_BUTTON_WIDTH/2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
     {
         c = BLOCK_DECIZIE_NU_COLOR;
+        slSetFontSize(TEXT_MENU_SIZE);
+        setForeColor(MENU_TEXT_COLOR);
+        slText(X - CLOSE_BUTTON_WIDTH / 2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT - TITLE_UP_SPACE - MENU_BORDER_WIDTH - MENU_BORDER_WIDTH, "Close");
     }
     else c = MENU_BACKGROUND_COLOR;
     drawBorderedRect(c, MENU_BORDER_COLOR, X - CLOSE_BUTTON_WIDTH / 2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
