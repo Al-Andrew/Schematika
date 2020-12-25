@@ -125,11 +125,32 @@ Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes);
 void warn(std::string message);
 std::string typeToString(Type t);
 
-
+/// <summary>
+/// Saves the project into a file
+/// </summary>
+/// <author>Andrei</author>
 void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes);
 
+/// <summary>
+/// Opens the project from a saved file
+/// </summary>
+/// <author>Cristi and Andrei</author>
 void openFile(std::vector<Block>& blocks, std::vector<Node*> nodes,unsigned int & nodeIdCount);
 
+/// <summary>
+/// Deletes a block and its nodes
+/// </summary>
+/// <author>Cristi</author>
 void deleteBlock(std::vector<Block>& blocks, std::vector<Node*> nodes);
 
-void drawControlBar( double x, double y, double width, double height);
+/// <summary>
+/// Draws the  background of the window of the menu
+/// </summary>
+/// <author>Cristi</author>
+void drawWindow( double x, double y, double width, double height);
+
+/// <summary>
+/// Draws the  background of the window of the submenu
+/// </summary>
+/// <author>Cristi</author>
+void drawSubMenuWindow(double x, double y, double width, double height);

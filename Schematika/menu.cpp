@@ -151,19 +151,18 @@ updatedMenu makeCode()
 {
     updatedMenu a;
     a.type = menuButtons::Code;
-    a.x = 1050;
-    a.y = 360;
-    a.width = 460;
-    a.height = 720;
+    a.x = static_cast<double>(WINDOW_WIDTH) - CODE_WIDTH / 2;
+    a.y = WINDOW_HEIGHT / 2.f;
+    a.width = CODE_WIDTH;
+    a.height = CODE_HEIGHT;
     return a;
 }
 void drawCode(const updatedMenu& a)
 {
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height,MENU_BORDER_WIDTH);
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT/2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
-    drawControlBar( a.x, a.y, a.width, a.height);
+    drawWindow( a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
     slSetFontSize(TEXT_MENU_SIZE);
+    slSetTextAlign(SL_ALIGN_CENTER);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Code - Visual Studio");
 }
 updatedMenu makeHelp()
@@ -174,16 +173,25 @@ updatedMenu makeHelp()
     a.y = WINDOW_HEIGHT/2.f;
     a.width = HELP_WIDTH;
     a.height = HELP_HEIGHT;
+    double posY = SELECT_QUESTION_SPACER/4;
+    for (auto& u : allQuestions )
+    {
+        a.questions.push_back(makeQuestion(posY, u));
+        posY += SELECT_QUESTION_SPACER;
+    }
     return a;
 }
 void drawHelp(const updatedMenu& a)
 {
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height, MENU_BORDER_WIDTH);
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
-    drawControlBar(a.x, a.y, a.width, a.height);
+    drawWindow(a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
     slSetFontSize(TEXT_MENU_SIZE);
+    slSetTextAlign(SL_ALIGN_CENTER);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Help");
+    for (auto& u : a.questions)
+    {
+        drawQuestion(u);
+    }
 
 }
 updatedMenu makeAbout()
@@ -198,22 +206,20 @@ updatedMenu makeAbout()
 }
 void drawAbout(const updatedMenu &a)
 {
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, a.y, a.width, a.height, MENU_BORDER_WIDTH);
-    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, a.x, static_cast<double>(WINDOW_HEIGHT)- SELECT_MENU_HEIGHT / 2, a.width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
-    drawControlBar(a.x, a.y, a.width, a.height);
+    drawWindow(a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
     slSetFontSize(TEXT_MENU_SIZE);
+    slSetTextAlign(SL_ALIGN_CENTER);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "About");
     slSetFontSize(35);
     slText(a.x, a.y + a.height / 3, "Schematika");
     slSetFontSize(TEXT_SUBMENU_SIZE);
     slText(a.x, a.y - 130, "Schematika 2021");
-    slText(a.x, a.y - 160, "Version 1.0");
+    slText(a.x, a.y - 160, "Version 0.6969 (ClosedBeta)");
     slCircleOutline(a.x - 100, a.y - 185, 10, 20);
     slText(a.x -100, a.y -190 , "c");
     slText(a.x, a.y -190,"2021 Aldea Andrei");
     slText(a.x,a.y-220,"Lapteacru Cristian");
-
 }
 
 updatedMenu makeUpdatedMenu(menuButtons u)
@@ -243,4 +249,123 @@ void drawUpdatedMenu(const updatedMenu a)
     default:
         break;
     }
+}
+std::string questionTypeToString(helpQuestion u)
+{
+    switch (u)
+    {
+    case helpQuestion::Q1: return "1. How to spawn and move a block ?";
+    case helpQuestion::Q2: return "2. How to connect the blocks ?";
+    case helpQuestion::Q3: return "3. How to delete a block or to start a new project?";
+    case helpQuestion::Q4: return "4. How to save and open your project ?";
+    case helpQuestion::Q5: return "5. How to run and view the code of your project ?";
+    default: return "Err";
+    }
+    return "Err";
+}
+
+Question makeQuestion(double posY, helpQuestion type)
+{
+    Question b;
+    b.name = questionTypeToString(type);
+    b.type = type;
+    b.width = slGetTextWidth(b.name.c_str());
+    b.height = slGetTextHeight(b.name.c_str());
+    b.x = static_cast<double>(WINDOW_WIDTH) - HELP_WIDTH + 2.0* MENU_BORDER_WIDTH;
+    b.y = HELP_HEIGHT - SELECT_MENU_HEIGHT* 2.0 - posY;
+    return b;
+}
+
+void drawQuestion(const Question m)
+{
+    Color text;
+    if (isMouseInRect(m.x + m.width/1.5, m.y, m.width + m.width/4, m.height))
+        text = MENU_TEXT_HOVER_COLOR;
+    else
+        text = MENU_TEXT_COLOR;
+    slSetFontSize(TEXT_SUBMENU_SIZE);
+    setForeColor(text);
+    slSetTextAlign(SL_ALIGN_LEFT);
+    slText(m.x, m.y, m.name.c_str());
+}
+updatedSubMenu makeQuestion(helpQuestion u)
+{
+    updatedSubMenu a;
+    a.type = u;
+    a.x = static_cast<double>(WINDOW_WIDTH) - HELP_WIDTH / 2;
+    a.height = HELP_HEIGHT / 1.0 - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH;
+    a.y = a.height/2.0;
+    a.width = HELP_WIDTH;
+    return a;
+}
+
+void drawQ1(const updatedSubMenu &a)
+{
+    drawSubMenuWindow(a.x,a.y,a.width,a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slText(a.x - a.width/2 + BACK_BUTTON_WIDTH + 10, a.y + a.height/2 - SELECT_MENU_HEIGHT/1.5, "How to spawn and move a block ?");
+}
+
+void drawQ2(const updatedSubMenu& a)
+{
+    drawSubMenuWindow(a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to connect the blocks ?");
+}
+void drawQ3(const updatedSubMenu& a)
+{
+    drawSubMenuWindow(a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to delete a block or how to start a new project ?");
+
+}
+
+void drawQ4(const updatedSubMenu& a)
+{
+    drawSubMenuWindow(a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to save and open your project ?");
+
+}
+
+void drawQ5(const updatedSubMenu& a)
+{   
+    drawSubMenuWindow(a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to run and view the code of your project ?");
+
+}
+
+void drawUpdatedSubMenu(const updatedSubMenu a)
+{   
+    slSetFontSize(TEXT_MENU_SIZE);
+    slSetTextAlign(SL_ALIGN_LEFT);
+    switch (a.type)
+    {
+    case helpQuestion::Q1: return drawQ1(a); 
+    case helpQuestion::Q2: return drawQ2(a);
+    case helpQuestion::Q3: return drawQ3(a);
+    case helpQuestion::Q4: return drawQ4(a);
+    case helpQuestion::Q5: return drawQ5(a);
+    default: break;
+    }
+}
+bool updateQuestion(Question b, updatedSubMenu u, double cooldown)
+{
+    if (isRectClicked(b.x + b.width / 1.5, b.y, b.width + b.width / 4, b.height) and cooldown <= slGetTime())
+    {
+        setCooldown(cooldown);
+        return true;
+    }
+    return false;
+}
+
+helpQuestion updateSubMenu(updatedMenu& m, const updatedSubMenu u, double& cooldown, bool onTop)
+{
+    for (auto b : m.questions)
+    {
+        if (updateQuestion(b, u, cooldown)&& m.onTop == true && onTop == false)
+            return b.type;
+    }
+    return helpQuestion::NOT_A_QUESTION;
 }

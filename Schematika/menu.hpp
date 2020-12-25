@@ -5,7 +5,6 @@
 #include "blocks.hpp"
 #include <array>
 
-
 enum class menuButtons
 {
     New,
@@ -17,6 +16,18 @@ enum class menuButtons
     About,
     NOT_A_BUTTON
 };
+
+enum class helpQuestion
+{
+    Q1,
+    Q2,
+    Q3,
+    Q4,
+    Q5,
+    NOT_A_QUESTION
+};
+
+const std::vector<helpQuestion> allQuestions = { helpQuestion::Q1, helpQuestion::Q2, helpQuestion::Q3, helpQuestion::Q4, helpQuestion::Q5 };
 
 const std::vector<menuButtons> allMenuButtons = { menuButtons::New, menuButtons::Save, menuButtons::Open, menuButtons::Run,menuButtons::Code,menuButtons::Help,menuButtons::About };
 
@@ -44,6 +55,14 @@ struct Button
     double x = 0, y = 0;
 };
 
+struct Question
+{
+    std::string name;
+    helpQuestion type = helpQuestion::Q1;
+    double width = 0, height = 0;
+    double x = 0, y = 0;
+};
+
 /// <summary>
 /// Struct to hold the data for the  menu
 /// </summary>
@@ -54,6 +73,7 @@ struct Menu
     double width = 0, height = 0;
     std::vector<Button> buttons;
 };
+
 /// <summary>
 /// Struct to hold the data for the  menu windows
 /// </summary>
@@ -64,6 +84,18 @@ struct updatedMenu
     double x = 0, y = 0;
     double width = 0, height = 0;
     bool onTop = false;
+    std::vector<Question> questions;
+};
+
+/// <summary>
+/// Struct to hold the data for the  submenu windows
+/// </summary>
+/// <author>Cristi</author>
+struct updatedSubMenu
+{
+    helpQuestion type = helpQuestion::Q1;
+    double x = 0, y = 0;
+    double width = 0, height = 0;
 };
 
 /// <summary>
@@ -124,12 +156,57 @@ Button makeButton(double posX, menuButtons type);
 /// <author>Cristi</author>
 void drawButton(const Button& m);
 
-
+/// <summary>
+/// Updates the button (makes a function on right click)
+/// </summary>
+/// <author>Cristi and Andrei</author>
 bool updateButton(Button b, updatedMenu& u, double cooldown);
 
+/// <summary>
+/// Transforms the type of buttons into a string 
+/// </summary>
+/// <author>Andrei</author>
 std::string buttonTypeToString(menuButtons type);
 
-
+/// <summary>
+/// Pseudo-constructor for the  windows of the menu
+/// </summary>
+/// <author>Cristi</author>
 updatedMenu makeUpdatedMenu(menuButtons u);
 
+/// <summary>
+/// Draws the  windows of the menu
+/// </summary>
+/// <author>Cristi</author>
 void drawUpdatedMenu(const updatedMenu a);
+
+/// <summary>
+/// Pseudo-constructor for the questions from Help
+/// </summary>
+/// <author>Cristi</author>
+Question makeQuestion(double posY, helpQuestion type);
+
+/// <summary>
+/// Draws the questions from Help
+/// </summary>
+/// <author>Cristi</author>
+void drawQuestion(const Question m);
+
+/// <summary>
+/// Pseudo-constructor for the  windows of the submenu
+/// </summary>
+/// <author>Cristi</author>
+updatedSubMenu makeQuestion(helpQuestion u);
+
+/// <summary>
+/// Draws the  windows of the submenu
+/// </summary>
+/// <author>Cristi</author>
+void drawUpdatedSubMenu(const updatedSubMenu a);
+
+/// <summary>
+/// Checks for updates in the menu
+/// </summary>
+/// <author>Cristi</author>
+helpQuestion updateSubMenu(updatedMenu& m, const updatedSubMenu u, double& cooldown,bool onTop);
+

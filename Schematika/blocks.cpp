@@ -319,6 +319,7 @@ Block generate(Type t)
 void draw(const Block& b)
 {
 	slSetFontSize(TEXT_BLOCK_SIZE);
+	slSetTextAlign(SL_ALIGN_CENTER);
 	switch (b.type)
 	{
 	case Type::START:
