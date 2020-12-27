@@ -6,7 +6,9 @@ int main()
 	setBackColor(BACKGROUND_COLOR);
 	slSetFont(slLoadFont("./res/Fonts/OpenSans-Regular.ttf"), 24);
 	slSetTextAlign(SL_ALIGN_CENTER);
-	int trash = slLoadTexture("./Trash.png");
+	int trash = slLoadTexture("./Images/Trash.png");
+	int Q1 = slLoadTexture("./Images/Q1.png");
+	int q1 = slLoadTexture("./Images/Q1.1.png");
 	double cooldown = 0;
 	bool onTop = false;
 	clickHandler handle;
@@ -39,9 +41,9 @@ int main()
 		{
 			switch (u)
 			{
-				case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(upmenu); nodeIdCount = 1; break;
-				case menuButtons::Save: saveToFile(blocks, nodes); break;
-				case menuButtons::Open: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); openFile(blocks,nodes, nodeIdCount); break;
+				case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(upmenu); std::vector<updatedSubMenu>().swap(upsmenu); nodeIdCount = 1; onTop = false; break;
+				case menuButtons::Save: saveToFile(blocks, nodes); std::vector<updatedMenu>().swap(upmenu); std::vector<updatedSubMenu>().swap(upsmenu);onTop = false; break;
+				case menuButtons::Open: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(upmenu); std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; openFile(blocks,nodes, nodeIdCount); break;
 				case menuButtons::Run: break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
@@ -51,7 +53,14 @@ int main()
 		if (menuButtons u = updateMenu(menu,umenu, cooldown); (u == menuButtons::Code || u == menuButtons::Help || u == menuButtons::About))
 		{
 			if (upmenu.size() > 2)
+			{
+				if (umenu.type == menuButtons::Help)
+				{
+					std::vector<updatedSubMenu>().swap(upsmenu);
+					onTop = false;
+				}
 				std::vector<updatedMenu>().swap(upmenu);
+			}
 			upmenu.push_back(makeUpdatedMenu(u));
 		}
 
@@ -78,11 +87,22 @@ int main()
 				std::vector<updatedMenu>().swap(upmenu);
 				std::vector<updatedSubMenu>().swap(upsmenu);
 				umenu.onTop = false;
+				if(onTop)
+					onTop = false;
 			}
 		}
 		for (updatedSubMenu& a : upsmenu)
 		{
 			drawUpdatedSubMenu(a);
+			switch(a.type)
+			{
+			case helpQuestion::Q1: slSprite(Q1,a.x - a.width / 3.1,a.y + a.width/3,120,260); slSprite(q1, a.x , 100, 420, 150); break;
+				case helpQuestion::Q2: break;
+				case helpQuestion::Q3: break;
+				case helpQuestion::Q4: break;
+				case helpQuestion::Q5: break;
+				default: break;
+			}
 			if (isRectClicked(830, 672.5, 50, 35))
 			{
 				std::vector<updatedSubMenu>().swap(upsmenu);

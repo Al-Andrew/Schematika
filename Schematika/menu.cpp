@@ -188,10 +188,15 @@ void drawHelp(const updatedMenu& a)
     slSetFontSize(TEXT_MENU_SIZE);
     slSetTextAlign(SL_ALIGN_CENTER);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Help");
+    slSetFontSize(TEXT_SUBMENU_SIZE);
+    slText(a.x, a.y + a.height / 2 - SELECT_MENU_HEIGHT - SELECT_MENU_HEIGHT, "Frequently Asked Questions (FAQ): ");
     for (auto& u : a.questions)
     {
         drawQuestion(u);
     }
+    slSetTextAlign(SL_ALIGN_CENTER);
+    setForeColor(MENU_TEXT_COLOR);
+    slText(a.x, a.questions.back().y - SELECT_MENU_HEIGHT -MENU_BORDER_WIDTH, "Tips and Tricks:");
 
 }
 updatedMenu makeAbout()
@@ -251,7 +256,7 @@ void drawUpdatedMenu(const updatedMenu a)
     }
 }
 std::string questionTypeToString(helpQuestion u)
-{
+{   
     switch (u)
     {
     case helpQuestion::Q1: return "1. How to spawn and move a block ?";
@@ -272,7 +277,7 @@ Question makeQuestion(double posY, helpQuestion type)
     b.width = slGetTextWidth(b.name.c_str());
     b.height = slGetTextHeight(b.name.c_str());
     b.x = static_cast<double>(WINDOW_WIDTH) - HELP_WIDTH + 2.0* MENU_BORDER_WIDTH;
-    b.y = HELP_HEIGHT - SELECT_MENU_HEIGHT* 2.0 - posY;
+    b.y = HELP_HEIGHT - SELECT_MENU_HEIGHT* 3.0 - posY;
     return b;
 }
 
@@ -303,7 +308,17 @@ void drawQ1(const updatedSubMenu &a)
 {
     drawSubMenuWindow(a.x,a.y,a.width,a.height);
     setForeColor(MENU_TEXT_COLOR);
+    double y = a.y + a.height / 3;
     slText(a.x - a.width/2 + BACK_BUTTON_WIDTH + 10, a.y + a.height/2 - SELECT_MENU_HEIGHT/1.5, "How to spawn and move a block ?");
+    slText(a.x - a.width/6, y, "1.   In order to spawn a block, it is ");
+    slText(a.x - a.width / 6, y - SELECT_SUBMENU_TEXT_SPACER, "necessary to right click on the wanted ");
+    slText(a.x - a.width / 6, y - SELECT_SUBMENU_TEXT_SPACER * 2.0, "block from the block-menu, that is ");
+    slText(a.x - a.width / 6, y - SELECT_SUBMENU_TEXT_SPACER * 3.0, "located on the right side of the window.");
+    slText(a.x - a.width / 6, y - SELECT_SUBMENU_TEXT_SPACER * 4.0, "( like in the image number 1 )");
+    slText(a.x - a.width / 2.3, y - SELECT_SUBMENU_TEXT_SPACER * 7.0, "2.  In order to move a spawned block, it is necessary to ");
+    slText(a.x - a.width / 2.3, y - SELECT_SUBMENU_TEXT_SPACER * 8.0, "right click on the block, and now the block will follow ");
+    slText(a.x - a.width / 2.3, y - SELECT_SUBMENU_TEXT_SPACER * 9.0, "mouse. If you want to paste the block, you just have to ");
+    slText(a.x - a.width / 2.3, y - SELECT_SUBMENU_TEXT_SPACER * 10.0, "right click. ( like in the image number 2 )");
 }
 
 void drawQ2(const updatedSubMenu& a)
@@ -335,14 +350,14 @@ void drawQ5(const updatedSubMenu& a)
     slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to run and view the code of your project ?");
 
 }
-
 void drawUpdatedSubMenu(const updatedSubMenu a)
 {   
     slSetFontSize(TEXT_MENU_SIZE);
     slSetTextAlign(SL_ALIGN_LEFT);
+    setForeColor(MENU_TEXT_COLOR);
     switch (a.type)
     {
-    case helpQuestion::Q1: return drawQ1(a); 
+    case helpQuestion::Q1: return drawQ1(a);
     case helpQuestion::Q2: return drawQ2(a);
     case helpQuestion::Q3: return drawQ3(a);
     case helpQuestion::Q4: return drawQ4(a);

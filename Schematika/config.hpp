@@ -33,6 +33,7 @@
 
 #define BACK_HOVER_COLOR		  Color({ 127, 140, 141, 1.f })
 #define BACK_COLOR				  Color({ 189, 195, 199, 1.f })	
+
 ///Menu
 #define MENU_BORDER_WIDTH			5.f
 #define SELECT_BLOCK_MENU_SPACER	75.f
@@ -40,6 +41,7 @@
 #define SELECT_BLOCK_MENU_HEIGHT	WINDOW_HEIGHT
 #define BLOCK_TITLE_HEIGHT			SELECT_MENU_HEIGHT/2.f
 #define SELECT_QUESTION_SPACER		40.f
+#define SELECT_SUBMENU_TEXT_SPACER	35.f
 #define TITLE_UP_SPACE				5.f
 #define SELECT_MENU_HEIGHT			35.f 
 #define SELECT_TRASH_WIDTH			40.f
