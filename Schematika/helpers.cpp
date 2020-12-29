@@ -1,4 +1,5 @@
 #include "helpers.hpp"
+#include <sstream>
 #include "sl.h"
 
 void setBackColor(const Color& c)
@@ -172,35 +173,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 
 }
 
-std::string openFile()
-{   
-    warn("Please open console for input");
-    std::string fileName;
-    Begin:
-        std::cout << "Please input a name for the file you want to open." << std::endl;
-        std::getline(std::cin, fileName);
-        std::string line;
-        char answer;
-        std::ifstream fin(fileName.c_str());
-        if (!(fin.is_open()))
-        {
-            std::perror("Error ");
-            std::cout<<"Do you want to try again ? < Y | N > "<<std :: endl;
-            std::cin >> answer;
-            answer = std::toupper(answer);
-            if (answer == 'Y')
-                goto Begin;
-            else exit(1);
-        }
-    std::cout << fileName << std::endl;
-    while (!fin.eof())
-    {   
-         getline(fin, line);  
-         std::cout << line << std::endl;
-    }
-    fin.close();
-    return line;
-}
+
 void deleteBlock(std::vector<Block> &blocks, std::vector<Node*> nodes)
 {
     for (unsigned int i = 0; i < blocks.size(); i++)
@@ -231,4 +204,16 @@ void drawControlBar(double x, double y, double width, double height)
         slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - MENU_BORDER_WIDTH, X+i, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH);
         slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH, X+i, Y);
     }
+}
+
+std::vector<std::string> split(const std::string& s, char delimiter)
+{
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(s);
+    while (std::getline(tokenStream, token, delimiter))
+    {
+        tokens.push_back(token);
+    }
+    return tokens;
 }

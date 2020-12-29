@@ -128,8 +128,10 @@ std::string typeToString(Type t);
 
 void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes);
 
-std ::  string openFile();
+void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes);
 
 void deleteBlock(std::vector<Block>& blocks, std::vector<Node*> nodes);
 
 void drawControlBar( double x, double y, double width, double height);
+
+std::vector<std::string> split(const std::string& s, char delimiter);

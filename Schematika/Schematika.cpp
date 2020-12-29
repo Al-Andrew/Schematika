@@ -15,7 +15,7 @@ int main()
 	unsigned int nodeIdCount = 1;
 	std::vector<Block> blocks;
 	std::vector<Node*> nodes;
-	std::vector<updatedMenu> umenu;
+	std::vector<updatedMenu> upmenu;
 	blocks.reserve(100);
 	while (!slShouldClose())
 	{	
@@ -40,7 +40,7 @@ int main()
 			{
 				case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(upmenu); break;
 				case menuButtons::Save: saveToFile(blocks, nodes); break;
-				case menuButtons::Open: openFile(); std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); break;
+				case menuButtons::Open: break;
 				case menuButtons::Run: break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
