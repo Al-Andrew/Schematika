@@ -145,7 +145,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
     std::cout << "The file is successfully saved"<<std::endl;
     std::ofstream fout(fileName.c_str());
 
-    fout << "NODES\n";
+    fout << "NODES\n ";
     for (auto nd : nodes)
     {
         fout << nd->id << " "  << nd->x << " "  << nd->y;
@@ -159,7 +159,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
         }
         fout << "\n";
     }
-    fout << "BLOCKS\n";
+    fout << "BLOCKS\n ";
     for (auto bl : blocks)
     {
         fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " " << bl.width << " " << bl.height << " |" << bl.text << "| ";
@@ -172,14 +172,16 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 
 }
 
-std::string openFile()
+void openFile(std::vector<Block>& blocks, std::vector<Node*> nodes, unsigned int& nodeIdCount)
 {   
     warn("Please open console for input");
     std::string fileName;
+    std::string part;
+    unsigned int i;
+    std::vector<std::string> parts;
     Begin:
         std::cout << "Please input a name for the file you want to open." << std::endl;
         std::getline(std::cin, fileName);
-        std::string line;
         char answer;
         std::ifstream fin(fileName.c_str());
         if (!(fin.is_open()))
@@ -195,11 +197,42 @@ std::string openFile()
     std::cout << fileName << std::endl;
     while (!fin.eof())
     {   
-         getline(fin, line);  
-         std::cout << line << std::endl;
+         std::getline(fin, part, ' ');  
+         parts.push_back(part);
+         std::cout << part << std::endl;
     }
+    for ( i = 1; i < parts.size() && parts[i] != "BLOCKS"; i += 4)
+    {
+            for (auto& n : nodes)
+            {
+                n->id = stoi(parts[i]);
+                std::cout << n->id;
+                n->x = stod(parts[i + 1]);
+                n->y = stod(parts[i + 2]);
+                n->r = NODE_RADIUS;
+                n->floating = false;
+                n->next->id = stoi(parts[i + 3]);
+                nodes.push_back(n);
+                nodeIdCount = n->id;
+            }
+    }
+    i++;
+    for (i; i < parts.size(); i += 6)
+    {
+        for (auto& bl : blocks)
+        {
+            bl.type = Type::START;
+            bl.x = stod(parts[i + 1]);
+            bl.y = stod(parts[i + 2]);
+            bl.width = stod(parts[i + 3]);
+            bl.height = stod(parts[i + 4]);
+            bl.text = parts[i + 5];
+            bl.floating = false;
+            blocks.push_back(bl);
+        }
+    }
+    std::vector<std::string>().swap(parts);
     fin.close();
-    return line;
 }
 void deleteBlock(std::vector<Block> &blocks, std::vector<Node*> nodes)
 {
@@ -214,16 +247,22 @@ void deleteBlock(std::vector<Block> &blocks, std::vector<Node*> nodes)
         }
     }
 }
-void drawControlBar(double x, double y, double width, double height)
+void drawWindow(double x, double y, double width, double height)
 {   
     Color c;
     double X = x + width / 2;
     double Y = y + height / 2;
-    if (isMouseInRect(X - CLOSE_BUTTON_WIDTH/2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, x, y, width, height, MENU_BORDER_WIDTH);
+    if (isMouseInRect(X - CLOSE_BUTTON_WIDTH / 2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
     {
         c = BLOCK_DECIZIE_NU_COLOR;
+        slSetFontSize(TEXT_MENU_SIZE);
+        setForeColor(MENU_TEXT_COLOR);
+        slSetTextAlign(SL_ALIGN_CENTER);
+        slText(X - CLOSE_BUTTON_WIDTH / 2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT - TITLE_UP_SPACE - MENU_BORDER_WIDTH - MENU_BORDER_WIDTH, "Close");
     }
     else c = MENU_BACKGROUND_COLOR;
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, x, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
     drawBorderedRect(c, MENU_BORDER_COLOR, X - CLOSE_BUTTON_WIDTH / 2, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
     setForeColor(MENU_BORDER_COLOR);
     for (int i = -1; i < 2; i++)
@@ -231,4 +270,34 @@ void drawControlBar(double x, double y, double width, double height)
         slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - MENU_BORDER_WIDTH, X+i, static_cast<double>(WINDOW_HEIGHT) - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH);
         slLine(X - CLOSE_BUTTON_WIDTH + MENU_BORDER_WIDTH+i, Y - SELECT_MENU_HEIGHT + MENU_BORDER_WIDTH, X+i, Y);
     }
+}
+void drawSubMenuWindow(double x, double y, double width, double height)
+{
+    Color c, arrow;
+    double X = x - width / 2;
+    double Y = y + height / 2;
+    if (isMouseInRect(X + BACK_BUTTON_WIDTH / 2, Y - SELECT_MENU_HEIGHT / 2, BACK_BUTTON_WIDTH, SELECT_MENU_HEIGHT))
+    {
+        c = BACK_HOVER_COLOR;
+        arrow = MENU_BACKGROUND_COLOR;
+    }
+    else
+    {
+        c = MENU_BACKGROUND_COLOR;
+        arrow = BACK_HOVER_COLOR;
+    }
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, x, y, width, height, MENU_BORDER_WIDTH);
+    drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, x, Y - SELECT_MENU_HEIGHT / 2, width, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
+    drawBorderedRect(c, MENU_BORDER_COLOR, X + BACK_BUTTON_WIDTH / 2,Y - SELECT_MENU_HEIGHT/2, BACK_BUTTON_WIDTH, SELECT_MENU_HEIGHT, MENU_BORDER_WIDTH);
+    setForeColor(arrow);
+    for (int i = -1; i < 2; i++)
+    {
+        slLine(X + BACK_BUTTON_WIDTH / 4, Y - SELECT_MENU_HEIGHT/2 + i, X + BACK_BUTTON_WIDTH / 4.0 * 3, Y - SELECT_MENU_HEIGHT/2 + i);
+   
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        slLine(X + BACK_BUTTON_WIDTH / 4.7 + i, Y - SELECT_MENU_HEIGHT / 2 + i, X + BACK_BUTTON_WIDTH / 4.7 + i, Y - SELECT_MENU_HEIGHT / 2 - i);
+    }
+    
 }
