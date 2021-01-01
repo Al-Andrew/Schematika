@@ -9,6 +9,11 @@ int main()
 	int trash = slLoadTexture("./Images/Trash.png");
 	int Q1 = slLoadTexture("./Images/Q1.png");
 	int q1 = slLoadTexture("./Images/Q1.1.png");
+	int Q2 = slLoadTexture("./Images/Q2.png");
+	int q2 = slLoadTexture("./Images/Q2.1.png");
+	int Qq2 = slLoadTexture("./Images/Q2.2.png");
+	int Q3 = slLoadTexture("./Images/Q3.png");
+	int q3 = slLoadTexture("./Images/Q3.1.png");
 	double cooldown = 0;
 	bool onTop = false;
 	clickHandler handle;
@@ -97,11 +102,12 @@ int main()
 			drawUpdatedSubMenu(a);
 			switch(a.type)
 			{
-			case helpQuestion::Q1: slSprite(Q1,a.x - a.width / 3.1,a.y + a.width/3,120,260); slSprite(q1, a.x , 100, 420, 150); break;
-				case helpQuestion::Q2: break;
-				case helpQuestion::Q3: break;
+			case helpQuestion::Q1: slSprite(Q1,a.x - a.width / 3.1,a.y + a.height/4.4,120,260); slSprite(q1, a.x , 100, 420, 150); break;
+				case helpQuestion::Q2:slSprite(Q2, a.x - a.width / 2.9, a.y + a.height / 3.3, 110, 170); slSprite(q2, a.x + a.width / 2.9, a.y + 35, 110, 170); slSprite(Qq2, a.x - a.width / 2.9, a.y -a.height/4, 110, 170); break;
+				case helpQuestion::Q3:slSprite(Q3, a.x, a.y + a.height / 3.5, 350, 150); slSprite(q3, a.x, a.y - a.height/8, 420, 75); break;
 				case helpQuestion::Q4: break;
 				case helpQuestion::Q5: break;
+				case helpQuestion::Q6: break;
 				default: break;
 			}
 			if (isRectClicked(830, 672.5, 50, 35))
