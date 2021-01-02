@@ -76,7 +76,7 @@ struct Menu
 };
 
 /// <summary>
-/// Struct to hold the data for the  menu windows
+/// Struct to hold the data for the  menu windows 
 /// </summary>
 /// <author>Cristi</author>
 struct updatedMenu
@@ -84,7 +84,7 @@ struct updatedMenu
     menuButtons type = menuButtons::Code;
     double x = 0, y = 0;
     double width = 0, height = 0;
-    bool onTop = false;
+    bool onTop = false; //for Menu windows (prevents the clicking under the window)
     std::vector<Question> questions;
 };
 

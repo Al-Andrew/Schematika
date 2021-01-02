@@ -172,7 +172,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 
 }
 
-void openFile(std::vector<Block>& blocks, std::vector<Node*> nodes, unsigned int& nodeIdCount)
+void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, unsigned int& nodeIdCount)
 {   
     warn("Please open console for input");
     std::string fileName;
@@ -234,16 +234,23 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*> nodes, unsigned int
     std::vector<std::string>().swap(parts);
     fin.close();
 }
-void deleteBlock(std::vector<Block> &blocks, std::vector<Node*> nodes)
+void deleteBlock(std::vector<Block> &blocks, std::vector<Node*>& nodes)
 {
     for (unsigned int i = 0; i < blocks.size(); i++)
     {
         if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(1030, 30, 50, 50))
         {
+            for ( int j = 0; j < nodes.size(); j++)
+            {
+                if (nodes[j]->x == blocks[i].x || nodes[j]->x == blocks[i].x - blocks[i].width/2 || nodes[j]->x == blocks[i].x + blocks[i].width / 2)
+                {   
+                    nodes.erase(nodes.begin() + j);
+                    nodes.shrink_to_fit();
+                    j--;
+                }              
+            }
             blocks.erase(blocks.begin() + i);
             blocks.shrink_to_fit();
-            nodes.erase(nodes.begin() + i);
-            nodes.shrink_to_fit();
         }
     }
 }

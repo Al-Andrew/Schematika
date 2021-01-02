@@ -121,7 +121,6 @@ void drawBorderedRect(const Color& fill, const Color& bord, const double x, cons
 /// <author>Andrei</author>
 Node* isOverlapingNode(const Node* n, const std::vector<Node*>& nodes);
 
-
 void warn(std::string message);
 std::string typeToString(Type t);
 
@@ -135,13 +134,13 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes);
 /// Opens the project from a saved file
 /// </summary>
 /// <author>Cristi and Andrei</author>
-void openFile(std::vector<Block>& blocks, std::vector<Node*> nodes,unsigned int & nodeIdCount);
+void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes,unsigned int & nodeIdCount);
 
 /// <summary>
 /// Deletes a block and its nodes
 /// </summary>
 /// <author>Cristi</author>
-void deleteBlock(std::vector<Block>& blocks, std::vector<Node*> nodes);
+void deleteBlock(std::vector<Block>& blocks, std::vector<Node*>& nodes);
 
 /// <summary>
 /// Draws the  background of the window of the menu
