@@ -199,12 +199,17 @@ void drawHelp(const updatedMenu& a)
     double Y = a.questions.back().y - 1.5 * SELECT_MENU_HEIGHT;
     slText(a.x, Y, "Tips and Tricks:");
     slSetTextAlign(SL_ALIGN_LEFT);
-    slText(a.x - a.width / 2.0 + 2.0*MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER*1.5, "1.  A project must have only one START block.");
-    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 2.5, "2.  ");
-    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 3.5, "3.  ");
-    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 4.5, "4.  ");
-    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 5.5, "5.  ");
-
+    slText(a.x - a.width / 2.0 + 2.0*MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER*1.5, "1.  Don't close the console. If the console will be");
+    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 2.5, "closed, automatically Schematika App will close.");
+    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 3.5, "2.  A project must have only one START block. ");
+    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 4.5, "3.  It is possible to write only on the INPUT, ");
+    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 5.5, "OUTPUT, DECIZIE or CALCUL block.");
+    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 6.5, "4.  CALCUL block can have more then one input.");
+    slCircleFill(a.x, 75, 35, 30);
+    slSetFontSize(50);
+    slSetTextAlign(SL_ALIGN_CENTER);
+    setForeColor(MENU_BACKGROUND_COLOR);
+    slText(a.x, 57, "?");
 }
 updatedMenu makeAbout()
 {
@@ -357,8 +362,9 @@ void drawQ3(const updatedSubMenu& a)
     setForeColor(MENU_TEXT_COLOR);
     slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to delete a block or how to start a new project ?");
     slText(a.x - a.width / 2.3, a.y + a.height / 10, "1.  In order to delete a block, it is necessary to left click");
-    slText(a.x - a.width / 2.3, a.y + a.height / 10 - SELECT_SUBMENU_TEXT_SPACER, "on the block and to move it above the trash, where you ");
-    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 2.0 * SELECT_SUBMENU_TEXT_SPACER, "have to left click one more time. (like in the image nr. 1 )");
+    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 0.5*SELECT_SUBMENU_TEXT_SPACER, "on the block and to move it above the trash, where you ");
+    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 1.5 * SELECT_SUBMENU_TEXT_SPACER, "have to left click one more time. (like in the image nr. 1 )");
+    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 2.5 * SELECT_SUBMENU_TEXT_SPACER, "Remeber: You can delete only a disconnected block.");
     slText(a.x - a.width / 2.3, a.y - a.height / 4, "2.  In order to start a new project, it is necessary to click");
     slText(a.x - a.width / 2.3, a.y - a.height / 4 - SELECT_SUBMENU_TEXT_SPACER, "on the New button. ( like in the image nr. 2 )");
     slText(a.x - a.width / 2.3, a.y - a.height / 4 - 2.0*SELECT_SUBMENU_TEXT_SPACER,"Remember: By pressing the New button, all your previous ");
@@ -370,7 +376,20 @@ void drawQ4(const updatedSubMenu& a)
     drawSubMenuWindow(a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
     slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to write on the blocks ?");
-
+    slText(a.x -a.width/10 , a.y + a.height / 2.6, " 1.   First of all, you are able to write");
+    slText(a.x-a.width/10, a.y+a.height/2.6 - SELECT_SUBMENU_TEXT_SPACER," only on below enumerated blocks:");
+    slText(a.x - a.width / 10, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER*2.0, " - Input Block   - Output Block");
+    slText(a.x - a.width / 10, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER*3.0, " - Calcul Block  - Decizie Block");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER*5.0, "2.  In order to write on the blocks, it is necessary to left ");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER *6.0, "click on the block and after this to press enter button. And");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 7.0, "in the lower left corner will appear this message: Please");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 8.0, "open console for input.");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 12.0, "3.    Now it is necessary to open the console and there to  ");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 13.0, " write the text, that you want your block to contain.");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 14.0, "After this, you should press enter button and to reopen ");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 15.0, "Schematika App. ");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 16.0, "Remember: Don't close the console. In case you close the ");
+    slText(a.x - a.width / 2.2, a.y + a.height / 2.6 - SELECT_SUBMENU_TEXT_SPACER * 17.0, "console, the Schematika App will close.");
 }
 
 void drawQ5(const updatedSubMenu& a)
@@ -378,6 +397,21 @@ void drawQ5(const updatedSubMenu& a)
     drawSubMenuWindow(a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
     slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to save and open your project ?");
+    slText(a.x + a.width / 6, a.y + a.height / 2.4, "1.   In order to save");
+    slText(a.x + a.width / 6, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER*0.8, "the project, it is");
+    slText(a.x - a.width / 2.1, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER * 1.8, "necessary to click on the Save button.In the lower left corner");
+    slText(a.x - a.width / 2.1, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER * 2.8, "will appear the message: Please open console for input.");
+    slText(a.x - a.width / 2.1, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER * 6.0, "Now it is necessary to open the console and there to write");
+    slText(a.x - a.width / 2.1, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER * 7.0, "the name of your project ( example.txt ). By pressing enter,");
+    slText(a.x - a.width / 2.1, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER * 8.0, "your project will be saved with the given name.");
+    slText(a.x + a.width / 6, a.y - 22 , "2.   In order to open");
+    slText(a.x + a.width / 6, a.y - 22 - SELECT_SUBMENU_TEXT_SPACER*0.8, "a project, it is ");
+    slText(a.x - a.width / 2.1, a.y -22 -  SELECT_SUBMENU_TEXT_SPACER * 1.8, "necessary to click on the Open button. In the lower left");
+    slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 2.8, "corner will appear the message: Please open console for");
+    slText(a.x - a.width / 2.1, a.y - 22 - SELECT_SUBMENU_TEXT_SPACER * 3.8, "input.");
+    slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 6.5, "Now it is necessary to open the console and there to write");
+    slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 7.5, "the name of your project ( example.txt ). By pressing enter,");
+    slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 8.5, "if exists a project with the given name, then it will open.");
 
 }
 void drawQ6(const updatedSubMenu& a)

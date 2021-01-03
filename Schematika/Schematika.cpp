@@ -14,6 +14,12 @@ int main()
 	int Qq2 = slLoadTexture("./Images/Q2.2.png");
 	int Q3 = slLoadTexture("./Images/Q3.png");
 	int q3 = slLoadTexture("./Images/Q3.1.png");
+	int Q4 = slLoadTexture("./Images/Q4.png");
+	int q4 = slLoadTexture("./Images/Q4.1.png");
+	int Q5 = slLoadTexture("./Images/Q5.png");
+	int q5 = slLoadTexture("./Images/Q5.2.png");
+	int Qq5 = slLoadTexture("./Images/Q5.1.png");
+	int qQ5 = slLoadTexture("./Images/Q5.3.png");
 	double cooldown = 0;
 	bool onTop = false; //for subMenu windows (prevent the clicking under the window)
 	clickHandler handle;
@@ -111,10 +117,10 @@ int main()
 			switch(a.type)
 			{
 			case helpQuestion::Q1: slSprite(Q1,a.x - a.width / 3.1,a.y + a.height/4.4,120,260); slSprite(q1, a.x , 100, 420, 150); break;
-				case helpQuestion::Q2:slSprite(Q2, a.x - a.width / 2.9, a.y + a.height / 3.3, 110, 170); slSprite(q2, a.x + a.width / 2.9, a.y + 35, 110, 170); slSprite(Qq2, a.x - a.width / 2.9, a.y -a.height/4, 110, 170); break;
-				case helpQuestion::Q3:slSprite(Q3, a.x, a.y + a.height / 3.5, 350, 150); slSprite(q3, a.x, a.y - a.height/8, 420, 75); break;
-				case helpQuestion::Q4: break;
-				case helpQuestion::Q5: break;
+				case helpQuestion::Q2: slSprite(Q2, a.x - a.width / 2.9, a.y + a.height / 3.3, 110, 170); slSprite(q2, a.x + a.width / 2.9, a.y + 35, 110, 170); slSprite(Qq2, a.x - a.width / 2.9, a.y -a.height/4, 110, 170); break;
+				case helpQuestion::Q3: slSprite(Q3, a.x, a.y + a.height / 3.5, 350, 150); slSprite(q3, a.x, a.y - a.height/8, 420, 75); break;
+				case helpQuestion::Q4: slSprite(Q4, a.x - a.width/3.6, a.y + a.height / 3.3, 160, 150); slSprite(q4, a.x, a.y - 75, 450, 75); break;
+				case helpQuestion::Q5: slSprite(Q5, a.x - a.width/6.4, a.y + a.height / 2.5, 300, 45); slSprite(q5, a.x, a.y+ a.height/5, 450, 75); slSprite(Qq5, a.x - a.width / 6.4, a.y - 33, 300, 45); slSprite(qQ5, a.x, a.y - a.height / 3.5, 450, 60); break;
 				case helpQuestion::Q6: break;
 				default: break;
 			}
