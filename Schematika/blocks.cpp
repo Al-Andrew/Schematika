@@ -61,6 +61,15 @@ Block generateInput()
 	b.height = IN_HEIGHT;
 	b.floating = false;
 
+	Node* m = new Node;
+	//m->host = &b;
+	m->x = b.x;
+	m->y = b.y + b.height / 2;
+	m->r = NODE_RADIUS;
+	m->floating = false;
+	m->next = nullptr;
+	b.nodes.push_back(m);
+
 	Node* n = new Node;
 	//n->host = &b;
 	n->x = b.x;
@@ -69,15 +78,6 @@ Block generateInput()
 	n->floating = false;
 	n->next = nullptr;
 	b.nodes.push_back(n);
-
-	Node* m = new Node;
-	//m->host = &b;
-	m->x = b.x;
-	m->y = b.y + b.height / 2;
-	m->r = NODE_RADIUS;
-	m->floating = false;
-	n->next = nullptr;
-	b.nodes.push_back(m);
 
 	return b;
 }
@@ -92,15 +92,6 @@ Block generateOutput()
 	b.height = OUT_HEIGHT;
 	b.floating = false;
 
-	Node* n = new Node;
-	//n->host = &b;
-	n->x = b.x;
-	n->y = b.y - b.height / 2;
-	n->r = NODE_RADIUS;
-	n->floating = false;
-	n->next = nullptr;
-	b.nodes.push_back(n);
-
 	Node* m = new Node;
 	//m->host = &b;
 	m->x = b.x;
@@ -109,6 +100,15 @@ Block generateOutput()
 	m->floating = false;
 	m->next = nullptr;
 	b.nodes.push_back(m);
+
+	Node* n = new Node;
+	//n->host = &b;
+	n->x = b.x;
+	n->y = b.y - b.height / 2;
+	n->r = NODE_RADIUS;
+	n->floating = false;
+	n->next = nullptr;
+	b.nodes.push_back(n);
 
 	return b;
 }
@@ -123,6 +123,15 @@ Block generateCalcul()
 	b.height = CALCUL_HEIGHT;
 	b.floating = false;
 
+	Node* m = new Node;
+	//m->host = &b;
+	m->x = b.x;
+	m->y = b.y + b.height / 2.f;
+	m->r = NODE_RADIUS;
+	m->floating = false;
+	m->next = nullptr;
+	b.nodes.push_back(m);
+
 	Node* n = new Node;
 	//n->host = &b;
 	n->x = b.x;
@@ -132,15 +141,6 @@ Block generateCalcul()
 	n->next = nullptr;
 
 	b.nodes.push_back(n);
-
-	Node* m = new Node;
-	//m->host = &b;
-	m->x = b.x;
-	m->y = b.y + b.height / 2.f;
-	m->r = NODE_RADIUS;
-	m->floating = false;
-	m->next = nullptr;
-	b.nodes.push_back(m);
 
 	return b;
 }
