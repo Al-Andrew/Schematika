@@ -54,7 +54,7 @@ int main()
 			{
 				case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; std::vector<updatedSubMenu>().swap(upsmenu); nodeIdCount = 1; onTop = false; break;
 				case menuButtons::Save: saveToFile(blocks, nodes); std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; break;
-				case menuButtons::Open: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; openFile(blocks, nodes, nodeIdCount); break;
+				case menuButtons::Open: openFile(blocks, nodes, nodeIdCount); break;
 				case menuButtons::Run: break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;

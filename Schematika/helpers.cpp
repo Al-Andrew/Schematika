@@ -135,6 +135,25 @@ std::string typeToString(Type t)
     return "NOT_A_BLOCK";
 }
 
+
+Type stringToType(std::string t)
+{
+    if (t == "START")
+        return Type::START;
+    if (t == "STOP")
+        return Type::STOP;
+    if (t == "INPUT")
+        return Type::INPUT;
+    if (t == "OUTPUT")
+        return Type::OUTPUT;
+    if (t == "DECIZIE")
+        return Type::DECIZIE;
+    if (t == "CALCUL")
+        return Type::CALCUL;
+    return Type::NOT_A_BLOCK;
+}
+
+
 void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
 {
     warn("Please open console for input");
@@ -145,7 +164,7 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
     std::cout << "The file is successfully saved"<<std::endl;
     std::ofstream fout(fileName.c_str());
 
-    fout << "NODES\n ";
+    fout << "NODES\n";
     for (auto nd : nodes)
     {
         fout << nd->id << " "  << nd->x << " "  << nd->y;
@@ -159,10 +178,10 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
         }
         fout << "\n";
     }
-    fout << "BLOCKS\n ";
+    fout << "BLOCKS\n";
     for (auto bl : blocks)
     {
-        fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " " << bl.width << " " << bl.height << " |" << bl.text << "| ";
+        fout << typeToString(bl.type) << " " << bl.x << " " << bl.y << " " << bl.width << " " << bl.height << " $ " << bl.text << " $ ";
         for (auto n : bl.nodes)
         {
             fout << n->id << " ";
@@ -176,63 +195,73 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, unsigned in
 {   
     warn("Please open console for input");
     std::string fileName;
-    std::string part;
-    unsigned int i;
-    std::vector<std::string> parts;
-    Begin:
-        std::cout << "Please input a name for the file you want to open." << std::endl;
-        std::getline(std::cin, fileName);
-        char answer;
-        std::ifstream fin(fileName.c_str());
-        if (!(fin.is_open()))
-        {
-            std::perror("Error ");
-            std::cout<<"Do you want to try again ? < Y | N > "<<std :: endl;
-            std::cin >> answer;
-            answer = std::toupper(answer);
-            if (answer == 'Y')
-                goto Begin;
-            else exit(1);
-        }
-    std::cout << fileName << std::endl;
-    while (!fin.eof())
-    {   
-         std::getline(fin, part, ' ');  
-         parts.push_back(part);
-         std::cout << part << std::endl;
-    }
-    for ( i = 1; i < parts.size() && parts[i] != "BLOCKS"; i += 4)
+    std::cout << "Please input a name for the file you want to open." << std::endl;
+    std::getline(std::cin, fileName);
+    std::ifstream fin(fileName);
+    std::string line;
+    std::getline(fin, line); // load the NODES token;
+    blocks.clear();
+    blocks.reserve(100);
+    nodes.clear();
+    nodes.reserve(150);
+
+    std::vector<int> pairs;
+
+    while (std::getline(fin, line, '\n') && line != "BLOCKS") // Get a line until BLOCKS section
     {
-            for (auto& n : nodes)
-            {
-                n->id = stoi(parts[i]);
-                std::cout << n->id;
-                n->x = stod(parts[i + 1]);
-                n->y = stod(parts[i + 2]);
-                n->r = NODE_RADIUS;
-                n->floating = false;
-                n->next->id = stoi(parts[i + 3]);
-                nodes.push_back(n);
-                nodeIdCount = n->id;
-            }
-    }
-    i++;
-    for (i; i < parts.size(); i += 6)
+        std::vector<std::string> tokens;
+        std::stringstream l(line);
+        
+        for (std::string tok; std::getline(l, tok, ' '); tokens.emplace_back(tok)); //Split the line into tokens
+
+        Node *n = new Node;
+        n->id = std::stoi(tokens[0]);
+        n->x = std::stod(tokens[1]);
+        n->y = std::stod(tokens[2]);
+        n->r = NODE_RADIUS;
+        n->floating = false;
+        pairs.push_back(std::stoi(tokens[3])-1);
+        nodes.push_back(n);
+    }//Done reading in the nodes;
+    for (int i = 0; i < pairs.size(); i++)
     {
-        for (auto& bl : blocks)
-        {
-            bl.type = Type::START;
-            bl.x = stod(parts[i + 1]);
-            bl.y = stod(parts[i + 2]);
-            bl.width = stod(parts[i + 3]);
-            bl.height = stod(parts[i + 4]);
-            bl.text = parts[i + 5];
-            bl.floating = false;
-            blocks.push_back(bl);
-        }
+        if (pairs[i] != -1)
+            nodes[i]->next = nodes[pairs[i]]; // Set appropriate nexts
+        else
+            nodes[i]->next = nullptr;
     }
-    std::vector<std::string>().swap(parts);
-    fin.close();
+    while (std::getline(fin, line, '\n'))//Now read till the end of the file for blocks
+    {
+        std::vector<std::string> tokens;
+        std::stringstream l(line);
+
+        for (std::string tok; std::getline(l, tok, ' '); tokens.emplace_back(tok)); //Split the line into tokens
+        
+        Block b;
+        b.type = stringToType(tokens[0]);
+        b.x = std::stod(tokens[1]);
+        b.y = std::stod(tokens[2]);
+        b.width = std::stod(tokens[3]);
+        b.height = std::stod(tokens[4]);
+
+        std::string text;
+        unsigned int i = 5;
+        i++;
+        while (tokens[i] != "$")
+        {
+            text += tokens[i++];
+        }
+        i++;
+        b.text = text == "  "?"":text;
+        b.nodes.clear();
+        while (i < tokens.size())
+        {
+            b.nodes.push_back(nodes[std::stoi(tokens[i])-1]);
+            i++;
+        }
+        blocks.push_back(b);
+    }
+
 }
 void deleteBlock(std::vector<Block> &blocks, std::vector<Node*>& nodes)
 {
