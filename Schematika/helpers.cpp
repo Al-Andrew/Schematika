@@ -272,16 +272,22 @@ void deleteBlock(std::vector<Block> &blocks, std::vector<Node*>& nodes)
         {
             for ( int j = 0; j < nodes.size(); j++)
             {
-                if (nodes[j]->x == blocks[i].x || nodes[j]->x == blocks[i].x - blocks[i].width/2 || nodes[j]->x == blocks[i].x + blocks[i].width / 2)
+                if (nodes[j]->x == blocks[i].x || nodes[j]->x == blocks[i].x - blocks[i].width / 2 || nodes[j]->x == blocks[i].x + blocks[i].width / 2)
                 {
                     nodes.erase(nodes.begin() + j);
-                    nodes.shrink_to_fit();
                     j--;
-                }         
+                }
+                else if(nodes[j]->next != nullptr)
+                    if (nodes[j]->next->x == blocks[i].x || nodes[j]->next->x == blocks[i].x - blocks[i].width / 2 || nodes[j]->next->x == blocks[i].x + blocks[i].width / 2)
+                        nodes[j]->next = nullptr;
             }
             blocks.erase(blocks.begin() + i);
-            blocks.shrink_to_fit();
         }
+    }
+    int i = 1;
+    for (auto n : nodes)
+    {
+        n->id = i++;
     }
 }
 void drawWindow(double x, double y, double width, double height)
