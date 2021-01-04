@@ -278,7 +278,7 @@ void drawDecizie(const Block& b)
 	slText(b.x, b.y - 20, txt.c_str());
 }
 
-void drawNode(const Node* n)
+void drawNode( Node* n)
 {
 	Color c;
 	if (isMouseInCircle(n->x, n->y, n->r) && int(n->x) < WINDOW_WIDTH - SELECT_BLOCK_MENU_WIDTH)
@@ -293,6 +293,10 @@ void drawNode(const Node* n)
 			drawNode(n->next);
 		setForeColor(NODE_LINE_COLOR);
 		slLine(n->x, n->y, n->next->x, n->next->y);
+	}
+	if (n->next != nullptr && isCircleClicked(n->x, n->y, n->r))
+	{
+		n->next = nullptr;
 	}
 }
 
@@ -343,7 +347,7 @@ void draw(const Block& b)
 	default:
 		break;
 	}
-	for (const Node* n : b.nodes)
+	for ( Node* n : b.nodes)
 	{
 		drawNode(n);
 	}
@@ -406,9 +410,12 @@ void updateNode(Node*& n, double& cooldown, clickHandler& handle)
 		{
 			n->floating = !n->floating;
 		}
+		else if (n->next != nullptr)
+		{
+			n->next = nullptr;
+		}
 		setCooldown(cooldown);
 	}
-
 
 	if (n->floating)
 	{

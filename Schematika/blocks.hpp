@@ -115,7 +115,7 @@ Block generateInput();
 Block generateOutput();
 
 
-void drawNode(const Node* n);
+void drawNode( Node* n);
 void updateNode(Node*& n, double& cooldown, clickHandler& handle);
 
 void handleDraw(const clickHandler& handle);

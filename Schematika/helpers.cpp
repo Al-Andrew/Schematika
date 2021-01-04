@@ -222,6 +222,7 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, unsigned in
         n->floating = false;
         pairs.push_back(std::stoi(tokens[3])-1);
         nodes.push_back(n);
+        nodeIdCount = n->id+1;
     }//Done reading in the nodes;
     for (int i = 0; i < pairs.size(); i++)
     {
@@ -272,11 +273,11 @@ void deleteBlock(std::vector<Block> &blocks, std::vector<Node*>& nodes)
             for ( int j = 0; j < nodes.size(); j++)
             {
                 if (nodes[j]->x == blocks[i].x || nodes[j]->x == blocks[i].x - blocks[i].width/2 || nodes[j]->x == blocks[i].x + blocks[i].width / 2)
-                {   
+                {
                     nodes.erase(nodes.begin() + j);
                     nodes.shrink_to_fit();
                     j--;
-                }              
+                }         
             }
             blocks.erase(blocks.begin() + i);
             blocks.shrink_to_fit();
