@@ -60,8 +60,8 @@ int main()
 			{
 			case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); if (upmenu.size() > 0) { std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; } if (upsmenu.size() > 0) { std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; } nodeIdCount = 1; break;
 				case menuButtons::Save: saveToFile(blocks, nodes); if (upmenu.size() > 0) { std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; } if (upsmenu.size() > 0) { std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; } break;
-				case menuButtons::Open:  if (upmenu.size() > 0) { std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; } if (upsmenu.size() > 0) { std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; }openFile(blocks, nodes, nodeIdCount); break;
-				case menuButtons::Run: break;
+				case menuButtons::Open:  if (upmenu.size() > 0) { std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; } if (upsmenu.size() > 0) { std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; }openFile(blocks, nodes); break;
+				case menuButtons::Run: saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt");interpret(blocks); break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
 			}

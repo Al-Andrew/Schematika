@@ -289,8 +289,7 @@ void drawNode( Node* n)
 	slCircleFill(n->x, n->y, n->r, 15);
 	if (n->next != nullptr)
 	{
-		if (n->next->host == nullptr)
-			drawNode(n->next);
+		drawNode(n->next);
 		setForeColor(NODE_LINE_COLOR);
 		slLine(n->x, n->y, n->next->x, n->next->y);
 	}

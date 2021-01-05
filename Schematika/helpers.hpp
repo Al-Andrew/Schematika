@@ -129,13 +129,13 @@ std::string typeToString(Type t);
 /// Saves the project into a file
 /// </summary>
 /// <author>Andrei</author>
-void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes);
+void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes, std::string fileName = "");
 
 /// <summary>
 /// Opens the project from a saved file
 /// </summary>
 /// <author>Cristi and Andrei</author>
-void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes,unsigned int & nodeIdCount);
+void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, std::string fileName = "");
 
 /// <summary>
 /// Deletes a block and its nodes

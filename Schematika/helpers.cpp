@@ -154,14 +154,15 @@ Type stringToType(std::string t)
 }
 
 
-void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
+void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes, std::string fileName)
 {
     warn("Please open console for input");
 
-    std::string fileName;
-    std::cout << "Please input a name for the file you want to save." << std::endl;
-    std::getline(std::cin,fileName);
-    std::cout << "The file is successfully saved"<<std::endl;
+    if (fileName == "")
+    {
+        std::cout << "Please input a name for the file you want to save." << std::endl;
+        std::getline(std::cin,fileName);
+    }
     std::ofstream fout(fileName.c_str());
 
     fout << "NODES\n";
@@ -188,15 +189,18 @@ void saveToFile(std::vector<Block> blocks, std::vector<Node*> nodes)
         }
         fout << "\n";
     } 
-
+    if(fileName != "")
+    std::cout << "The file is successfully saved"<<std::endl;
 }
 
-void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, unsigned int& nodeIdCount)
+void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, std::string fileName)
 {   
     warn("Please open console for input");
-    std::string fileName;
-    std::cout << "Please input a name for the file you want to open." << std::endl;
-    std::getline(std::cin, fileName);
+    if (fileName == "")
+    {
+        std::cout << "Please input a name for the file you want to open." << std::endl;
+        std::getline(std::cin, fileName);
+    }
     std::ifstream fin(fileName);
     std::string line;
     std::getline(fin, line); // load the NODES token;
@@ -222,7 +226,6 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, unsigned in
         n->floating = false;
         pairs.push_back(std::stoi(tokens[3])-1);
         nodes.push_back(n);
-        nodeIdCount = n->id+1;
     }//Done reading in the nodes;
     for (int i = 0; i < pairs.size(); i++)
     {
@@ -244,13 +247,14 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, unsigned in
         b.y = std::stod(tokens[2]);
         b.width = std::stod(tokens[3]);
         b.height = std::stod(tokens[4]);
+        b.floating = false;
 
         std::string text;
         unsigned int i = 5;
         i++;
         while (tokens[i] != "$")
         {
-            text += tokens[i++];
+            text += tokens[i++] + (((b.type == Type::CALCUL || b.type == Type::DECIZIE) && tokens[i] != "$")?" ":"");
         }
         i++;
         b.text = text == "  "?"":text;
@@ -258,9 +262,12 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, unsigned in
         while (i < tokens.size())
         {
             b.nodes.push_back(nodes[std::stoi(tokens[i])-1]);
+            b.nodes.back()->host = &b;
             i++;
         }
         blocks.push_back(b);
+        for (auto n : blocks.back().nodes)
+            n->host = &blocks.back();        
     }
 
 }
