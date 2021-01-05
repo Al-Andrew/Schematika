@@ -7,7 +7,7 @@
 bool isnum(std::string var)
 {
 	for (auto ch : var)
-		if (!(isdigit(ch) or ch == '.'))
+		if (!(isdigit(ch) or ch == '.' or ch == '-'))
 			return false;
 	return true;
 }
@@ -30,18 +30,18 @@ void input(std::map<std::string, double>& mem, std::string var)
 
 void output(std::map<std::string, double>& mem, std::string var)
 {
-	auto search = mem.find(var);
-	if (search != mem.end())
+
+	if (var[0] == '#')
+	{
+		std::cout << std::string(var.begin() + 1, var.begin() + var.find("#", 1)) << std::endl;
+	}
+	else if (var.pop_back(),var.pop_back();mem.find(var) != mem.end())
 	{
 		std::cout << var << ": " << mem[var] << std::endl;
 	}
 	else if (isnum(var))
 	{
 		std::cout << std::stod(var) << std::endl;
-	}
-	else if (var[0] == '#')
-	{
-		std::cout << std::string(var.begin() + 1, var.end() - 1) << std::endl;
 	}
 	else
 	{
@@ -136,6 +136,10 @@ double eval(std::map < std::string, double>& mem, std::vector<std::string>& toke
 		operators.pop();
 	}
 	
+	for (auto t : polish)
+		std::cout << t << " ";
+	std::cout << std::endl;
+
 	//Now evaluate the expression
 	std::reverse(std::begin(polish), std::end(polish));
 	for (int i = polish.size() - 1; i >= 0; i--)
@@ -147,129 +151,103 @@ double eval(std::map < std::string, double>& mem, std::vector<std::string>& toke
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(a + b));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b + a);
 			}
 			else if (polish[i] == "-")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b - a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b - a);
 			}
 			else if (polish[i] == "*")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b * a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b * a);
 			}
 			else if (polish[i] == "/")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b / a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b / a);
 			}
 			else if (polish[i] == "%")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(std::fmod(b,a)));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(std::fmod(b,a));
 			}
 			else if (polish[i] == "**")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(std::pow(b,a)));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(std::pow(b,a));
 			}
 			else if (polish[i] == "==")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(a == b));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b == a);
 			}
 			else if (polish[i] == "!=")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(a != b));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b != a);
 			}
 			else if (polish[i] == "&&")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b && a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b && a);
 			}
 			else if (polish[i] == "||")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b || a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b || a);
 			}
 			else if (polish[i] == ">")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b > a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b > a);
 			}
 			else if (polish[i] == ">=")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b >= a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b >= a);
 			}
 			else if (polish[i] == "<")
 			{
 				double a = var_eval(mem, polish[i + 1]);
 				double b = var_eval(mem, polish[i + 2]);
-				polish.pop_back();
-				polish.pop_back();
-				polish.pop_back();
-				polish.push_back(std::to_string(b < a));
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b < a);
 			}
 			else if (polish[i] == "<=")
 			{
-			double a = var_eval(mem, polish[i + 1]);
-			double b = var_eval(mem, polish[i + 2]);
-			polish.pop_back();
-			polish.pop_back();
-			polish.pop_back();
-			polish.push_back(std::to_string(b <= a));
+				double a = var_eval(mem, polish[i + 1]);
+				double b = var_eval(mem, polish[i + 2]);
+				polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+				polish[i] = std::to_string(b <= a);
 			}
-
+			for (auto t : polish)
+				std::cout << t << " ";
+			std::cout << std::endl;
 		}
 	}
 
@@ -341,5 +319,8 @@ void interpret(std::vector<Block> blocks)
 		else if (st->host != nullptr and st->host->type == Type::STOP)
 			break;
 	}
+	for (auto e : memory)
+		std::cout << e.first << "=" << e.second << std::endl;
+
 	std::cout << "Program finished succesfully" << std::endl;
 }

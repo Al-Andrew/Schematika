@@ -254,7 +254,7 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, std::string
         i++;
         while (tokens[i] != "$")
         {
-            text += tokens[i++] + (((b.type == Type::CALCUL || b.type == Type::DECIZIE) && tokens[i] != "$")?" ":"");
+            text += tokens[i++] + (((b.type == Type::CALCUL || b.type == Type::DECIZIE || b.type == Type::OUTPUT) && tokens[i] != "$")?" ":"");
         }
         i++;
         b.text = text == "  "?"":text;
