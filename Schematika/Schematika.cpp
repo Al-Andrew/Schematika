@@ -1,5 +1,7 @@
 #include "Schematika.hpp"
 
+void autoClosingofWindows(std::vector<updatedMenu>& upmenu, std::vector<updatedSubMenu>& upsmenu, updatedMenu& umenu, bool& onTop);
+
 int main()
 {
 	slWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, false);
@@ -49,40 +51,39 @@ int main()
 				n->host = &blocks[blocks.size()-1];
 				nodes.push_back(n);
 			}
-		}
+		}//end
 
 		deleteBlock(blocks, nodes);
-
 		//Responsible for the work of the buttons
 		if (menuButtons u = updateMenu(menu,umenu, cooldown); u != menuButtons::NOT_A_BUTTON)
 		{
 			switch (u)
 			{
-			case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); if (upmenu.size() > 0) { std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; } if (upsmenu.size() > 0) { std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; } nodeIdCount = 1; break;
-				case menuButtons::Save: saveToFile(blocks, nodes); if (upmenu.size() > 0) { std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; } if (upsmenu.size() > 0) { std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; } break;
-				case menuButtons::Open:  if (upmenu.size() > 0) { std::vector<updatedMenu>().swap(upmenu); umenu.onTop = false; } if (upsmenu.size() > 0) { std::vector<updatedSubMenu>().swap(upsmenu); onTop = false; }openFile(blocks, nodes); break;
-				case menuButtons::Run: saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt");interpret(blocks); break;
+			case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); nodeIdCount = 1; break;
+				case menuButtons::Save: saveToFile(blocks, nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); break;
+				case menuButtons::Open: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); openFile(blocks, nodes); break;
+				case menuButtons::Run: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); if (blocks.size() != 0) /*TO DO (conditions of working Run button)*/ { saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt"); interpret(blocks); } break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
 			}
 		}
 		if (menuButtons u = updateMenu(menu,umenu, cooldown); (u == menuButtons::Code || u == menuButtons::Help || u == menuButtons::About))
 		{
-				if (umenu.type == menuButtons::Help)//checks if the previous opened window was Help
+				if (umenu.type == menuButtons::Help && upsmenu.size()> 0) //checks if the previous opened window was Help and if it was opened a FAQ
 				{
 					std::vector<updatedSubMenu>().swap(upsmenu);
 					onTop = false;
 				}
 				std::vector<updatedMenu>().swap(upmenu);
 			upmenu.push_back(makeUpdatedMenu(u));
-		}
+		}//end
 
 		// Responsible for the work of the subMenu ( FAQ from Help window )
 		if (helpQuestion u = updateSubMenu(umenu, usmenu, cooldown, onTop); u != helpQuestion::NOT_A_QUESTION && upmenu.back().type == menuButtons::Help)
 		{
 			upsmenu.push_back(makeQuestion(u));
 			onTop = true;
-		}
+		}//end
 
 		// Responsible for the drawing of the blocks and updating the coordinates of the nodes
 		for (Block& bl : blocks)
@@ -92,9 +93,10 @@ int main()
 				update(bl, cooldown);
 		}
 		for (Node*& nd : nodes)
-		{
-			updateNode(nd, cooldown, handle);
-		}
+		{	
+			if (umenu.onTop == false)
+				updateNode(nd, cooldown, handle);
+		}//end
 
 		// Responsible for the drawing and closing the window of the menu
 		for (updatedMenu& a : upmenu)
@@ -108,7 +110,7 @@ int main()
 				if(onTop)
 					onTop = false;
 			}
-		}
+		}//end
 
 		// Responsible for the drawing and closing the window of the subMenu ( FAQ from Help window )
 		for (updatedSubMenu& a : upsmenu)
@@ -129,7 +131,7 @@ int main()
 				std::vector<updatedSubMenu>().swap(upsmenu);
 				onTop = false;
 			}
-		}
+		}//end
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes, nodeIdCount);
 		slText(100, 100, std::to_string(1 / slGetDeltaTime()).c_str());
@@ -138,3 +140,18 @@ int main()
 	slClose();
 	return 0;
 }
+
+//Responsible for auto closing of windows, when clicking on another button of menu (New, Save, Open, Run).
+void autoClosingofWindows(std::vector<updatedMenu>& upmenu, std::vector<updatedSubMenu>& upsmenu, updatedMenu& umenu, bool& onTop)
+{
+	if (upmenu.size() > 0)
+	{
+		std::vector<updatedMenu>().swap(upmenu);
+		umenu.onTop = false;
+	}
+	 if (upsmenu.size() > 0)
+	{
+		std::vector<updatedSubMenu>().swap(upsmenu);
+		onTop = false;
+	}
+}//end

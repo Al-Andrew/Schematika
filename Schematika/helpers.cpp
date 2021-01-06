@@ -279,7 +279,7 @@ void deleteBlock(std::vector<Block> &blocks, std::vector<Node*>& nodes)
 {
     for (unsigned int i = 0; i < blocks.size(); i++)
     {
-        if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(static_cast<double>(WINDOW_WIDTH) - SELECT_BLOCK_MENU_WIDTH - SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT / 1.3, SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT))
+        if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(static_cast<double>(WINDOW_WIDTH) - SELECT_BLOCK_MENU_WIDTH - SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT / 1.3, SELECT_TRASH_WIDTH +10, SELECT_TRASH_HEIGHT+10))
         {
             for ( int j = 0; j < nodes.size(); j++)
             {
