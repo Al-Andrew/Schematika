@@ -376,24 +376,78 @@ void update(Block& b, double& cooldown)
 			std::getline(std::cin,expression);
 			b.text = expression;
 			b.floating = false;
-			if (b.width < slGetTextWidth(expression.c_str()))
-			{	
-				double width = b.width;
-				b.width = slGetTextWidth(expression.c_str()) + 10;
-				for (Node*& n : b.nodes)
+			double newWidth = slGetTextWidth(expression.c_str());
+			if (b.width > newWidth)
+			{
+				if (b.type == Type::INPUT)
 				{
-					if (b.type == Type::DECIZIE && n->x != b.x)
-					{	
-						if (n->x == b.x - width / 2)
-						{	
-							n->x = b.x - b.width / 2;
-						}
-						else if (n->x == b.x + width / 2)
+					if (newWidth > IN_WIDTH)
+						b.width = newWidth + 10;
+					else
+						b.width = IN_WIDTH;
+				}
+				else if (b.type == Type::OUTPUT)
+				{
+					if (newWidth > OUT_WIDTH)
+						b.width = newWidth + 10;
+					else
+						b.width = OUT_WIDTH;
+				}
+				else if (b.type == Type::CALCUL)
+				{
+					if (newWidth > CALCUL_WIDTH)
+						b.width = newWidth + 10;
+					else
+						b.width = CALCUL_WIDTH;
+				}
+				else if (b.type == Type::DECIZIE)
+				{	
+					double width = b.width;
+					if (slGetTextWidth(expression.c_str()) < DECIZIE_WIDTH)
+					{
+						b.width = DECIZIE_WIDTH;
+					}
+					else 
+						b.width = slGetTextWidth(expression.c_str()) + 15;
+					for (Node*& n : b.nodes)
+					{
+						if (b.type == Type::DECIZIE && n->x != b.x)
 						{
-							n->x = b.x + b.width / 2;
+							if (n->x == b.x - width / 2)
+							{
+								n->x = b.x - b.width / 2;
+							}
+							else if (n->x == b.x + width / 2)
+							{
+								n->x = b.x + b.width / 2;
+							}
 						}
 					}
 				}
+			}
+			else if (b.width < slGetTextWidth(expression.c_str()))
+			{	
+					if (b.type == Type::DECIZIE )
+					{	
+						double width = b.width;
+						b.width = slGetTextWidth(expression.c_str()) + 15;
+						for (Node*& n : b.nodes)
+						{
+							if (n->x != b.x)
+							{
+								if (n->x == b.x - width / 2)
+								{
+									n->x = b.x - b.width / 2;
+								}
+								else if (n->x == b.x + width / 2)
+								{
+									n->x = b.x + b.width / 2;
+								}
+							}
+						}
+					}
+					else
+						b.width = slGetTextWidth(expression.c_str()) + 10;
 			}
 
 			setCooldown(cooldown);
