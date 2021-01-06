@@ -362,9 +362,8 @@ void drawQ3(const updatedSubMenu& a)
     setForeColor(MENU_TEXT_COLOR);
     slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to delete a block or how to start a new project ?");
     slText(a.x - a.width / 2.3, a.y + a.height / 10, "1.  In order to delete a block, it is necessary to left click");
-    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 0.5*SELECT_SUBMENU_TEXT_SPACER, "on the block and to move it above the trash, where you ");
-    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 1.5 * SELECT_SUBMENU_TEXT_SPACER, "have to left click one more time. (like in the image nr. 1 )");
-    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 2.5 * SELECT_SUBMENU_TEXT_SPACER, "Remeber: You can delete only a disconnected block.");
+    slText(a.x - a.width / 2.3, a.y + a.height / 10 - SELECT_SUBMENU_TEXT_SPACER, "on the block and to move it above the trash, where you ");
+    slText(a.x - a.width / 2.3, a.y + a.height / 10 - 2.0 * SELECT_SUBMENU_TEXT_SPACER, "have to left click one more time. (like in the image nr. 1 )");
     slText(a.x - a.width / 2.3, a.y - a.height / 4, "2.  In order to start a new project, it is necessary to click");
     slText(a.x - a.width / 2.3, a.y - a.height / 4 - SELECT_SUBMENU_TEXT_SPACER, "on the New button. ( like in the image nr. 2 )");
     slText(a.x - a.width / 2.3, a.y - a.height / 4 - 2.0*SELECT_SUBMENU_TEXT_SPACER,"Remember: By pressing the New button, all your previous ");

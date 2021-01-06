@@ -140,14 +140,14 @@ void openFile(std::vector<Block>& blocks, std::vector<Node*>& nodes, std::string
 /// <summary>
 /// Deletes a block and its nodes
 /// </summary>
-/// <author>Cristi</author>
+/// <author>Cristi and Andrei</author>
 void deleteBlock(std::vector<Block>& blocks, std::vector<Node*>& nodes);
 
 /// <summary>
 /// Draws the  background of the window of the menu
 /// </summary>
 /// <author>Cristi</author>
-void drawWindow( double x, double y, double width, double height);
+void drawWindow(double x, double y, double width, double height);
 
 /// <summary>
 /// Draws the  background of the window of the submenu

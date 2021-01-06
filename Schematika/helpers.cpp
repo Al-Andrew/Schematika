@@ -42,7 +42,11 @@ bool isCircleClicked(double x, double y, double r)
 }
 
 void limitsOfFloatingBlocks(Block& b)
-{
+{   
+    double BLOCK_LIMITS_LEFT = b.width / 2 + 15;
+    double BLOCK_LIMITS_RIGHT = WINDOW_WIDTH / 1.0 - SELECT_BLOCK_MENU_WIDTH - MENU_BORDER_WIDTH *2.7 - b.width / 2 ;
+    double BLOCK_LIMITS_DOWN = b.height / 2 + 15;
+    double BLOCK_LIMITS_UP = WINDOW_HEIGHT/1.0 - SELECT_MENU_HEIGHT - MENU_BORDER_WIDTH / 2 - b.height / 2 - 14;
     if (slGetMouseX() < BLOCK_LIMITS_LEFT && slGetMouseY() < BLOCK_LIMITS_DOWN)
     {
         b.x = BLOCK_LIMITS_LEFT;
@@ -275,19 +279,19 @@ void deleteBlock(std::vector<Block> &blocks, std::vector<Node*>& nodes)
 {
     for (unsigned int i = 0; i < blocks.size(); i++)
     {
-        if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(1030, 30, 50, 50))
+        if (isRectClicked(blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) && isRectClicked(static_cast<double>(WINDOW_WIDTH) - SELECT_BLOCK_MENU_WIDTH - SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT / 1.3, SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT))
         {
             for ( int j = 0; j < nodes.size(); j++)
             {
-                if (nodes[j]->x == blocks[i].x || nodes[j]->x == blocks[i].x - blocks[i].width / 2 || nodes[j]->x == blocks[i].x + blocks[i].width / 2)
+               if ((nodes[j]->x == blocks[i].x || nodes[j]->x == blocks[i].x - blocks[i].width / 2 || nodes[j]->x == blocks[i].x + blocks[i].width / 2)&& (nodes[j]->y == blocks[i].y - blocks[i].height/2 || nodes[j]->y == blocks[i].y + blocks[i].height / 2))
                 {
                     nodes.erase(nodes.begin() + j);
                     j--;
                 }
-                else if(nodes[j]->next != nullptr)
-                    if (nodes[j]->next->x == blocks[i].x || nodes[j]->next->x == blocks[i].x - blocks[i].width / 2 || nodes[j]->next->x == blocks[i].x + blocks[i].width / 2)
+                else if (nodes[j]->next != nullptr)
+                    if ((nodes[j]->next->x == blocks[i].x || nodes[j]->next->x == blocks[i].x - blocks[i].width / 2 || nodes[j]->next->x == blocks[i].x + blocks[i].width / 2) && (nodes[j]->next->y == blocks[i].y - blocks[i].height / 2 || nodes[j]->next->y == blocks[i].y + blocks[i].height / 2))
                         nodes[j]->next = nullptr;
-            }
+            }       
             blocks.erase(blocks.begin() + i);
         }
     }

@@ -58,10 +58,6 @@
 ///Bocks
 #define DEFAULT_X					WINDOW_WIDTH/2
 #define DEFAULT_Y					WINDOW_HEIGHT/2
-#define BLOCK_LIMITS_RIGHT			1012
-#define BLOCK_LIMITS_LEFT			68
-#define BLOCK_LIMITS_DOWN			34
-#define BLOCK_LIMITS_UP				647
 #define DECIZIE_WIDTH				120
 #define DECIZIE_HEIGHT				50
 #define CALCUL_WIDTH				110
