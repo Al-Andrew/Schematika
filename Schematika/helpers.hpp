@@ -154,3 +154,6 @@ void drawWindow( double x, double y, double width, double height);
 /// </summary>
 /// <author>Cristi</author>
 void drawSubMenuWindow(double x, double y, double width, double height);
+
+
+void rtrim(std::string& s);

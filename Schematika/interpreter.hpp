@@ -8,3 +8,4 @@
 
 
 void interpret(std::vector<Block> blocks);
+std::string translate(std::vector<Block> blocks);
