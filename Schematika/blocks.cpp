@@ -158,7 +158,7 @@ Block generateDecizie()
 	Node* n = new Node;
 	//n->host = &b;
 	n->x = b.x - b.width/2.f;
-	n->y = b.y - b.height / 2.f;
+	n->y = b.y - b.height / 3.5;
 	n->r = NODE_RADIUS;
 	n->floating = false;
 	n->next = nullptr;
@@ -167,7 +167,7 @@ Block generateDecizie()
 	Node* m = new Node;
 	//m->host = &b;
 	m->x = b.x + b.width / 2.f;
-	m->y = b.y - b.height / 2.f;
+	m->y = b.y - b.height / 3.5;
 	m->r = NODE_RADIUS;
 	m->floating = false;
 	m->next = nullptr;
@@ -176,7 +176,7 @@ Block generateDecizie()
 	Node* l = new Node;
 	//l->host = &b;
 	l->x = b.x;
-	l->y = b.y + b.height / 2.f;
+	l->y = b.y + b.height / 2.5;
 	l->r = NODE_RADIUS;
 	l->floating = false;
 	l->next = nullptr;
@@ -258,16 +258,16 @@ void drawCalcul(const Block& b)
 void drawDecizie(const Block& b)
 {
 	setForeColor(BLOCK_FILL_COLOR);
-	slTriangleFill(b.x, b.y, b.width, b.height);
+	slTriangleFill(b.x, b.y + b.height /5 , b.width, b.height/2.5);
+	slRectangleFill(b.x, b.y - (b.height - b.height/2.5)/2, b.width, b.height - b.height/2.5);
 	setForeColor(BLOCK_DECIZIE_DA_COLOR);
-	slRectangleFill(b.x - b.width/2 + 5, b.y, 25, 25);
-	slSetFontSize(15);
-	setForeColor(BLOCK_DECIZIE_TEXT_COLOR);
-	slText(b.x - b.width/2 + 5, b.y - 5, "A");
+	slRectangleFill(b.x - 10.5, b.y + 2, 21, 16);
 	setForeColor(BLOCK_DECIZIE_NU_COLOR);
-	slRectangleFill(b.x + b.width / 2 - 5, b.y, 25, 25);
+	slRectangleFill(b.x +  10.5, b.y + 2, 21, 16);
+	slSetFontSize(13);
 	setForeColor(BLOCK_DECIZIE_TEXT_COLOR);
-	slText(b.x + b.width / 2 - 5, b.y - 5, "F");
+	slText(b.x + 11, b.y - 2, "F");
+	slText(b.x - 9, b.y - 2, "A");
 	setForeColor(BLOCK_TEXT_COLOR);
 	slSetFontSize(20);
 	std::string txt;
@@ -275,7 +275,7 @@ void drawDecizie(const Block& b)
 		txt = "DECIZIE";
 	else
 		txt = b.text;
-	slText(b.x, b.y - 20, txt.c_str());
+	slText(b.x, b.y - 24, txt.c_str());
 }
 
 void drawNode( Node* n)
@@ -376,8 +376,79 @@ void update(Block& b, double& cooldown)
 			std::getline(std::cin,expression);
 			b.text = expression;
 			b.floating = false;
-			if(b.width < slGetTextWidth(expression.c_str()))
-				b.width = slGetTextWidth(expression.c_str()) + 10;
+			double newWidth = slGetTextWidth(expression.c_str());
+			if (b.width > newWidth)
+			{
+				if (b.type == Type::INPUT)
+				{
+					if (newWidth > IN_WIDTH)
+						b.width = newWidth + 10;
+					else
+						b.width = IN_WIDTH;
+				}
+				else if (b.type == Type::OUTPUT)
+				{
+					if (newWidth > OUT_WIDTH)
+						b.width = newWidth + 10;
+					else
+						b.width = OUT_WIDTH;
+				}
+				else if (b.type == Type::CALCUL)
+				{
+					if (newWidth > CALCUL_WIDTH)
+						b.width = newWidth + 10;
+					else
+						b.width = CALCUL_WIDTH;
+				}
+				else if (b.type == Type::DECIZIE)
+				{	
+					double width = b.width;
+					if (newWidth < DECIZIE_WIDTH)
+					{
+						b.width = DECIZIE_WIDTH;
+					}
+					else 
+						b.width = newWidth + 15;
+					for (Node*& n : b.nodes)
+					{
+						if (b.type == Type::DECIZIE && n->x != b.x)
+						{
+							if (n->x == b.x - width / 2)
+							{
+								n->x = b.x - b.width / 2;
+							}
+							else if (n->x == b.x + width / 2)
+							{
+								n->x = b.x + b.width / 2;
+							}
+						}
+					}
+				}
+			}
+			else if (b.width < newWidth)
+			{	
+					if (b.type == Type::DECIZIE )
+					{	
+						double width = b.width;
+						b.width = newWidth + 15;
+						for (Node*& n : b.nodes)
+						{
+							if (n->x != b.x)
+							{
+								if (n->x == b.x - width / 2)
+								{
+									n->x = b.x - b.width / 2;
+								}
+								else if (n->x == b.x + width / 2)
+								{
+									n->x = b.x + b.width / 2;
+								}
+							}
+						}
+					}
+					else
+						b.width = newWidth + 10;
+			}
 
 			setCooldown(cooldown);
 		}
@@ -408,10 +479,6 @@ void updateNode(Node*& n, double& cooldown, clickHandler& handle)
 		else if(n->host == nullptr)
 		{
 			n->floating = !n->floating;
-		}
-		else if (n->next != nullptr)
-		{
-			n->next = nullptr;
 		}
 		setCooldown(cooldown);
 	}

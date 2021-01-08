@@ -77,7 +77,7 @@ void draw(const Block& b);
 /// </summary>
 /// <param name="b">block to be updated</param>
 /// <param name="cooldown">current click cooldown</param>
-/// <author>Andrei</author>
+/// <author>Andrei and Cristi</author>
 void update(Block& b, double& cooldown);
 
 /// <summary>
