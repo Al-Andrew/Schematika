@@ -31,14 +31,14 @@ BlockMenu makeBlockMenu()
     return b;
 }
 
-void drawBlocksMenu(const BlockMenu& m)
+void drawBlocksMenu(const BlockMenu& m, std::vector<Block> blocks)
 {
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
     slSetFontSize(TEXT_MENU_SIZE);
     slText(m.x, static_cast<double>(WINDOW_HEIGHT)-BLOCK_TITLE_HEIGHT-TITLE_UP_SPACE, "Blocks");
     for (Block bl : m.displayBlocks)
     {
-        draw(bl);
+        draw(bl,blocks);
     }
 }
 

@@ -36,7 +36,7 @@ int main()
 	std::vector<updatedSubMenu> upsmenu;
 	while (!slShouldClose())
 	{	
-		drawBlocksMenu(bmenu);
+		drawBlocksMenu(bmenu,blocks);
 		drawMenu(menu);
 		slSprite(trash, static_cast<double>(WINDOW_WIDTH) - SELECT_BLOCK_MENU_WIDTH - SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT / 1.3, SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT);
 		
@@ -88,7 +88,7 @@ int main()
 		// Responsible for the drawing of the blocks and updating the coordinates of the nodes
 		for (Block& bl : blocks)
 		{
-			draw(bl);
+			draw(bl,blocks);
 			if(umenu.onTop==false)
 				update(bl, cooldown);
 		}
