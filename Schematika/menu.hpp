@@ -25,10 +25,11 @@ enum class helpQuestion
     Q4,
     Q5,
     Q6,
+    Q7,
     NOT_A_QUESTION
 };
 
-const std::vector<helpQuestion> allQuestions = { helpQuestion::Q1, helpQuestion::Q2, helpQuestion::Q3, helpQuestion::Q4, helpQuestion::Q5,  helpQuestion::Q6 };
+const std::vector<helpQuestion> allQuestions = { helpQuestion::Q1, helpQuestion::Q2, helpQuestion::Q3, helpQuestion::Q4, helpQuestion::Q5,  helpQuestion::Q6, helpQuestion::Q7 };
 
 const std::vector<menuButtons> allMenuButtons = { menuButtons::New, menuButtons::Save, menuButtons::Open, menuButtons::Run,menuButtons::Code,menuButtons::Help,menuButtons::About };
 
@@ -118,7 +119,7 @@ Menu makeMenu();
 /// </summary>
 /// <param name="m">The Blocks menu struct</param>
 /// <author>Cristi and Andrei</author>
-void drawBlocksMenu(const BlockMenu& m);
+void drawBlocksMenu(const BlockMenu& m, std::vector<Block> blocks);
 
 /// <summary>
 /// Draws the menu

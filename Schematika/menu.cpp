@@ -31,14 +31,14 @@ BlockMenu makeBlockMenu()
     return b;
 }
 
-void drawBlocksMenu(const BlockMenu& m)
+void drawBlocksMenu(const BlockMenu& m, std::vector<Block> blocks)
 {
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
     slSetFontSize(TEXT_MENU_SIZE);
     slText(m.x, static_cast<double>(WINDOW_HEIGHT)-BLOCK_TITLE_HEIGHT-TITLE_UP_SPACE, "Blocks");
     for (Block bl : m.displayBlocks)
     {
-        draw(bl);
+        draw(bl,blocks);
     }
 }
 
@@ -204,7 +204,6 @@ void drawHelp(const updatedMenu& a)
     slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 3.5, "2.  A project must have only one START block. ");
     slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 4.5, "3.  It is possible to write only on the INPUT, ");
     slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 5.5, "OUTPUT, DECIZIE or CALCUL block.");
-    slText(a.x - a.width / 2.0 + 2.0 * MENU_BORDER_WIDTH, Y - SELECT_SUBMENU_TEXT_SPACER * 6.5, "4.  CALCUL block can have more then one input.");
     slCircleFill(a.x, 75, 35, 30);
     slSetFontSize(50);
     slSetTextAlign(SL_ALIGN_CENTER);
@@ -275,8 +274,9 @@ std::string questionTypeToString(helpQuestion u)
     case helpQuestion::Q2: return "2. How to connect the blocks ?";
     case helpQuestion::Q3: return "3. How to delete a block or to start a new project?";
     case helpQuestion::Q4: return "4. How to write on the blocks ?";
-    case helpQuestion::Q5: return "5. How to save and open your project ?";
-    case helpQuestion::Q6: return "6. How to run and view the code of your project ?";
+    case helpQuestion::Q5: return "5. How to save and open the project ?";
+    case helpQuestion::Q6: return "6. How to run the project ?";
+    case helpQuestion::Q7: return "7. How to view the code of the project ?";
     default: return "Err";
     }
     return "Err";
@@ -395,7 +395,7 @@ void drawQ5(const updatedSubMenu& a)
 {   
     drawSubMenuWindow(a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
-    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to save and open your project ?");
+    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to save and open the project ?");
     slText(a.x + a.width / 6, a.y + a.height / 2.4, "1.   In order to save");
     slText(a.x + a.width / 6, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER*0.8, "the project, it is");
     slText(a.x - a.width / 2.1, a.y + a.height / 2.4 - SELECT_SUBMENU_TEXT_SPACER * 1.8, "necessary to click on the Save button.In the lower left corner");
@@ -408,16 +408,39 @@ void drawQ5(const updatedSubMenu& a)
     slText(a.x - a.width / 2.1, a.y -22 -  SELECT_SUBMENU_TEXT_SPACER * 1.8, "necessary to click on the Open button. In the lower left");
     slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 2.8, "corner will appear the message: Please open console for");
     slText(a.x - a.width / 2.1, a.y - 22 - SELECT_SUBMENU_TEXT_SPACER * 3.8, "input.");
-    slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 6.5, "Now it is necessary to open the console and there to write");
+    slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 6.5, "   Now it is necessary to open the console and there to write");
     slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 7.5, "the name of your project ( example.txt ). By pressing enter,");
     slText(a.x - a.width / 2.1, a.y -22 - SELECT_SUBMENU_TEXT_SPACER * 8.5, "if exists a project with the given name, then it will open.");
-
 }
 void drawQ6(const updatedSubMenu& a)
 {
     drawSubMenuWindow(a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
-    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to run and view the code of your project ?");
+    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to run the project ?");
+    slText(a.x - a.width/6.3, a.y + a.height / 2.5, "1.    First of all, in order to be able to run");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 -SELECT_SUBMENU_TEXT_SPACER, "the project, it is necessary to have some");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER*2.0, "spawned, connected blocks. Also,");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 3.0, "INPUT, OUTPUT, DECIZIE and CALCUL");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 4.0, " blocks must contain an input.");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 5.0, "Remember, use only the variables");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 6.0, "from INPUT block / blocks.");
+    slText(a.x - a.width / 2.1, a.y + 20, "2.    In order to run");
+    slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER*0.8, "the project, it is ");
+    slText(a.x - a.width / 2.1, a.y +20 - SELECT_SUBMENU_TEXT_SPACER * 1.8, "necessary to click on the Run button. In the lower left corner");
+    slText(a.x - a.width / 2.1, a.y +20 - SELECT_SUBMENU_TEXT_SPACER * 2.8, " will appear the message: Please open console for input.");
+    slText(a.x + a.width / 6.1, a.y - a.height / 5.9, " Now it is necessary");
+    slText(a.x + a.width / 6.1, a.y - a.height / 5.9 - SELECT_SUBMENU_TEXT_SPACER*0.8, "to open the console");
+    slText(a.x - a.width / 2.1, a.y - a.height / 5.9 - SELECT_SUBMENU_TEXT_SPACER * 1.8, "and there to input a value for every given variables from the");
+    slText(a.x - a.width / 2.1, a.y - a.height / 5.9 - SELECT_SUBMENU_TEXT_SPACER * 2.8, "project. Finally, by pressing");
+    slText(a.x - a.width / 2.1, a.y - a.height / 5.9 - SELECT_SUBMENU_TEXT_SPACER * 3.8, "enter key, the project will run");
+    slText(a.x - a.width / 2.1, a.y - a.height / 5.9 - SELECT_SUBMENU_TEXT_SPACER * 4.8, "and in the console will appear");
+    slText(a.x - a.width / 2.1, a.y - a.height / 5.9 - SELECT_SUBMENU_TEXT_SPACER * 5.8, "the result of the project.");
+}
+void drawQ7(const updatedSubMenu& a)
+{
+    drawSubMenuWindow(a.x, a.y, a.width, a.height);
+    setForeColor(MENU_TEXT_COLOR);
+    slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to view the code of your project ?");
 }
 void drawUpdatedSubMenu(const updatedSubMenu a)
 {   
@@ -432,6 +455,7 @@ void drawUpdatedSubMenu(const updatedSubMenu a)
     case helpQuestion::Q4: return drawQ4(a);
     case helpQuestion::Q5: return drawQ5(a);
     case helpQuestion::Q6: return drawQ6(a);
+    case helpQuestion::Q7: return drawQ7(a);
     default: break;
     }
 }

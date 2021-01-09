@@ -70,7 +70,7 @@ struct clickHandler
 /// </summary>
 /// <param name="b"> A block to operate on</param>
 /// <author>Andrei</author>
-void draw(const Block& b);
+void draw(const Block& b, std::vector<Block> blocks);
 
 /// <summary>
 /// Updates the given block taking in account the cooldown for clicks
@@ -114,8 +114,17 @@ Block generateDecizie();
 Block generateInput();
 Block generateOutput();
 
+/// <summary>
+/// Specialized function to draw the nodes of blocks and the line between the nodes
+/// </summary>
+/// <author>Andrei</author>
+/// <author>Cristi</author>
+void drawNode( Node* n, std::vector<Block> blocks);
 
-void drawNode( Node* n);
+/// <summary>
+/// Updates the given node taking in account the cooldown for clicks
+/// </summary>
+/// <author>Andrei</author>
 void updateNode(Node*& n, double& cooldown, clickHandler& handle);
 
 void handleDraw(const clickHandler& handle);

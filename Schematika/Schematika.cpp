@@ -22,6 +22,10 @@ int main()
 	int q5 = slLoadTexture("./Images/Q5.2.png");
 	int Qq5 = slLoadTexture("./Images/Q5.1.png");
 	int qQ5 = slLoadTexture("./Images/Q5.3.png");
+	int Q6 = slLoadTexture("./Images/Q6.png");
+	int q6 = slLoadTexture("./Images/Q6_example.png");
+	int Qq6 = slLoadTexture("./Images/Q6.1.png");
+	int qQ6 = slLoadTexture("./Images/Q6.2.png");
 	double cooldown = 0;
 	bool onTop = false; //for subMenu windows (prevent the clicking under the window)
 	clickHandler handle;
@@ -36,7 +40,7 @@ int main()
 	std::vector<updatedSubMenu> upsmenu;
 	while (!slShouldClose())
 	{	
-		drawBlocksMenu(bmenu);
+		drawBlocksMenu(bmenu,blocks);
 		drawMenu(menu);
 		slSprite(trash, static_cast<double>(WINDOW_WIDTH) - SELECT_BLOCK_MENU_WIDTH - SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT / 1.3, SELECT_TRASH_WIDTH, SELECT_TRASH_HEIGHT);
 		
@@ -88,7 +92,7 @@ int main()
 		// Responsible for the drawing of the blocks and updating the coordinates of the nodes
 		for (Block& bl : blocks)
 		{
-			draw(bl);
+			draw(bl,blocks);
 			if(umenu.onTop==false)
 				update(bl, cooldown);
 		}
@@ -123,7 +127,8 @@ int main()
 				case helpQuestion::Q3: slSprite(Q3, a.x, a.y + a.height / 3.5, 350, 150); slSprite(q3, a.x, a.y - a.height/8, 420, 75); break;
 				case helpQuestion::Q4: slSprite(Q4, a.x - a.width/3.6, a.y + a.height / 3.3, 160, 150); slSprite(q4, a.x, a.y - 75, 450, 75); break;
 				case helpQuestion::Q5: slSprite(Q5, a.x - a.width/6.4, a.y + a.height / 2.5, 300, 45); slSprite(q5, a.x, a.y+ a.height/5, 450, 75); slSprite(Qq5, a.x - a.width / 6.4, a.y - 33, 300, 45); slSprite(qQ5, a.x, a.y - a.height / 3.5, 450, 60); break;
-				case helpQuestion::Q6: break;
+				case helpQuestion::Q6: slSprite(q6, a.x - a.width / 3.1, a.y + a.height / 4.0, 150, 260); slSprite(Q6, a.x + a.width / 6.4, a.y + 15, 300, 45); slSprite(Qq6, a.x - a.width / 6.3, a.y - a.height /5.5 , 300, 45); slSprite(qQ6, a.x + a.width / 3.8, 75, 200, 130); break;
+				case helpQuestion::Q7: break;
 				default: break;
 			}
 			if (isRectClicked(830, 672.5, 50, 35))//back button
