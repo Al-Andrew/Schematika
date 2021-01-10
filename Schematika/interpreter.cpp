@@ -326,6 +326,15 @@ void interpret(std::vector<Block> blocks)
 }
 
 
+enum TWB
+{
+    FALS = 0,
+    ADEV = 1,
+    GATA = 2,
+};
+
+
+
 std::string translate(std::vector<Block> blocks)
 {
     Block start = *std::find_if(std::begin(blocks), std::end(blocks), [](Block b) {return b.type == Type::START; });
@@ -339,8 +348,10 @@ std::string translate(std::vector<Block> blocks)
         "\n"
         "int main()\n"
         "{\n";
-    std::map<std::string,int> variables;
-    
+    std::map<std::string, int> variables;
+    std::stack<Block*> ifs;
+    std::map<Block*, std::pair<TWB, std::string>> record; // first = seen, second = repeat
+    unsigned int ifcount = 1;
 
     while (true)
     {
@@ -366,7 +377,7 @@ std::string translate(std::vector<Block> blocks)
             if (!(variables[v] == 1))
             {
                 code.append("double " + v + ";\n");
-                std::cout << v << std::endl;
+              //  std::cout << v << std::endl;
                 variables[v] = 1;
             }
             code.append(var + ";\n");
@@ -392,24 +403,57 @@ std::string translate(std::vector<Block> blocks)
             {
                 std::cerr << "Error Output: Variable: " << var << " not present in memory. \n";
             }
-            std::cout << var << "|"<< std::endl;
+          //  std::cout << var << "|"<< std::endl;
             
             st = st->host->nodes[1];
         }
         else if (st->host != nullptr and st->host->type == Type::DECIZIE)
         {
             std::string var = st->host->text;
-
             
-
-            if ( true )// TODO
+            if (stack_find(ifs, st->host) == false) //first time seeing a block
+            {
+                ifs.push(st->host);
+                std::string label = "decizie" + std::to_string(ifcount++) + ":\n";
+                record[st->host] = std::make_pair<TWB, std::string>(TWB::ADEV, std::string(std::begin(label),std::end(label)-2)); // mark it as seen and a repeat
+                code.append(label);
+                code.append("if( " + var + ")\n{\n");
                 st = st->host->nodes[0];
-            else
+            }
+            else if (stack_find(ifs, st->host) == true)
+            {
+                std::string label = record[st->host].second + ";\n}\n";
+                code.append("goto " + label);
+                code.append("else\n{\n");
+                record[st->host].first = TWB::FALS;
+                while (ifs.top() != st->host)
+                {
+                    ifs.pop();
+                    code.append("}\n");
+                }
                 st = st->host->nodes[1];
+            }
         }
 
         else if (st->host != nullptr and st->host->type == Type::STOP)
-            break;
+        {
+            if (ifs.empty() == true)
+                break;
+            else
+            {
+                if (record[ifs.top()].first == TWB::ADEV)
+                {
+                    code.append("}\nelse\n{\n");
+                    st = ifs.top()->nodes[1];
+                    record[ifs.top()].first = TWB::FALS;
+                }
+                else if (record[ifs.top()].first == TWB::FALS)
+                {
+                    code.append("return 0;\n}\n");
+                    ifs.pop();
+                }
+            }
+        }
     }
     code.append("}");
     std::cout << "Translation succesfull" << std::endl;

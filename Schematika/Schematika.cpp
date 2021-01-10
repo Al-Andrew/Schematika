@@ -38,6 +38,9 @@ int main()
 	std::vector<Node*> nodes;
 	std::vector<updatedMenu> upmenu;
 	std::vector<updatedSubMenu> upsmenu;
+
+	std::ofstream code;
+
 	while (!slShouldClose())
 	{	
 		drawBlocksMenu(bmenu,blocks);
@@ -67,6 +70,7 @@ int main()
 				case menuButtons::Save: saveToFile(blocks, nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); break;
 				case menuButtons::Open: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); openFile(blocks, nodes); break;
 				case menuButtons::Run: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); if (blocks.size() != 0) /*TO DO (conditions of working Run button)*/ { saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt"); interpret(blocks); } break;
+				case menuButtons::Code: code.open("code.txt"); code << translate(blocks) << std::endl; code.close(); break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
 			}

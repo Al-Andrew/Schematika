@@ -14,6 +14,6 @@ BLOCKS
 START 397 610 110 50 $  $ 1 
 INPUT 425 525 100 40 $ X $ 2 3 
 DECIZIE 432 436 120 50 $ X % 2 == 0  $ 4 5 6 
-OUTPUT 330 325 283 40 $ #Numarulintrodusestepar# $ 7 8 
-OUTPUT 636 328 300 40 $ #Numarulintrodusesteinpar# $ 9 10 
+OUTPUT 330 325 283 40 $ # Numarul introdus este par # $ 7 8 
+OUTPUT 636 328 300 40 $ # Numarul introdus este inpar # $ 9 10 
 STOP 434 158 110 50 $  $ 11 

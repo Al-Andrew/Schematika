@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stack>
 
 /// <summary>
 /// Struct to hold color data
@@ -157,3 +158,4 @@ void drawSubMenuWindow(double x, double y, double width, double height);
 
 
 void rtrim(std::string& s);
+bool stack_find(std::stack<Block*> st, Block* el);

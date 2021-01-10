@@ -1,5 +1,6 @@
 #include "helpers.hpp"
 #include "sl.h"
+#include <stack>
 
 void setBackColor(const Color& c)
 {
@@ -360,4 +361,16 @@ void rtrim(std::string& s) {
     s.erase(std::find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
         return !std::isspace(ch);
         }).base(), s.end());
+}
+
+
+bool stack_find(std::stack<Block*> st, Block* el)
+{
+    while (st.empty() == false)
+    {
+        if (st.top() == el)
+            return true;
+        st.pop();
+    }
+    return false;
 }
