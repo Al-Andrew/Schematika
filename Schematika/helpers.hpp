@@ -159,3 +159,4 @@ void drawSubMenuWindow(double x, double y, double width, double height);
 
 void rtrim(std::string& s);
 bool stack_find(std::stack<Block*> st, Block* el);
+bool is_valid(std::vector<Block> blocks);

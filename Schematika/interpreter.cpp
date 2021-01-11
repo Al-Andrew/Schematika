@@ -2,7 +2,7 @@
 #include <map>
 #include <stack>
 #include <queue>
-
+#include <algorithm>
 
 bool isnum(std::string var)
 {
@@ -11,6 +11,17 @@ bool isnum(std::string var)
             return false;
     return true;
 }
+
+std::string string_find_replace(std::string subject, const std::string& search,
+    const std::string& replace) {
+    size_t pos = 0;
+    while ((pos = subject.find(search, pos)) != std::string::npos) {
+        subject.replace(pos, search.length(), replace);
+        pos += replace.length();
+    }
+    return subject;
+}
+
 
 double var_eval(std::map<std::string, double>& mem, std::string var)
 {
@@ -31,6 +42,7 @@ void input(std::map<std::string, double>& mem, std::string var)
 void output(std::map<std::string, double>& mem, std::string var)
 {
     rtrim(var);
+    string_find_replace(var, "\n", std::string('\n',1));
     if (var[0] == '#')
     {
         std::cout << std::string(var.begin() + 1, var.begin() + var.find("#", 1)) << std::endl;
@@ -65,7 +77,7 @@ const std::vector<op> all_operators = {
     {"%", 5},
     {"(", 0},
     {")", 0},
-    {"**", 6},
+    {"^", 6},
     {"&&", -1},
     {"||", -1},
     {"==", -1},
@@ -333,6 +345,35 @@ enum TWB
     GATA = 2,
 };
 
+std::string translate_exp(std::string exp)
+{
+    std::string cexp;
+
+    std::vector<std::string> tokens;
+    std::stringstream l(exp);
+
+    for (std::string tok; std::getline(l, tok, ' '); tokens.emplace_back(tok));
+
+    for (int i = 0; i < tokens.size(); i++)
+    {
+        if (tokens[i] == "%")
+        {
+            tokens[i - 1] = "std::fmod(" + tokens[i - 1] + ", " + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i, std::begin(tokens) + i + 2);
+            i--;
+        }
+        else if (tokens[i] == "**")
+        {
+            tokens[i - 1] = "std::pow(" + tokens[i - 1] + ", " + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i, std::begin(tokens) + i + 2);
+            i--;
+        }
+    }
+
+    for (auto& t : tokens)
+        cexp += t;
+    return cexp;
+}
 
 
 std::string translate(std::vector<Block> blocks)
@@ -381,7 +422,7 @@ std::string translate(std::vector<Block> blocks)
               //  std::cout << v << std::endl;
                 variables[v] = 1;
             }
-            code.append(var + ";\n");
+            code.append(translate_exp(var) + ";\n");
             st = st->host->nodes[1];
         }
         else if (st->host != nullptr and st->host->type == Type::OUTPUT)
@@ -411,7 +452,7 @@ std::string translate(std::vector<Block> blocks)
         else if (st->host != nullptr and st->host->type == Type::DECIZIE)
         {
             std::string var = st->host->text;
-            
+            var = translate_exp(var);
             if (stack_find(ifs, st->host) == false) //first time seeing a block
             {
                 ifs.push(st->host);

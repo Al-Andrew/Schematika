@@ -1,6 +1,7 @@
 #include "helpers.hpp"
 #include "sl.h"
 #include <stack>
+#include <algorithm>
 
 void setBackColor(const Color& c)
 {
@@ -373,4 +374,13 @@ bool stack_find(std::stack<Block*> st, Block* el)
         st.pop();
     }
     return false;
+}
+
+
+bool is_valid(std::vector<Block> blocks)
+{
+    auto search_start = std::count_if(std::begin(blocks), std::end(blocks), [](Block b) {return b.type == Type::START; });
+    auto search_stop  =  std::find_if(std::begin(blocks), std::end(blocks), [](Block b) {return b.type == Type::STOP; });
+    
+    return (search_start == 1) and (search_stop != blocks.end());
 }
