@@ -34,7 +34,7 @@
 #define BACK_HOVER_COLOR		  Color({ 127, 140, 141, 1.f })
 #define BACK_COLOR				  Color({ 189, 195, 199, 1.f })	
 #else
-#define BACKGROUND_COLOR          Color({  55,  55,  55, 0.f })
+#define BACKGROUND_COLOR          Color({  45,  45,  45, 0.f })
 #define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
 
 #define BLOCK_FILL_COLOR          Color({  54,   0, 179, 1.f })
@@ -48,11 +48,11 @@
 #define NODE_LINE_COLOR		      Color({ 142,  68, 173, 1.f })
 #define NODE_SELECT_COLOR		  Color({   3, 218, 198, 1.f })
 
-#define MENU_BACKGROUND_COLOR     Color({  77,  77,  77, 1.f })
-#define MENU_BORDER_COLOR         Color({  54,   0, 179, 1.f })
+#define MENU_BACKGROUND_COLOR     Color({  50,  50,  50, 1.f })
+#define MENU_BORDER_COLOR         Color({ 100, 100, 100, 1.f })
 #define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
 #define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
-#define MENU_TEXT_COLOR			  Color({ 150, 150, 150, 1.f })
+#define MENU_TEXT_COLOR			  Color({ 255, 255, 255, 1.f })
 
 #define BACK_HOVER_COLOR		  Color({ 127, 140, 141, 1.f })
 #define BACK_COLOR				  Color({ 189, 195, 199, 1.f })
