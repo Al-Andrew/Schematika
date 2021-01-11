@@ -41,7 +41,7 @@ struct Node
     double x = 0, y = 0, r = 0;
     bool floating = false;
     Node* next = nullptr;
-    Block* host;
+    Block* host = nullptr;
 };
 
 /// <summary>
@@ -70,7 +70,7 @@ struct clickHandler
 /// </summary>
 /// <param name="b"> A block to operate on</param>
 /// <author>Andrei</author>
-void draw(const Block& b, std::vector<Block> blocks);
+void draw(const Block& b);
 
 /// <summary>
 /// Updates the given block taking in account the cooldown for clicks
@@ -119,7 +119,7 @@ Block generateOutput();
 /// </summary>
 /// <author>Andrei</author>
 /// <author>Cristi</author>
-void drawNode( Node* n, std::vector<Block> blocks);
+void drawNode( Node* n);
 
 /// <summary>
 /// Updates the given node taking in account the cooldown for clicks

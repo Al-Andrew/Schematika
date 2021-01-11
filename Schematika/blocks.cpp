@@ -278,7 +278,7 @@ void drawDecizie(const Block& b)
 	slText(b.x, b.y - 24, txt.c_str());
 }
 
-void drawNode( Node* n, std::vector<Block> blocks)
+void drawNode( Node* n)
 {
 	Color c;
 	if (isMouseInCircle(n->x, n->y, n->r) && int(n->x) < WINDOW_WIDTH - SELECT_BLOCK_MENU_WIDTH)
@@ -291,56 +291,56 @@ void drawNode( Node* n, std::vector<Block> blocks)
 	{
 		double difY = abs(n->y - n->next->y) / 4;
 		double difX = abs(n->x - n->next->x) / 2;
-		unsigned int k = 0;
-		if (difY > 30)
-			difY = 30;
-		drawNode(n->next, blocks);
+		if (difY > 25)
+			difY = 25;
+		drawNode(n->next);
 		setForeColor(NODE_LINE_COLOR);
-		for (unsigned int i=0;i<blocks.size();i++)
-		{
-			if (blocks[i].type == Type::DECIZIE)
-				k = i;
-		}
 		if (n->x == n->next->x)
 			slLine(n->x, n->y, n->next->x, n->next->y);
-		else if (n->x == blocks[k].x - blocks[k].width / 2 || n->x == blocks[k].x + blocks[k].width / 2)
+		else if (n->host != nullptr && n->next->host == nullptr)
 		{
-			slLine(n->x, n->y, n->x, n->next->y + difY);
-			slLine(n->x, n->next->y + difY, n->next->x, n->next->y + difY);
-			slLine(n->next->x, n->next->y + difY, n->next->x, n->next->y);
+			slLine(n->x, n->y, n->x, n->y - 15);
+			slLine(n->x, n->y - 15, n->next->x, n->y - 15);
+			n->next->y = n->y - 15;
 		}
-		else if (n->y > n->next->y)
+		else if (n->host == nullptr)
 		{
+				slLine(n->x, n->y, n->x, n->next->y);
+				slLine(n->x, n->next->y, n->next->x, n->next->y);
+		}
+		else
+		{	
+			if (n->y > n->next->y)
+			{	
+					slLine(n->x, n->y, n->x, n->y - difY);
+					slLine(n->x, n->y - difY, n->next->x, n->y - difY);
+					slLine(n->next->x, n->y - difY, n->next->x, n->next->y);
+			}
+			else if (n->y <= n->next->y)
 			{
-				slLine(n->x, n->y, n->x, n->y - difY);
-				slLine(n->x, n->y - difY, n->next->x, n->y - difY);
-				slLine(n->next->x, n->y - difY, n->next->x, n->next->y);
+				if (n->x < n->next->x)
+				{
+					slLine(n->next->x, n->next->y, n->next->x, n->next->y + difY);
+					slLine(n->next->x, n->next->y + difY, n->next->x - difX, n->next->y + difY);
+					slLine(n->next->x - difX, n->next->y + difY, n->next->x - difX, n->y - difY);
+					slLine(n->next->x - difX, n->y - difY, n->x, n->y - difY);
+					slLine(n->x, n->y - difY, n->x, n->y);
+				}
+				else
+				{
+					slLine(n->next->x, n->next->y, n->next->x, n->next->y + difY);
+					slLine(n->next->x, n->next->y + difY, n->next->x + difX, n->next->y + difY);
+					slLine(n->next->x + difX, n->next->y + difY, n->next->x + difX, n->y - difY);
+					slLine(n->next->x + difX, n->y - difY, n->x, n->y - difY);
+					slLine(n->x, n->y - difY, n->x, n->y);
+				}
 			}
 		}
-		else if (n->y <= n->next->y)
+		if (isCircleClicked(n->x, n->y, n->r)) //disconnect the blocks
 		{
-			if (n->x < n->next->x)
-			{
-				slLine(n->next->x, n->next->y, n->next->x, n->next->y + difY);
-				slLine(n->next->x, n->next->y + difY, n->next->x - difX, n->next->y + difY);
-				slLine(n->next->x - difX, n->next->y + difY, n->next->x - difX, n->y - difY);
-				slLine(n->next->x - difX, n->y - difY, n->x, n->y - difY);
-				slLine(n->x, n->y - difY, n->x, n->y);
-			}
-			else
-			{
-				slLine(n->next->x, n->next->y, n->next->x, n->next->y + difY);
-				slLine(n->next->x, n->next->y + difY, n->next->x + difX, n->next->y + difY);
-				slLine(n->next->x + difX, n->next->y + difY, n->next->x + difX, n->y - difY);
-				slLine(n->next->x + difX, n->y - difY, n->x, n->y - difY);
-				slLine(n->x, n->y - difY, n->x, n->y);
-			}
+			n->next = nullptr;
 		}
 	}  	
-	if (n->next != nullptr && isCircleClicked(n->x, n->y, n->r))
-	{
-		n->next = nullptr;
-	}
 }
 
 Block generate(Type t)
@@ -363,7 +363,7 @@ Block generate(Type t)
 	return generateStart();
 }
 
-void draw(const Block& b, std::vector<Block> blocks)
+void draw(const Block& b)
 {
 	slSetFontSize(TEXT_BLOCK_SIZE);
 	slSetTextAlign(SL_ALIGN_CENTER);
@@ -392,7 +392,7 @@ void draw(const Block& b, std::vector<Block> blocks)
 	}
 	for ( Node* n : b.nodes)
 	{
-		drawNode(n,blocks);
+		drawNode(n);
 	}
 }
 

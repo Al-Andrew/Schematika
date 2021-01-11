@@ -119,7 +119,7 @@ Menu makeMenu();
 /// </summary>
 /// <param name="m">The Blocks menu struct</param>
 /// <author>Cristi and Andrei</author>
-void drawBlocksMenu(const BlockMenu& m, std::vector<Block> blocks);
+void drawBlocksMenu(const BlockMenu& m);
 
 /// <summary>
 /// Draws the menu

@@ -48,8 +48,8 @@
 #define SELECT_TRASH_HEIGHT			40.f
 #define CLOSE_BUTTON_WIDTH			50.f
 #define BACK_BUTTON_WIDTH			50.f
-#define CODE_WIDTH					475.f
-#define CODE_HEIGHT					720.f
+#define CODE_WIDTH					400.f
+#define CODE_HEIGHT					150.f
 #define HELP_WIDTH					475.f
 #define HELP_HEIGHT					720.f
 #define ABOUT_WIDTH					400.f
