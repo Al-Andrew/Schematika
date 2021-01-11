@@ -75,6 +75,12 @@ const std::vector<op> all_operators = {
     {"*", 5},
     {"/", 5},
     {"%", 5},
+    {"floor", 7},
+    {"ceil", 7},
+    {"abs", 7},
+    {"sin", 7},
+    {"cos", 7},
+    {"tg", 7},
     {"(", 0},
     {")", 0},
     {"**", 6},
@@ -147,13 +153,13 @@ double eval(std::map < std::string, double>& mem, std::vector<std::string>& toke
         polish.push_back(operators.top().val);
         operators.pop();
     }
-    
-    //for (auto t : polish)
-    //	std::cout << t << " ";
-    //std::cout << std::endl;
+    std::reverse(std::begin(polish), std::end(polish));
+   //for (auto t : polish)
+   // 	std::cout << t << " ";
+   // std::cout << std::endl;
 
     //Now evaluate the expression
-    std::reverse(std::begin(polish), std::end(polish));
+    
     for (int i = polish.size() - 1; i >= 0; i--)
     {
         auto search = std::find_if(std::begin(all_operators), std::end(all_operators), [&](op a) {return a.val == polish[i]; });
@@ -257,6 +263,43 @@ double eval(std::map < std::string, double>& mem, std::vector<std::string>& toke
                 polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
                 polish[i] = std::to_string(b <= a);
             }
+            else if (polish[i] == "floor")
+            {
+                double a = var_eval(mem, polish[i + 1]);
+                polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+                polish[i] = std::to_string(std::floor(a));
+            }
+            else if (polish[i] == "ceil")
+            {
+            double a = var_eval(mem, polish[i + 1]);
+            polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+            polish[i] = std::to_string(std::ceil(a));
+            }
+            else if (polish[i] == "abs")
+            {
+            double a = var_eval(mem, polish[i + 1]);
+            polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+            polish[i] = std::to_string(std::abs(a));
+            }
+            else if (polish[i] == "sin")
+            {
+                double a = var_eval(mem, polish[i + 1]);
+                polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+                polish[i] = std::to_string(std::sin(a));
+            }
+            else if (polish[i] == "cos")
+            {
+            double a = var_eval(mem, polish[i + 1]);
+            polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+            polish[i] = std::to_string(std::cos(a));
+            }
+            else if (polish[i] == "tg")
+            {
+            double a = var_eval(mem, polish[i + 1]);
+            polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+            polish[i] = std::to_string(std::tan(a));
+            }
+
             /*for (auto t : polish)
                 std::cout << t << " ";
             std::cout << std::endl;*/

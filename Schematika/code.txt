@@ -3,34 +3,21 @@
 
 int main()
 {
-std::cout << "Introduceti coeficientii a,b,c a unei ecuatii de forma ax**2 + bx + c =0\n";
-double a;
-std::cout << "Please input a value for a: ";
-std::cin >> a;
-double b;
-std::cout << "Please input a value for b: ";
-std::cin >> b;
-double c;
-std::cout << "Please input a value for c: ";
-std::cin >> c;
-double DELTA;
-DELTA=std::pow(b, 2)-4*a*c;
+double x;
+std::cout << "Please input a value for x: ";
+std::cin >> x;
+double i;
+i=0;
 decizie1:
-if( DELTA<0)
+if( i<x)
 {
-std::cout << "Solutiile sunt numere complexe\n";
+std::cout << "i = ";
+std::cout << i<<"\n";
+i=i+1;
+goto decizie1;
 }
 else
 {
-DELTA=std::pow(DELTA, 0.5);
-double x1;
-x1=(0-b+DELTA)/(2*a);
-double x2;
-x2=(0-b-DELTA)/(2*a);
-std::cout << "x1 = ";
-std::cout << x1<<"\n";
-std::cout << "x2 = ";
-std::cout << x2<<"\n";
 return 0;
 }
 }
