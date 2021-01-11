@@ -51,9 +51,9 @@
 #define CODE_WIDTH					400.f
 #define CODE_HEIGHT					150.f
 #define HELP_WIDTH					475.f
-#define HELP_HEIGHT					720.f
+#define HELP_HEIGHT					static_cast<double>(WINDOW_HEIGHT)
 #define ABOUT_WIDTH					400.f
-#define ABOUT_HEIGHT				720.f
+#define ABOUT_HEIGHT				static_cast<double>(WINDOW_HEIGHT)
 
 ///Bocks
 #define DEFAULT_X					WINDOW_WIDTH/2

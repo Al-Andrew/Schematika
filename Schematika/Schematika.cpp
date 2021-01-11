@@ -135,7 +135,7 @@ int main()
 				case helpQuestion::Q7: break;
 				default: break;
 			}
-			if (isRectClicked(830, 672.5, 50, 35))//back button
+			if (isRectClicked(a.x - a.width/2 + BACK_BUTTON_WIDTH/2, a.y + a.height/2 - SELECT_MENU_HEIGHT/2, BACK_BUTTON_WIDTH, SELECT_MENU_HEIGHT))//back button
 			{
 				std::vector<updatedSubMenu>().swap(upsmenu);
 				onTop = false;
