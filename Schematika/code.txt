@@ -5,17 +5,32 @@ int main()
 {
 double x;
 std::cin >> x;
+double y;
+std::cin >> y;
 double i;
-i = 0  ;
+i = 0   ;
+double j;
+j = 0   ;
 decizie1:
-if( i < x  )
+if( i < x   )
 {
-std::cout << i;
-i = i + 1  ;
+j = 0  ;
+decizie2:
+if( j < y   )
+{
+std::cout << 0;
+j = j + 1   ;
+goto decizie2;
+}
+else
+{
+i = i + 1   ;
+std::cout << " \n ";
 goto decizie1;
 }
 else
 {
+}
 return 0;
 }
 }

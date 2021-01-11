@@ -143,7 +143,6 @@ int main()
 		}//end
 		handleDraw(handle);
 		handleUpdate(cooldown, handle, nodes, nodeIdCount);
-		slText(100, 100, std::to_string(1 / slGetDeltaTime()).c_str());
 		slRender();
 	}
 	slClose();
