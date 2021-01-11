@@ -3,19 +3,29 @@
 
 int main()
 {
-double x;
-std::cin >> x;
-double i;
-i=0;
+std::cout << "Rezolv ecuatii de gradul doi de forma : AX**2 + BX + C = 0";
+double A;
+std::cin >> A;
+double B;
+std::cin >> B;
+double C;
+std::cin >> C;
+double DELTA;
+DELTA=B*B-4*A*C;
 decizie1:
-if( i<x)
+if( DELTA>=0)
 {
-std::cout << i;
-i=i+1;
-goto decizie1;
+DELTA=std::pow(DELTA, 0.5);
+double X1;
+X1=(0-B+DELTA)/(2*A);
+double X2;
+X2=(0-B-DELTA)/(2*A);
+std::cout << X1;
+std::cout << X2;
 }
 else
 {
+std::cout << "Solutiile sunt numere complexe ( WIP )";
 return 0;
 }
 }

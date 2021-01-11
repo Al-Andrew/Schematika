@@ -3,7 +3,7 @@
 
 ///Window
 #define WINDOW_WIDTH				1280
-#define WINDOW_HEIGHT				800
+#define WINDOW_HEIGHT				720
 #define WINDOW_TITLE				"Schematika"
 #define ACTION_COOLDOWN				0.1f
 
