@@ -69,8 +69,8 @@ int main()
 			case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); nodeIdCount = 1; break;
 				case menuButtons::Save: saveToFile(blocks, nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); break;
 				case menuButtons::Open: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); openFile(blocks, nodes); break;
-				case menuButtons::Run: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); if (blocks.size() != 0) /*TO DO (conditions of working Run button)*/ { saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt"); interpret(blocks); } break;
-				case menuButtons::Code: code.open("code.txt"); code << translate(blocks) << std::endl; code.close(); break;
+				case menuButtons::Run: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); if (blocks.size() != 0) if (is_valid(blocks)) { saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt"); interpret(blocks); }else warn("Schema not valid"); break;
+				case menuButtons::Code: if (is_valid(blocks)) { code.open("code.txt"); code << translate(blocks) << std::endl; code.close(); }else warn("Schema not valid"); break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
 			}
