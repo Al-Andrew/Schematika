@@ -1,0 +1,21 @@
+#include <iostream>
+#include <cmath>
+
+int main()
+{
+double x;
+std::cin >> x;
+double i;
+i=0;
+decizie1:
+if( i<x)
+{
+std::cout << i;
+i=i+1;
+goto decizie1;
+}
+else
+{
+return 0;
+}
+}

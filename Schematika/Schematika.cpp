@@ -82,7 +82,7 @@ int main()
 					std::vector<updatedSubMenu>().swap(upsmenu);
 					onTop = false;
 				}
-				std::vector<updatedMenu>().swap(upmenu);
+			std::vector<updatedMenu>().swap(upmenu);
 			upmenu.push_back(makeUpdatedMenu(u));
 		}//end
 
@@ -109,7 +109,7 @@ int main()
 		// Responsible for the drawing and closing the window of the menu
 		for (updatedMenu& a : upmenu)
 		{	
-			drawUpdatedMenu(a);
+			drawUpdatedMenu(a,blocks);
 			if (isRectClicked(a.x+a.width/2-CLOSE_BUTTON_WIDTH/2, a.y+a.height/2 - SELECT_MENU_HEIGHT / 2, CLOSE_BUTTON_WIDTH, SELECT_MENU_HEIGHT))//close button
 			{
 				std::vector<updatedMenu>().swap(upmenu);

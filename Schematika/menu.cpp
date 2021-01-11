@@ -157,16 +157,22 @@ updatedMenu makeCode()
     a.height = CODE_HEIGHT;
     return a;
 }
-void drawCode(const updatedMenu& a)
+void drawCode(const updatedMenu& a, std::vector<Block> blocks)
 {
     drawWindow( a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
     slSetFontSize(TEXT_MENU_SIZE);
     slSetTextAlign(SL_ALIGN_CENTER);
     slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Code - Visual Studio");
-    slText(a.x, a.y , "Open code.txt file from Skematika Folder. There");
-    slText(a.x, a.y - SELECT_SUBMENU_TEXT_SPACER , "will be the code of your project in C++ language.");
-
+    if (is_valid(blocks))
+    {
+        slText(a.x, a.y, "Open code.txt file from Skematika Folder. There");
+        slText(a.x, a.y - SELECT_SUBMENU_TEXT_SPACER, "will be the code of your project in C++ language.");
+    }
+    else
+    {
+        slText(a.x, a.y - SELECT_SUBMENU_TEXT_SPACER*0.5, "The Schema is not valid.");
+    }
 }
 updatedMenu makeHelp()
 {
@@ -252,12 +258,12 @@ updatedMenu makeUpdatedMenu(menuButtons u)
     }
     return makeHelp();
 }
-void drawUpdatedMenu(const updatedMenu a)
+void drawUpdatedMenu(const updatedMenu a,std::vector<Block> blocks)
 {
     switch (a.type)
     {
     case menuButtons::Code:
-        drawCode(a);
+        drawCode(a,blocks);
         break;
     case menuButtons::About:
         drawAbout(a);

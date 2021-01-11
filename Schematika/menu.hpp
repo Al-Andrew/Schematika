@@ -180,7 +180,7 @@ updatedMenu makeUpdatedMenu(menuButtons u);
 /// Draws the  windows of the menu
 /// </summary>
 /// <author>Cristi</author>
-void drawUpdatedMenu(const updatedMenu a);
+void drawUpdatedMenu(const updatedMenu a,std::vector<Block> blocks);
 
 /// <summary>
 /// Pseudo-constructor for the questions from Help
