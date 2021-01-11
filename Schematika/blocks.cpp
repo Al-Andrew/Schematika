@@ -219,7 +219,10 @@ void drawInput(const Block& b)
 	if (b.text == "\0")
 		txt = "IN";
 	else
+	{
 		txt = b.text;
+		rtrim(txt);
+	}
 	slText(b.x, b.y - 5, txt.c_str());
 }
 
@@ -238,7 +241,10 @@ void drawOutput(const Block& b)
 	if (b.text == "\0")
 		txt = "OUT";
 	else
+	{
 		txt = b.text;
+		rtrim(txt);
+	}
 	slText(b.x, b.y - 5, txt.c_str());
 }
 
@@ -251,7 +257,10 @@ void drawCalcul(const Block& b)
 	if (b.text == "\0")
 		txt = "CALCUL";
 	else
+	{
 		txt = b.text;
+		rtrim(txt);
+	}
 	slText(b.x, b.y - 10, txt.c_str());
 }
 
@@ -274,7 +283,11 @@ void drawDecizie(const Block& b)
 	if (b.text == "\0")
 		txt = "DECIZIE";
 	else
+	{
 		txt = b.text;
+		rtrim(txt);
+	}
+
 	slText(b.x, b.y - 24, txt.c_str());
 }
 
