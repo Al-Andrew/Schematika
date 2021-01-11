@@ -9,7 +9,7 @@
 
 
 ///Theme 
-//#define DARK_THEME
+#define DARK_THEME
 #ifndef DARK_THEME
 #define BACKGROUND_COLOR          Color({ 190, 190, 190, 0.f })
 #define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
@@ -31,8 +31,7 @@
 #define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
 #define MENU_TEXT_COLOR			  Color({ 150, 150, 150, 1.f })
 
-#define BACK_HOVER_COLOR		  Color({ 127, 140, 141, 1.f })
-#define BACK_COLOR				  Color({ 189, 195, 199, 1.f })	
+#define BACK_HOVER_COLOR		 Color({  92,  33, 176, 1.f })
 #else
 #define BACKGROUND_COLOR          Color({  45,  45,  45, 0.f })
 #define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
@@ -54,8 +53,7 @@
 #define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
 #define MENU_TEXT_COLOR			  Color({ 255, 255, 255, 1.f })
 
-#define BACK_HOVER_COLOR		  Color({ 127, 140, 141, 1.f })
-#define BACK_COLOR				  Color({ 189, 195, 199, 1.f })
+#define BACK_HOVER_COLOR		  Color({ 100, 100, 100, 1.f })
 
 #endif
 
