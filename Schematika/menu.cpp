@@ -231,7 +231,7 @@ void drawAbout(const updatedMenu &a)
     slText(a.x, a.y + a.height / 3, "Schematika");
     slSetFontSize(TEXT_SUBMENU_SIZE);
     slText(a.x, a.y - 130, "Schematika 2021");
-    slText(a.x, a.y - 160, "Version 0.6969 (ClosedBeta)");
+    slText(a.x, a.y - 160, "Version 0.9 (ClosedBeta)");
     slCircleOutline(a.x - 100, a.y - 185, 10, 20);
     slText(a.x -100, a.y -190 , "c");
     slText(a.x, a.y -190,"2021 Aldea Andrei");

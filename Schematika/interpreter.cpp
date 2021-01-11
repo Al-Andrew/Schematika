@@ -349,8 +349,9 @@ std::string translate(std::vector<Block> blocks)
         "int main()\n"
         "{\n";
     std::map<std::string, int> variables;
+
     std::stack<Block*> ifs;
-    std::map<Block*, std::pair<TWB, std::string>> record; // first = seen, second = repeat
+    std::map<Block*, std::pair<TWB, std::string>> record; // 
     unsigned int ifcount = 1;
 
     while (true)
@@ -415,7 +416,7 @@ std::string translate(std::vector<Block> blocks)
             {
                 ifs.push(st->host);
                 std::string label = "decizie" + std::to_string(ifcount++) + ":\n";
-                record[st->host] = std::make_pair<TWB, std::string>(TWB::ADEV, std::string(std::begin(label),std::end(label)-2)); // mark it as seen and a repeat
+                record[st->host] = std::make_pair<TWB, std::string>(TWB::ADEV, std::string(std::begin(label),std::end(label)-2)); 
                 code.append(label);
                 code.append("if( " + var + ")\n{\n");
                 st = st->host->nodes[0];
@@ -426,11 +427,6 @@ std::string translate(std::vector<Block> blocks)
                 code.append("goto " + label);
                 code.append("else\n{\n");
                 record[st->host].first = TWB::FALS;
-                while (ifs.top() != st->host)
-                {
-                    ifs.pop();
-                    code.append("}\n");
-                }
                 st = st->host->nodes[1];
             }
         }
