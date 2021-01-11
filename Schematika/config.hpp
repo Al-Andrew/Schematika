@@ -49,8 +49,8 @@
 
 #define MENU_BACKGROUND_COLOR     Color({  50,  50,  50, 1.f })
 #define MENU_BORDER_COLOR         Color({ 100, 100, 100, 1.f })
-#define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
-#define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
+#define MENU_HOVER_COLOR          Color({ 190,  34, 140, .3f })
+#define MENU_TEXT_HOVER_COLOR     Color({ 190,  34, 140, 1.f })
 #define MENU_TEXT_COLOR			  Color({ 255, 255, 255, 1.f })
 
 #define BACK_HOVER_COLOR		  Color({ 100, 100, 100, 1.f })
