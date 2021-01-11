@@ -167,6 +167,7 @@ void drawRun(const updatedMenu& a, std::vector<Block> blocks)
         slSetFontSize(TEXT_MENU_SIZE);
         slSetTextAlign(SL_ALIGN_CENTER);
         slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Run");
+        setForeColor(CONSOLE_WARNING_COLOR);
         slText(a.x, a.y - SELECT_SUBMENU_TEXT_SPACER * 0.5, "The Schema is not valid.");
     }
 }
@@ -194,6 +195,7 @@ void drawCode(const updatedMenu& a, std::vector<Block> blocks)
     }
     else
     {
+        setForeColor(CONSOLE_WARNING_COLOR);
         slText(a.x, a.y - SELECT_SUBMENU_TEXT_SPACER*0.5, "The Schema is not valid.");
     }
 }
@@ -454,12 +456,12 @@ void drawQ6(const updatedSubMenu& a)
     setForeColor(MENU_TEXT_COLOR);
     slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to run the project ?");
     slText(a.x - a.width/6.3, a.y + a.height / 2.5, "1.    First of all, in order to be able to run");
-    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 -SELECT_SUBMENU_TEXT_SPACER, "the project, it is necessary to have some");
-    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER*2.0, "spawned, connected blocks. Also,");
-    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 3.0, "INPUT, OUTPUT, DECIZIE and CALCUL");
-    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 4.0, " blocks must contain an input.");
-    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 5.0, "Remember, use only the variables");
-    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 6.0, "from INPUT block / blocks.");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 -SELECT_SUBMENU_TEXT_SPACER, "the project, it is necessary to have at ");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER*2.0, "least a START and a STOP block. Also, the");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 3.0, "blocks must be connected and INPUT,");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 4.0, "OUTPUT, DECIZIE and CALCUL blocks ");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 5.0, "must contain an input. Remember, use only");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 6.0, "the variables from INPUT block.");
     slText(a.x - a.width / 2.1, a.y + 20, "2.    In order to run");
     slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER*0.8, "the project, it is ");
     slText(a.x - a.width / 2.1, a.y +20 - SELECT_SUBMENU_TEXT_SPACER * 1.8, "necessary to click on the Run button. In the lower left corner");
@@ -477,6 +479,20 @@ void drawQ7(const updatedSubMenu& a)
     drawSubMenuWindow(a.x, a.y, a.width, a.height);
     setForeColor(MENU_TEXT_COLOR);
     slText(a.x - a.width / 2 + BACK_BUTTON_WIDTH + 10, a.y + a.height / 2 - SELECT_MENU_HEIGHT / 1.5, "How to view the code of your project ?");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5, "1.  First of all, in order to be able to view");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER, "the code of the project, it is necessary to ");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 2.0, "have at least a START and a STOP block.");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 3.0, "Also, the blocks must be connected.");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 4.0, "Remember, use only a START block in the");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 5.0, "project. On the left side is an example");
+    slText(a.x - a.width / 6.3, a.y + a.height / 2.5 - SELECT_SUBMENU_TEXT_SPACER * 6.0, "of a working project.");
+    slText(a.x - a.width / 2.1, a.y + 20, "2.    In order to view the ");
+    slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER * 0.8, "code, it is necessary");
+    slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER * 1.8, "to click on the Code button. On the upper right corner will");
+    slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER * 2.8, "appear a window with a message.");
+    slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER * 3.8, "3.   Now it is necessary to go to the code.txt file, from the");
+    slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER * 4.8, "Schematika folder, and there you will find the code,");
+    slText(a.x - a.width / 2.1, a.y + 20 - SELECT_SUBMENU_TEXT_SPACER * 5.8, "in C++ language, of your Project.");
 }
 void drawUpdatedSubMenu(const updatedSubMenu a)
 {   

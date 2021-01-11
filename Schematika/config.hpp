@@ -12,12 +12,12 @@
 #define DARK_THEME
 #ifndef DARK_THEME
 #define BACKGROUND_COLOR          Color({ 190, 190, 190, 0.f })
-#define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
+#define CONSOLE_WARNING_COLOR	  Color({ 255,   60,   60, 1.F })
 
 #define BLOCK_FILL_COLOR          Color({  54,   0, 179, 1.f })
 #define BLOCK_TEXT_COLOR          Color({ 255, 255, 255, 1.f })
 #define BLOCK_DECIZIE_DA_COLOR    Color({ 102, 255, 102, 1.f })
-#define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
+#define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 60, 60, 1.f })
 #define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
 
 #define NODE_COLOR				  Color({   1, 135, 134, 1.f })
@@ -25,7 +25,7 @@
 #define NODE_LINE_COLOR		      Color({ 245,  42, 211, 1.f })
 #define NODE_SELECT_COLOR		  Color({   3, 218, 198, 1.f })
 
-#define MENU_BACKGROUND_COLOR     Color({ 240, 240, 240, 1.f })
+#define MENU_BACKGROUND_COLOR     Color({ 220, 220, 220, 1.f })
 #define MENU_BORDER_COLOR         Color({  92,  33, 176, 1.f })
 #define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
 #define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
@@ -34,12 +34,12 @@
 #define BACK_HOVER_COLOR		 Color({  92,  33, 176, 1.f })
 #else
 #define BACKGROUND_COLOR          Color({  45,  45,  45, 0.f })
-#define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
+#define CONSOLE_WARNING_COLOR	  Color({ 255,  60,  60, 1.F })
 
 #define BLOCK_FILL_COLOR          Color({  54,   0, 179, 1.f })
 #define BLOCK_TEXT_COLOR          Color({ 255, 255, 255, 1.f })
 #define BLOCK_DECIZIE_DA_COLOR    Color({ 102, 255, 102, 1.f })
-#define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
+#define BLOCK_DECIZIE_NU_COLOR    Color({ 255,  60,  60, 1.f })
 #define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
 
 #define NODE_COLOR				  Color({   1, 135, 134, 1.f })

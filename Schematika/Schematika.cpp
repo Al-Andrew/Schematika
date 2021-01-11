@@ -26,6 +26,8 @@ int main()
 	int q6 = slLoadTexture("./Images/Q6_example.png");
 	int Qq6 = slLoadTexture("./Images/Q6.1.png");
 	int qQ6 = slLoadTexture("./Images/Q6.2.png");
+	int Q7 = slLoadTexture("./Images/Q7.png");
+	int q7 = slLoadTexture("./Images/Q7.1.png");
 	double cooldown = 0;
 	bool onTop = false; //for subMenu windows (prevent the clicking under the window)
 	clickHandler handle;
@@ -133,7 +135,7 @@ int main()
 				case helpQuestion::Q4: slSprite(Q4, a.x - a.width/3.6, a.y + a.height / 3.3, 160, 150); slSprite(q4, a.x, a.y - 75, 450, 75); break;
 				case helpQuestion::Q5: slSprite(Q5, a.x - a.width/6.4, a.y + a.height / 2.5, 300, 45); slSprite(q5, a.x, a.y+ a.height/5, 450, 75); slSprite(Qq5, a.x - a.width / 6.4, a.y - 33, 300, 45); slSprite(qQ5, a.x, a.y - a.height / 3.5, 450, 60); break;
 				case helpQuestion::Q6: slSprite(q6, a.x - a.width / 3.1, a.y + a.height / 4.0, 150, 260); slSprite(Q6, a.x + a.width / 6.4, a.y + 15, 300, 45); slSprite(Qq6, a.x - a.width / 6.3, a.y - a.height /5.5 , 300, 45); slSprite(qQ6, a.x + a.width / 4.2, 75, 220, 60); break;
-				case helpQuestion::Q7: break;
+				case helpQuestion::Q7: slSprite(q6, a.x - a.width / 3.1, a.y + a.height / 4.0, 150, 260); slSprite(Q7, a.x + a.width / 5.5, a.y +12, 270, 40); slSprite(q7, a.x, a.y - a.width/1.8, 400, 100); break;
 				default: break;
 			}
 			if (isRectClicked(a.x - a.width/2 + BACK_BUTTON_WIDTH/2, a.y + a.height/2 - SELECT_MENU_HEIGHT/2, BACK_BUTTON_WIDTH, SELECT_MENU_HEIGHT))//back button
