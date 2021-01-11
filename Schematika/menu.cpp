@@ -148,6 +148,28 @@ std::string buttonTypeToString(menuButtons type)
     }
         return "Err";
 }
+updatedMenu makeRun()
+{
+    updatedMenu a;
+    a.type = menuButtons::Run;
+    a.x = static_cast<double>(WINDOW_WIDTH) - CODE_WIDTH / 2;
+    a.y = static_cast<double>(WINDOW_HEIGHT) - CODE_HEIGHT / 2;
+    a.width = CODE_WIDTH;
+    a.height = CODE_HEIGHT;
+    return a;
+}
+void drawRun(const updatedMenu& a, std::vector<Block> blocks)
+{
+    if (!is_valid(blocks))
+    {
+        drawWindow(a.x, a.y, a.width, a.height);
+        setForeColor(MENU_TEXT_COLOR);
+        slSetFontSize(TEXT_MENU_SIZE);
+        slSetTextAlign(SL_ALIGN_CENTER);
+        slText(a.x, a.y + a.height / 2 - BLOCK_TITLE_HEIGHT - TITLE_UP_SPACE, "Run");
+        slText(a.x, a.y - SELECT_SUBMENU_TEXT_SPACER * 0.5, "The Schema is not valid.");
+    }
+}
 updatedMenu makeCode()
 {
     updatedMenu a;
@@ -252,6 +274,7 @@ updatedMenu makeUpdatedMenu(menuButtons u)
 {
     switch (u)
     {
+    case menuButtons::Run: return makeRun();
     case menuButtons::Code: return makeCode();
     case menuButtons::Help: return makeHelp(); 
     case menuButtons::About: return makeAbout(); 
@@ -263,6 +286,9 @@ void drawUpdatedMenu(const updatedMenu a,std::vector<Block> blocks)
 {
     switch (a.type)
     {
+    case menuButtons::Run:
+        drawRun(a, blocks);
+        break;
     case menuButtons::Code:
         drawCode(a,blocks);
         break;

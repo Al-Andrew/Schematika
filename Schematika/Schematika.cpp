@@ -69,13 +69,13 @@ int main()
 			case menuButtons::New: std::vector<Block>().swap(blocks); std::vector<Node*>().swap(nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); nodeIdCount = 1; break;
 				case menuButtons::Save: saveToFile(blocks, nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); break;
 				case menuButtons::Open: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); openFile(blocks, nodes); break;
-				case menuButtons::Run: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); if (blocks.size() != 0) if (is_valid(blocks)) { saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt"); interpret(blocks); }else warn("Schema not valid"); break;
-				case menuButtons::Code: if (is_valid(blocks)) { code.open("code.txt"); code << translate(blocks) << std::endl; code.close(); }else warn("Schema not valid"); break;
+				case menuButtons::Run: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); if (is_valid(blocks)) { saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt"); interpret(blocks); } else umenu.onTop = true; break;
+				case menuButtons::Code: if (is_valid(blocks)) { code.open("code.txt"); code << translate(blocks) << std::endl; code.close(); } else umenu.onTop = true; break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
 			}
 		}
-		if (menuButtons u = updateMenu(menu,umenu, cooldown); (u == menuButtons::Code || u == menuButtons::Help || u == menuButtons::About))
+		if (menuButtons u = updateMenu(menu,umenu, cooldown); (u == menuButtons::Code || u == menuButtons::Help || u == menuButtons::About || u == menuButtons::Run))
 		{
 				if (umenu.type == menuButtons::Help && upsmenu.size()> 0) //checks if the previous opened window was Help and if it was opened a FAQ
 				{
@@ -83,7 +83,8 @@ int main()
 					onTop = false;
 				}
 			std::vector<updatedMenu>().swap(upmenu);
-			upmenu.push_back(makeUpdatedMenu(u));
+			if(!(u == menuButtons::Run && is_valid(blocks)))
+				upmenu.push_back(makeUpdatedMenu(u));
 		}//end
 
 		// Responsible for the work of the subMenu ( FAQ from Help window )
