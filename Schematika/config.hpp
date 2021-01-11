@@ -9,7 +9,7 @@
 
 
 ///Theme 
-#define DARK_THEME
+//#define DARK_THEME
 #ifndef DARK_THEME
 #define BACKGROUND_COLOR          Color({ 190, 190, 190, 0.f })
 #define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
@@ -22,10 +22,10 @@
 
 #define NODE_COLOR				  Color({   1, 135, 134, 1.f })
 #define NODE_HOVER_COLOR	      Color({   3, 218, 198, 1.f })
-#define NODE_LINE_COLOR		      Color({ 142,  68, 173, 1.f })
+#define NODE_LINE_COLOR		      Color({ 245,  42, 211, 1.f })
 #define NODE_SELECT_COLOR		  Color({   3, 218, 198, 1.f })
 
-#define MENU_BACKGROUND_COLOR     Color({ 189, 195, 199, 1.f })
+#define MENU_BACKGROUND_COLOR     Color({ 240, 240, 240, 1.f })
 #define MENU_BORDER_COLOR         Color({  92,  33, 176, 1.f })
 #define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
 #define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
