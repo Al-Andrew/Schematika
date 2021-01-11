@@ -9,7 +9,7 @@
 
 
 ///Theme 
-//#define DARK_THEME
+#define DARK_THEME
 #ifndef DARK_THEME
 #define BACKGROUND_COLOR          Color({ 190, 190, 190, 0.f })
 #define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
