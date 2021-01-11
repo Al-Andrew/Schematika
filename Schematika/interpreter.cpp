@@ -408,6 +408,7 @@ std::string translate(std::vector<Block> blocks)
                 code.append("double " + var + ";\n");
                 variables[var] = 1;
             }
+            code.append("std::cout << \"Please input a value for " + var + ": \";\n");
             code.append("std::cin >> " + var + ";\n");
 
             st = st->host->nodes[1];
@@ -431,15 +432,12 @@ std::string translate(std::vector<Block> blocks)
             rtrim(var);
             if (var[0] == '#')
             {
-                code.append("std::cout << \"" + std::string(var.begin() + 1, var.begin() + var.find("#", 1)) + "\";\n");
+                code.append("std::cout << \"" + std::string(var.begin() + 1, var.begin() + var.find("#", 1)) + "\\n\";\n");
             }
-            else if (variables[var] == 1)
+            else if (variables[var] == 1 or isnum(var))
             {
-                code.append("std::cout << " + var + ";\n");
-            }
-            else if (isnum(var))
-            {
-                code.append("std::cout << " + var + ";\n");
+                code.append("std::cout << \"" + var + " = \";\n");
+                code.append("std::cout << " + var + "<<\"\\n\";\n");
             }
             else
             {

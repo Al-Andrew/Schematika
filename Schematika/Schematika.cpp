@@ -72,7 +72,7 @@ int main()
 				case menuButtons::Save: saveToFile(blocks, nodes); autoClosingofWindows(upmenu, upsmenu, umenu, onTop); break;
 				case menuButtons::Open: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); openFile(blocks, nodes); break;
 				case menuButtons::Run: autoClosingofWindows(upmenu, upsmenu, umenu, onTop); if (is_valid(blocks)) { saveToFile(blocks, nodes, "run.txt"); openFile(blocks, nodes, "run.txt"); interpret(blocks); } else umenu.onTop = true; break;
-				case menuButtons::Code: if (is_valid(blocks)) { code.open("code.txt"); code << translate(blocks) << std::endl; code.close(); } else umenu.onTop = true; break;
+				case menuButtons::Code: if (is_valid(blocks)) { code.open("code.txt"); code << translate(blocks) << std::endl; code.close(); system("start code.txt");}else umenu.onTop = true; break;
 				case menuButtons::NOT_A_BUTTON: break;
 				default: break;
 			}

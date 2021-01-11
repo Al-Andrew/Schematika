@@ -156,7 +156,20 @@ void drawWindow(double x, double y, double width, double height);
 /// <author>Cristi</author>
 void drawSubMenuWindow(double x, double y, double width, double height);
 
-
+/// <summary>
+/// Trims whitespace on the right side of a string
+/// </summary>
+/// <author>Andrei</author>
 void rtrim(std::string& s);
+
+/// <summary>
+/// Determines if an element exists in a stack
+/// </summary>
+/// <author>Andrei</author>
 bool stack_find(std::stack<Block*> st, Block* el);
+
+/// <summary>
+/// Checks if the given vector of blocks has exactly one start block and at least one stop
+/// </summary>
+/// <author>Andrei</author>
 bool is_valid(std::vector<Block> blocks);
