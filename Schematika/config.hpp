@@ -9,30 +9,56 @@
 
 
 ///Theme 
-#define BACKGROUND_COLOR          Color({   0,   0,   0, 0.f })
+#define DARK_THEME
+#ifndef DARK_THEME
+#define BACKGROUND_COLOR          Color({ 190, 190, 190, 0.f })
 #define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
 
-#define BLOCK_BACKGROUND_COLOR    Color({ 236, 240, 241, 1.f })
-#define BLOCK_BORDER_COLOR        Color({ 149, 165, 166, 1.f })
-#define BLOCK_FILL_COLOR          Color({   0, 153, 153, 1.f })
-#define BLOCK_TEXT_COLOR          Color({  51,   0, 102, 1.f })
+#define BLOCK_FILL_COLOR          Color({  54,   0, 179, 1.f })
+#define BLOCK_TEXT_COLOR          Color({ 255, 255, 255, 1.f })
 #define BLOCK_DECIZIE_DA_COLOR    Color({ 102, 255, 102, 1.f })
 #define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
 #define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
 
-#define NODE_COLOR				  Color({  39, 174,  96, 1.f })
-#define NODE_HOVER_COLOR	      Color({ 255, 102, 102, 1.f })
+#define NODE_COLOR				  Color({   1, 135, 134, 1.f })
+#define NODE_HOVER_COLOR	      Color({   3, 218, 198, 1.f })
 #define NODE_LINE_COLOR		      Color({ 142,  68, 173, 1.f })
-#define NODE_SELECT_COLOR		  Color({ 140,  40, 150, 1.f })
+#define NODE_SELECT_COLOR		  Color({   3, 218, 198, 1.f })
 
 #define MENU_BACKGROUND_COLOR     Color({ 189, 195, 199, 1.f })
-#define MENU_BORDER_COLOR         Color({ 127, 140, 141, 1.f })
+#define MENU_BORDER_COLOR         Color({  92,  33, 176, 1.f })
 #define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
 #define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
-#define MENU_TEXT_COLOR			  Color({ 127, 140, 141, 1.f })
+#define MENU_TEXT_COLOR			  Color({ 150, 150, 150, 1.f })
 
 #define BACK_HOVER_COLOR		  Color({ 127, 140, 141, 1.f })
 #define BACK_COLOR				  Color({ 189, 195, 199, 1.f })	
+#else
+#define BACKGROUND_COLOR          Color({  55,  55,  55, 0.f })
+#define CONSOLE_WARNING_COLOR	  Color({ 255,   0,   0, 1.F })
+
+#define BLOCK_FILL_COLOR          Color({  54,   0, 179, 1.f })
+#define BLOCK_TEXT_COLOR          Color({ 255, 255, 255, 1.f })
+#define BLOCK_DECIZIE_DA_COLOR    Color({ 102, 255, 102, 1.f })
+#define BLOCK_DECIZIE_NU_COLOR    Color({ 255, 102, 102, 1.f })
+#define BLOCK_DECIZIE_TEXT_COLOR  Color({  51,   0, 102, 1.f })
+
+#define NODE_COLOR				  Color({   1, 135, 134, 1.f })
+#define NODE_HOVER_COLOR	      Color({   3, 218, 198, 1.f })
+#define NODE_LINE_COLOR		      Color({ 142,  68, 173, 1.f })
+#define NODE_SELECT_COLOR		  Color({   3, 218, 198, 1.f })
+
+#define MENU_BACKGROUND_COLOR     Color({  77,  77,  77, 1.f })
+#define MENU_BORDER_COLOR         Color({  54,   0, 179, 1.f })
+#define MENU_HOVER_COLOR          Color({ 140,  34, 140, .3f })
+#define MENU_TEXT_HOVER_COLOR     Color({ 140,  34, 140, .3f })
+#define MENU_TEXT_COLOR			  Color({ 150, 150, 150, 1.f })
+
+#define BACK_HOVER_COLOR		  Color({ 127, 140, 141, 1.f })
+#define BACK_COLOR				  Color({ 189, 195, 199, 1.f })
+
+#endif
+
 
 ///Menu
 #define MENU_BORDER_WIDTH			5.f
