@@ -35,6 +35,7 @@ void drawBlocksMenu(const BlockMenu& m)
 {
     drawBorderedRect(MENU_BACKGROUND_COLOR, MENU_BORDER_COLOR, m.x, m.y, m.width, m.height, MENU_BORDER_WIDTH);
     slSetFontSize(TEXT_MENU_SIZE);
+    setForeColor(MENU_TEXT_COLOR);
     slText(m.x, static_cast<double>(WINDOW_HEIGHT)-BLOCK_TITLE_HEIGHT-TITLE_UP_SPACE, "Blocks");
     for (Block bl : m.displayBlocks)
     {
@@ -75,7 +76,7 @@ Menu makeMenu()
 
 void drawMenu(const Menu &m)
 {
-    drawBorderedRect(MENU_BACKGROUND_COLOR,MENU_BORDER_COLOR, m.x,m.y,m.width,m.height, MENU_BORDER_WIDTH);
+    drawBorderedRect(MENU_BACKGROUND_COLOR,MENU_BORDER_COLOR, m.x + MENU_BORDER_WIDTH/2 ,m.y,m.width + MENU_BORDER_WIDTH ,m.height, MENU_BORDER_WIDTH);
     for (auto& b : m.buttons)
     {
         drawButton(b);
