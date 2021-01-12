@@ -6,18 +6,7 @@ int main()
 double x;
 std::cout << "Please input a value for x: ";
 std::cin >> x;
-double i;
-i=0;
-decizie1:
-if( i<x)
-{
-std::cout << "i = ";
-std::cout << i<<"\n";
-i=i+1;
-goto decizie1;
-}
-else
-{
-return 0;
-}
+x=std::sqrt(x);
+std::cout << "x = ";
+std::cout << x<<"\n";
 }

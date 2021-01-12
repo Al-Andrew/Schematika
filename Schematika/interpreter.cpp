@@ -75,6 +75,9 @@ const std::vector<op> all_operators = {
     {"*", 5},
     {"/", 5},
     {"%", 5},
+    {"/", 5},
+    {"//", 5},
+    {"sqrt", 7},
     {"floor", 7},
     {"ceil", 7},
     {"abs", 7},
@@ -193,6 +196,13 @@ double eval(std::map < std::string, double>& mem, std::vector<std::string>& toke
                 polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
                 polish[i] = std::to_string(b / a);
             }
+            else if (polish[i] == "//")
+            {
+                double a = var_eval(mem, polish[i + 1]);
+                double b = var_eval(mem, polish[i + 2]);
+                polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 3);
+                polish[i] = std::to_string((int)(b/a));
+            }
             else if (polish[i] == "%")
             {
                 double a = var_eval(mem, polish[i + 1]);
@@ -289,15 +299,21 @@ double eval(std::map < std::string, double>& mem, std::vector<std::string>& toke
             }
             else if (polish[i] == "cos")
             {
-            double a = var_eval(mem, polish[i + 1]);
-            polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
-            polish[i] = std::to_string(std::cos(a));
+                double a = var_eval(mem, polish[i + 1]);
+                polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+                polish[i] = std::to_string(std::cos(a));
             }
             else if (polish[i] == "tg")
             {
-            double a = var_eval(mem, polish[i + 1]);
-            polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
-            polish[i] = std::to_string(std::tan(a));
+                double a = var_eval(mem, polish[i + 1]);
+                polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+                polish[i] = std::to_string(std::tan(a));
+            }
+            else if (polish[i] == "sqrt")
+            {
+                double a = var_eval(mem, polish[i + 1]);
+                polish.erase(std::begin(polish) + i + 1, std::begin(polish) + i + 2);
+                polish[i] = std::to_string(std::sqrt(a));
             }
 
             /*for (auto t : polish)
@@ -409,6 +425,54 @@ std::string translate_exp(std::string exp)
         {
             tokens[i - 1] = "std::pow(" + tokens[i - 1] + ", " + tokens[i + 1] + ")";
             tokens.erase(std::begin(tokens) + i, std::begin(tokens) + i + 2);
+            i--;
+        }
+        else if (tokens[i] == "//")
+        {
+            tokens[i - 1] = "(int)(" + tokens[i - 1] + "/" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i, std::begin(tokens) + i + 2);
+            i--;
+        }
+        else if (tokens[i] == "sqrt")
+        {
+            tokens[i] = "std::sqrt(" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i + 1);
+            i--;
+        }
+        else if (tokens[i] == "floor")
+        {
+            tokens[i] = "std::floor(" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i + 1);
+            i--;
+        }
+        else if (tokens[i] == "ceil")
+        {
+            tokens[i] = "std::ceil(" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i + 1);
+            i--;
+        }
+        else if (tokens[i] == "abs")
+        {
+            tokens[i] = "std::abs(" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i + 1);
+            i--;
+        }
+        else if (tokens[i] == "sin")
+        {
+            tokens[i] = "std::sin(" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i + 1);
+            i--;
+        }
+        else if (tokens[i] == "cos")
+        {
+            tokens[i] = "std::cos(" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i + 1);
+            i--;
+        }
+        else if (tokens[i] == "tg")
+        {
+            tokens[i] = "std::tg(" + tokens[i + 1] + ")";
+            tokens.erase(std::begin(tokens) + i + 1);
             i--;
         }
     }
